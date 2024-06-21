@@ -1,9 +1,10 @@
 package gui;
 
+import gui.panels.ReportCreationPanel;
 import gui.panels.StatisticsPanel;
+import gui.panels.ToolbarPanel;
 
 import javax.swing.*;
-import javax.tools.Tool;
 import java.awt.*;
 
 /**
@@ -26,10 +27,19 @@ public class GUIFrame extends JFrame {
         // set up panels
         Container contentPanel = getContentPane();
         contentPanel.setBackground(Color.red);
+        contentPanel.setLayout(new BorderLayout());
 
         StatisticsPanel statisticsPanel = new StatisticsPanel((JPanel) contentPanel);
         statisticsPanel.setup();
-        contentPanel.add(statisticsPanel);
+        contentPanel.add(statisticsPanel, BorderLayout.NORTH);
+
+        ToolbarPanel toolbarPanel = new ToolbarPanel((JPanel) contentPanel);
+        toolbarPanel.setup();
+        contentPanel.add(toolbarPanel, BorderLayout.WEST);
+
+        ReportCreationPanel reportCreationPanel = new ReportCreationPanel((JPanel) contentPanel);
+        reportCreationPanel.setup();
+        contentPanel.add(reportCreationPanel, BorderLayout.CENTER);
 
         // show on the screen
         setVisible(true);

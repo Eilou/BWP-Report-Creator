@@ -9,15 +9,22 @@ import java.awt.*;
 public class StatisticsPanel extends JPanel {
 
     private JPanel parentPanel;
-
+    private JLabel text;
 
     public StatisticsPanel(JPanel parentPanel) {
         this.parentPanel = parentPanel;
-        setSize(new Dimension(parentPanel.getWidth(), 200));
+        setPreferredSize(new Dimension(parentPanel.getWidth(), 50));
+
+        text = new JLabel();
+        text.setHorizontalAlignment(JLabel.CENTER);
     }
 
     public void setup() {
         setBackground(Color.blue);
+
+        text.setText("Statistics Filler Text");
+        text.setHorizontalAlignment(JLabel.CENTER);
+        add(text);
     }
 
 }
