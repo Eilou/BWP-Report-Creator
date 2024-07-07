@@ -20,6 +20,7 @@ public class GUIFrame extends JFrame {
     private ReportCreationPanel reportCreationPanel;
 
     public GUIFrame() {
+        reportState = ReportState.DOOR;
         setTitle("BWP Report Creator");
         setSize((int) (toolkit.getScreenSize().width * 0.75),
                 (int) (toolkit.getScreenSize().height * 0.75));
@@ -27,9 +28,7 @@ public class GUIFrame extends JFrame {
         this.contentPane = getContentPane();
         statisticsPanel = new StatisticsPanel((JPanel) contentPane);
         toolbarPanel = new ToolbarPanel((JPanel) contentPane);
-        reportCreationPanel = new ReportCreationPanel((JPanel) contentPane);
-
-        reportState = ReportState.DOOR;
+        reportCreationPanel = new ReportCreationPanel((JPanel) contentPane, reportState);
 
     }
 
@@ -51,9 +50,9 @@ public class GUIFrame extends JFrame {
         reportCreationPanel.setup();
         contentPane.add(reportCreationPanel, BorderLayout.CENTER);
 
-
         // show on the screen
         setVisible(true);
+//        reportCreationPanel.createDefaultItems();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

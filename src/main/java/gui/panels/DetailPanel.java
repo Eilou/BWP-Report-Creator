@@ -21,12 +21,11 @@ public class DetailPanel extends JPanel {
         setPreferredSize(new Dimension(parentPanel.getWidth(), 200));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
 
-        border = new TitledBorder("");
+        border = new TitledBorder(reportState + " " + count);
     }
     public void setup() {
         setBackground(Color.red);
-
-        setBorder(new TitledBorder("Door 1"));
+        setBorder(border);
         setLayout(new GridBagLayout());
     }
 }
