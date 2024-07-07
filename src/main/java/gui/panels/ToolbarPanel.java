@@ -11,6 +11,8 @@ public class ToolbarPanel extends JPanel {
     private JPanel parentPanel;
     private JButton addButton;
     private JButton removeButton;
+    private JButton previewButton;
+    private JButton printButton;
 
     public ToolbarPanel(JPanel parentPanel) {
         this.parentPanel = parentPanel;
@@ -18,6 +20,8 @@ public class ToolbarPanel extends JPanel {
 
         addButton = new JButton("Add Door");
         removeButton = new JButton("Remove Door");
+        previewButton = new JButton("Preview Report");
+        printButton = new JButton("Print Report");
     }
 
     public void setup() {
@@ -29,9 +33,10 @@ public class ToolbarPanel extends JPanel {
         text.setHorizontalAlignment(JLabel.CENTER);
         add(text);
 
-        addButton.set
         add(addButton);
         add(removeButton);
+        add(previewButton);
+        add(printButton);
     }
 
 }
