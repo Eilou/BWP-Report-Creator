@@ -23,17 +23,4 @@ public class ReportCreationPanel extends JPanel {
 
     }
 
-    public void hmm() {
-        DetailPanel test = new DetailPanel(this);
-        test.setup();
-        add(test);
-
-        DetailPanel test2 = new DetailPanel(this);
-        test2.setup();
-        test2.setBackground(Color.white);
-        add(test2);
-
-
-    }
-
 }

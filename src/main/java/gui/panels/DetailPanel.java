@@ -1,6 +1,9 @@
 package gui.panels;
 
+import enums.ReportState;
+
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 /**
@@ -10,15 +13,20 @@ import java.awt.*;
 public class DetailPanel extends JPanel {
 
     private JPanel parentPanel;
+    private TitledBorder border;
 
-    public DetailPanel(JPanel parentPanel) {
+
+    public DetailPanel(JPanel parentPanel, ReportState reportState, int count) {
         this.parentPanel = parentPanel;
-        setPreferredSize(new Dimension(parentPanel.getWidth(), 50));
-        setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-        System.out.println(parentPanel.getHeight());
+        setPreferredSize(new Dimension(parentPanel.getWidth(), 200));
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+
+        border = new TitledBorder("");
     }
     public void setup() {
         setBackground(Color.red);
+
+        setBorder(new TitledBorder("Door 1"));
         setLayout(new GridBagLayout());
     }
 }

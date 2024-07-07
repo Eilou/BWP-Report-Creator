@@ -55,6 +55,5 @@ public class GUIFrame extends JFrame {
         // show on the screen
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        reportCreationPanel.hmm();
     }
 }

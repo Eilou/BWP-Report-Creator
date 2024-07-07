@@ -1,4 +1,5 @@
 
+import enums.ReportState;
 import gui.GUIFrame;
 
 /**

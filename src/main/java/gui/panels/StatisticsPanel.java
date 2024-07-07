@@ -26,6 +26,7 @@ public class StatisticsPanel extends JPanel {
         setLayout(new GridLayout(1, 0));
 
         text.setText("Statistics Filler Text");
+        text.setForeground(Color.white);
         text.setHorizontalAlignment(JLabel.CENTER);
         add(text);
     }
