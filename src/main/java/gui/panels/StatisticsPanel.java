@@ -16,11 +16,14 @@ public class StatisticsPanel extends JPanel {
         setPreferredSize(new Dimension(parentPanel.getWidth(), 50));
 
         text = new JLabel();
-        text.setHorizontalAlignment(JLabel.CENTER);
     }
 
+    /**
+     * adds in the text to the statistics panel
+     */
     public void setup() {
         setBackground(Color.blue);
+        setLayout(new GridLayout(1, 0));
 
         text.setText("Statistics Filler Text");
         text.setHorizontalAlignment(JLabel.CENTER);

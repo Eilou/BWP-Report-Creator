@@ -1,8 +1,7 @@
 package gui;
 
-import gui.panels.ReportCreationPanel;
-import gui.panels.StatisticsPanel;
-import gui.panels.ToolbarPanel;
+import enums.ReportState;
+import gui.panels.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,10 +12,25 @@ import java.awt.*;
 public class GUIFrame extends JFrame {
 
     public Toolkit toolkit = Toolkit.getDefaultToolkit();
+
+    private ReportState reportState;
+    private Container contentPane;
+    private StatisticsPanel statisticsPanel;
+    private ToolbarPanel toolbarPanel;
+    private ReportCreationPanel reportCreationPanel;
+
     public GUIFrame() {
         setTitle("BWP Report Creator");
         setSize((int) (toolkit.getScreenSize().width * 0.75),
                 (int) (toolkit.getScreenSize().height * 0.75));
+
+        this.contentPane = getContentPane();
+        statisticsPanel = new StatisticsPanel((JPanel) contentPane);
+        toolbarPanel = new ToolbarPanel((JPanel) contentPane);
+        reportCreationPanel = new ReportCreationPanel((JPanel) contentPane);
+
+        reportState = ReportState.DOOR;
+
     }
 
     /**
@@ -25,21 +39,17 @@ public class GUIFrame extends JFrame {
     public void setup() {
 
         // set up panels
-        Container contentPanel = getContentPane();
-        contentPanel.setBackground(Color.red);
-        contentPanel.setLayout(new BorderLayout());
+        contentPane.setBackground(Color.red);
+        contentPane.setLayout(new BorderLayout());
 
-        StatisticsPanel statisticsPanel = new StatisticsPanel((JPanel) contentPanel);
         statisticsPanel.setup();
-        contentPanel.add(statisticsPanel, BorderLayout.NORTH);
+        contentPane.add(statisticsPanel, BorderLayout.NORTH);
 
-        ToolbarPanel toolbarPanel = new ToolbarPanel((JPanel) contentPanel);
         toolbarPanel.setup();
-        contentPanel.add(toolbarPanel, BorderLayout.WEST);
+        contentPane.add(toolbarPanel, BorderLayout.WEST);
 
-        ReportCreationPanel reportCreationPanel = new ReportCreationPanel((JPanel) contentPanel);
         reportCreationPanel.setup();
-        contentPanel.add(reportCreationPanel, BorderLayout.CENTER);
+        contentPane.add(reportCreationPanel, BorderLayout.CENTER);
 
         // show on the screen
         setVisible(true);
