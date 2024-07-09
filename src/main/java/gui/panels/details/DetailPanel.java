@@ -1,4 +1,4 @@
-package gui.panels;
+package gui.panels.details;
 
 import enums.ReportState;
 
@@ -15,13 +15,12 @@ public class DetailPanel extends JPanel {
     private JPanel parentPanel;
     private TitledBorder border;
 
-
     public DetailPanel(JPanel parentPanel, ReportState reportState, int count) {
         this.parentPanel = parentPanel;
         setPreferredSize(new Dimension(parentPanel.getWidth(), 200));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
 
-        border = new TitledBorder(reportState + " " + count);
+        border = new TitledBorder(reportState.toString().charAt(0) + String.valueOf(count));
     }
     public void setup() {
         setBackground(Color.red);

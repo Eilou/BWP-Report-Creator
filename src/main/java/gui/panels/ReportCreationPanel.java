@@ -1,6 +1,8 @@
 package gui.panels;
 
 import enums.ReportState;
+import gui.panels.details.DetailPanel;
+import gui.panels.details.DoorDetailsPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,10 +29,11 @@ public class ReportCreationPanel extends JPanel {
     }
 
     public void setup() {
-        setBackground(Color.yellow);
+        setBackground(Color.green);
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         detailsContainer.setLayout(new BoxLayout(detailsContainer, BoxLayout.PAGE_AXIS));
+        detailsContainer.setBackground(Color.yellow);
         createDefaultItems();
         detailsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         add(detailsScrollPane);
@@ -41,13 +44,16 @@ public class ReportCreationPanel extends JPanel {
      * Needs to be in a separate method, so it can be called after set visible is true
      */
     public void createDefaultItems() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             // will want to add an if statement here depending on the report state to determine
             // which subclass of detail panel to use
-            DetailPanel currentPanel = new DetailPanel(this, reportState, i+1);
-            currentPanel.setup();
-            listOfDetails.add(currentPanel);
-            detailsContainer.add(currentPanel);
+
+            if (reportState == ReportState.DOOR) {
+                DetailPanel currentPanel = new DoorDetailsPanel(this, reportState, i + 1);
+                currentPanel.setup();
+                listOfDetails.add(currentPanel);
+                detailsContainer.add(currentPanel);
+            }
         }
 
     }
