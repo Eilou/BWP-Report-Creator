@@ -32,10 +32,12 @@ public class AddDetailButtonHandler implements ActionListener {
             );
             default -> itemPanelToAdd = null;
         }
-        assert itemPanelToAdd != null;
         itemPanelToAdd.setup();
+
         reportCreationPanel.getListOfDetailsPanels().add(itemPanelToAdd);
         reportCreationPanel.getDetailsContainer().add(itemPanelToAdd);
-        reportCreationPanel.revalidate();
+
+        reportCreationPanel.getDetailsContainer().revalidate();
+        System.out.println("Added " + reportState.toString().toLowerCase() + " panel");
     }
 }

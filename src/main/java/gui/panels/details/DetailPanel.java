@@ -17,7 +17,7 @@ public class DetailPanel extends JPanel {
 
     public DetailPanel(JPanel parentPanel, ReportState reportState, int count) {
         this.parentPanel = parentPanel;
-        setPreferredSize(new Dimension(parentPanel.getWidth(), 200));
+        setPreferredSize(new Dimension(0, 200));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
 
         border = new TitledBorder(reportState.toString().charAt(0) + String.valueOf(count));

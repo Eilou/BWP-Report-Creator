@@ -48,12 +48,14 @@ public class ReportCreationPanel extends JPanel {
         // will want to add an if statement here depending on the report state to determine
         // which subclass of detail panel to use
 
-        if (reportState == ReportState.DOOR) {
-                DetailPanel currentPanel = new DoorDetailsPanel(this, reportState, 1);
-                currentPanel.setup();
-                listOfDetailsPanels.add(currentPanel);
-                detailsContainer.add(currentPanel);
-        }
+//        if (reportState == ReportState.DOOR) {
+//                DetailPanel currentPanel = new DoorDetailsPanel(this, reportState, 1);
+//                currentPanel.setup();
+//                currentPanel.setAlignmentX(0);
+//                currentPanel.setAlignmentY(0);
+//                listOfDetailsPanels.add(currentPanel);
+//                detailsContainer.add(currentPanel);
+//        }
 
     }
 
