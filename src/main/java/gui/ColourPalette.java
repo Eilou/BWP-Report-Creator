@@ -7,7 +7,7 @@ import java.awt.*;
  */
 public class ColourPalette {
      public final static Color background = new Color(200,200,200);
-    public final static Color foregrond = new Color(200,200,200);
+    public final static Color foreground = new Color(200,200,200);
     public final static Color text = new Color(200,200,200);
     public final static Color borderColour = new Color(200,200,200);
 
