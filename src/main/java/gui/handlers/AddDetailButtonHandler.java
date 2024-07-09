@@ -2,9 +2,7 @@ package gui.handlers;
 
 import enums.ReportState;
 import gui.panels.ReportCreationPanel;
-import gui.panels.details.DetailPanel;
-import gui.panels.details.DoorDetailsPanel;
-
+import gui.panels.details.*;
 import java.awt.event.*;
 
 /**
@@ -30,15 +28,14 @@ public class AddDetailButtonHandler implements ActionListener {
             case DOOR -> itemPanelToAdd = new DoorDetailsPanel(
                     reportCreationPanel,
                     reportState,
-                    reportCreationPanel.getListOfDetails().size() + 1
+                    reportCreationPanel.getListOfDetailsPanels().size() + 1
             );
             default -> itemPanelToAdd = null;
         }
         assert itemPanelToAdd != null;
         itemPanelToAdd.setup();
-        reportCreationPanel.getListOfDetails().add(itemPanelToAdd);
+        reportCreationPanel.getListOfDetailsPanels().add(itemPanelToAdd);
         reportCreationPanel.getDetailsContainer().add(itemPanelToAdd);
         reportCreationPanel.revalidate();
-        System.out.println(reportCreationPanel.getListOfDetails().size());
     }
 }

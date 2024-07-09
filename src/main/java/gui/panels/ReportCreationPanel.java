@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ReportCreationPanel extends JPanel {
 
     private JPanel parentPanel;
-    private ArrayList<DetailPanel> listOfDetails;
+    private ArrayList<DetailPanel> listOfDetailsPanels;
     private ReportState reportState;
 
     private JPanel detailsContainer;
@@ -22,7 +22,7 @@ public class ReportCreationPanel extends JPanel {
     public ReportCreationPanel(JPanel parentPanel, ReportState reportState) {
         this.parentPanel = parentPanel;
         this.reportState = reportState;
-        listOfDetails = new ArrayList<>();
+        listOfDetailsPanels = new ArrayList<>();
 
         detailsContainer = new JPanel();
         detailsScrollPane = new JScrollPane(detailsContainer);
@@ -44,16 +44,15 @@ public class ReportCreationPanel extends JPanel {
      * Needs to be in a separate method, so it can be called after set visible is true
      */
     public void createDefaultItems() {
-        for (int i = 0; i < 2; i++) {
-            // will want to add an if statement here depending on the report state to determine
-            // which subclass of detail panel to use
 
-            if (reportState == ReportState.DOOR) {
-                DetailPanel currentPanel = new DoorDetailsPanel(this, reportState, i + 1);
+        // will want to add an if statement here depending on the report state to determine
+        // which subclass of detail panel to use
+
+        if (reportState == ReportState.DOOR) {
+                DetailPanel currentPanel = new DoorDetailsPanel(this, reportState, 1);
                 currentPanel.setup();
-                listOfDetails.add(currentPanel);
+                listOfDetailsPanels.add(currentPanel);
                 detailsContainer.add(currentPanel);
-            }
         }
 
     }
@@ -62,12 +61,12 @@ public class ReportCreationPanel extends JPanel {
     // getters and setters
     ////////////////////////////////////
 
-    public ArrayList<DetailPanel> getListOfDetails() {
-        return listOfDetails;
+    public ArrayList<DetailPanel> getListOfDetailsPanels() {
+        return listOfDetailsPanels;
     }
 
-    public void setListOfDetails(ArrayList<DetailPanel> listOfDetails) {
-        this.listOfDetails = listOfDetails;
+    public void setListOfDetailsPanels(ArrayList<DetailPanel> listOfDetailsPanels) {
+        this.listOfDetailsPanels = listOfDetailsPanels;
     }
 
     public JPanel getDetailsContainer() {

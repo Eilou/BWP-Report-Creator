@@ -2,6 +2,7 @@ package gui.panels;
 
 import enums.ReportState;
 import gui.handlers.AddDetailButtonHandler;
+import gui.handlers.RemoveDetailsButtonHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +56,10 @@ public class ToolbarPanel extends JPanel {
      * Attach the handlers to the buttons to give them functionality
      */
     public void attachHandlers() {
-        addDetailButton.addActionListener(new AddDetailButtonHandler(reportState, reportCreationPanel));
+        addDetailButton.addActionListener(
+                new AddDetailButtonHandler(reportState, reportCreationPanel));
+        removeDetailButton.addActionListener(
+                new RemoveDetailsButtonHandler(reportState, reportCreationPanel));
     }
 
 }
