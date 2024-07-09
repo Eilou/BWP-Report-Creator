@@ -1,9 +1,9 @@
-
-import enums.ReportState;
 import gui.GUIFrame;
 
 /**
  * @author Louie Brooks
+ * Development started Summer 2024
+ *
  * Entry point to the program
  */
 public class App {

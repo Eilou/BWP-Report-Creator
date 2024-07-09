@@ -58,4 +58,23 @@ public class ReportCreationPanel extends JPanel {
 
     }
 
+    ////////////////////////////////////
+    // getters and setters
+    ////////////////////////////////////
+
+    public ArrayList<DetailPanel> getListOfDetails() {
+        return listOfDetails;
+    }
+
+    public void setListOfDetails(ArrayList<DetailPanel> listOfDetails) {
+        this.listOfDetails = listOfDetails;
+    }
+
+    public JPanel getDetailsContainer() {
+        return detailsContainer;
+    }
+
+    public void setDetailsContainer(JPanel detailsContainer) {
+        this.detailsContainer = detailsContainer;
+    }
 }

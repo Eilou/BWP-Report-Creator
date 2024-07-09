@@ -26,10 +26,9 @@ public class GUIFrame extends JFrame {
                 (int) (toolkit.getScreenSize().height * 0.75));
 
         this.contentPane = getContentPane();
-        statisticsPanel = new StatisticsPanel((JPanel) contentPane);
-        toolbarPanel = new ToolbarPanel((JPanel) contentPane);
         reportCreationPanel = new ReportCreationPanel((JPanel) contentPane, reportState);
-
+        statisticsPanel = new StatisticsPanel((JPanel) contentPane);
+        toolbarPanel = new ToolbarPanel((JPanel) contentPane, reportState, reportCreationPanel);
     }
 
     /**
@@ -52,7 +51,7 @@ public class GUIFrame extends JFrame {
 
         // show on the screen
         setVisible(true);
-//        reportCreationPanel.createDefaultItems();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
 }
