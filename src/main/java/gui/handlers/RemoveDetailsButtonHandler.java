@@ -4,7 +4,6 @@ import enums.ReportState;
 import gui.panels.ReportCreationPanel;
 import gui.panels.details.DetailPanel;
 
-import javax.annotation.processing.SupportedSourceVersion;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -32,6 +31,7 @@ public class RemoveDetailsButtonHandler implements ActionListener {
             reportCreationPanel.getDetailsContainer().remove(recentlyAddedPanel);
             listOfDetailsPanels.remove(recentlyAddedPanel);
 
+            // remove logically and visually
             reportCreationPanel.revalidate();
             reportCreationPanel.repaint();
             System.out.println("Removed most recently added " + reportState.toString().toLowerCase() + " " +

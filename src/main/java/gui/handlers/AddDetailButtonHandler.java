@@ -1,8 +1,10 @@
 package gui.handlers;
 
 import enums.ReportState;
+
 import gui.panels.ReportCreationPanel;
 import gui.panels.details.*;
+
 import java.awt.event.*;
 
 /**

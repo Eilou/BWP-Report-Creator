@@ -5,6 +5,9 @@ import enums.YesNoOptions;
 import java.awt.*;
 
 public class Door {
+
+    private int count;
+
     private String floor;
     private String room;
     private String wallConstruction;
@@ -33,7 +36,9 @@ public class Door {
      * default constructor sets values to null as the gui will determine the values
      * initially each door panel will have a space to be filled out
      */
-    public Door() {
+    public Door(int count) {
+        this.count = count;
+
         floor = null;
         room = null;
         wallConstruction = null;
