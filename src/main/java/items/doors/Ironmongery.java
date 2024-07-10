@@ -4,10 +4,12 @@ import enums.YesNoOptions;
 
 public class Ironmongery {
     private String hinges;
-    private String doubleHinges;
+    private Boolean doubleHinges;  // if the per leaf option selected then this is a double
+    // could do that these options only appear if the double leaf size option is checked
     private YesNoOptions latch; // Y, N, blank
     private YesNoOptions lock; // true = Y, false = Y[5]
     private YesNoOptions handle; // true = Y, null = Blank
+    private String additionalNotes;
 
     /**
      * default constructor sets values to null as the gui will determine the values
@@ -19,5 +21,6 @@ public class Ironmongery {
         latch = null;
         lock = null;
         handle = null;
+        additionalNotes = null;
     }
 }

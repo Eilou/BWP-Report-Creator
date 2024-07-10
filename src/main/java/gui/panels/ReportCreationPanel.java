@@ -34,29 +34,8 @@ public class ReportCreationPanel extends JPanel {
 
         detailsContainer.setLayout(new BoxLayout(detailsContainer, BoxLayout.PAGE_AXIS));
         detailsContainer.setBackground(Color.yellow);
-        createDefaultItems();
         detailsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         add(detailsScrollPane);
-    }
-
-    /**
-     * Generates a base amount of doors to fill out
-     * Needs to be in a separate method, so it can be called after set visible is true
-     */
-    public void createDefaultItems() {
-
-        // will want to add an if statement here depending on the report state to determine
-        // which subclass of detail panel to use
-
-//        if (reportState == ReportState.DOOR) {
-//                DetailPanel currentPanel = new DoorDetailsPanel(this, reportState, 1);
-//                currentPanel.setup();
-//                currentPanel.setAlignmentX(0);
-//                currentPanel.setAlignmentY(0);
-//                listOfDetailsPanels.add(currentPanel);
-//                detailsContainer.add(currentPanel);
-//        }
-
     }
 
     ////////////////////////////////////
