@@ -26,7 +26,7 @@ public class DetailPanel extends JPanel {
         this.parentPanel = parentPanel;
         this.count = count;
         setPreferredSize(new Dimension(0, 200));
-        setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
 
         this.detailTitle = reportState.toString().charAt(0) + String.valueOf(count);
         titleField = new JTextField(detailTitle);
@@ -45,7 +45,6 @@ public class DetailPanel extends JPanel {
         setBackground(Color.red);
         setBorder(border);
 
-
         JPanel titleAndExitPanel = new JPanel();
         titleAndExitPanel.setLayout(new BoxLayout(titleAndExitPanel, BoxLayout.LINE_AXIS));
         titleAndExitPanel.add(titleField);
@@ -54,8 +53,9 @@ public class DetailPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         this.dataPanel = dataPanel;
-        this.dataPanel.setLayout(new GridBagLayout());
+//        this.dataPanel.setLayout(new GridBagLayout());
         add(this.dataPanel);
+//        setPreferredSize(new Dimension(0,dataPanel.getHeight()+20));
     }
 
     ////////////////////////////////////

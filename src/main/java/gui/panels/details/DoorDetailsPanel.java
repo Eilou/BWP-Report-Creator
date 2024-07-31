@@ -80,6 +80,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
 
 //        setBorder(border);
         setLayout(new GridBagLayout());
+        setBackground(new Color(255,0,255));
 
         GridBagConstraints gbc = new GridBagConstraints();
 
