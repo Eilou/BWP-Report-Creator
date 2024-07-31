@@ -13,7 +13,11 @@ import java.util.List;
 /**
  * Subclass to be used when creating a door report
  */
-public class DoorDetailsPanel extends DetailPanel {
+public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
+
+    private JPanel parentPanel;
+    private int count;
+
     private Door door;
     private JPanel[][] gridPanels;
 
@@ -53,11 +57,15 @@ public class DoorDetailsPanel extends DetailPanel {
      * different inputs to then be added in later
      *
      * @param parentPanel the panel which this panel is nested in
-     * @param reportState the current type of report being processed
      * @param count       the door number
      */
-    public DoorDetailsPanel(JPanel parentPanel, ReportState reportState, int count) {
-        super(parentPanel, reportState, count);
+    public DoorDetailsPanel(JPanel parentPanel, int count) {
+
+        this.parentPanel = parentPanel;
+        this.count = count;
+        setPreferredSize(new Dimension(0, 200));
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+
         this.door = new Door(count);
         int rows = 5;
         int columns = 5;
@@ -69,7 +77,9 @@ public class DoorDetailsPanel extends DetailPanel {
      * Sets up the overall panel and the inner panel divisions ready for the different input forms
      */
     public void setup() {
-        super.setup();
+
+//        setBorder(border);
+        setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
 

@@ -5,6 +5,7 @@ import enums.ReportState;
 import gui.panels.ReportCreationPanel;
 import gui.panels.details.*;
 
+import javax.swing.*;
 import java.awt.event.*;
 
 /**
@@ -25,16 +26,19 @@ public class AddDetailButtonHandler implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        DetailPanel itemPanelToAdd;
+        DetailPanel itemPanelToAdd = new DetailPanel(reportCreationPanel, reportState, reportCreationPanel.getListOfDetailsPanels().size() + 1);
+
+        SpecificDetailInterface dataPanelToAdd;
         switch (reportState) {
-            case DOOR -> itemPanelToAdd = new DoorDetailsPanel(
+            case DOOR -> dataPanelToAdd = new DoorDetailsPanel(
                     reportCreationPanel,
-                    reportState,
                     reportCreationPanel.getListOfDetailsPanels().size() + 1
-            );
-            default -> itemPanelToAdd = null;
+                );
+            default -> dataPanelToAdd = null;
         }
-        itemPanelToAdd.setup();
+
+        dataPanelToAdd.setup();
+        itemPanelToAdd.setup((JPanel) dataPanelToAdd);
 
         reportCreationPanel.getListOfDetailsPanels().add(itemPanelToAdd);
         reportCreationPanel.getDetailsContainer().add(itemPanelToAdd);
