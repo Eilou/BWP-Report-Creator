@@ -50,10 +50,6 @@ public class DetailPanel extends JPanel {
 
         JPanel titleAndExitPanel = new JPanel();
         titleAndExitPanel.setLayout(new BoxLayout(titleAndExitPanel, BoxLayout.LINE_AXIS));
-//        titleField.setColumns(20);
-
-//        titleField.setAlignmentX(Component.LEFT_ALIGNMENT);
-//        closePanelButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
         titleAndExitPanel.add(titleField);
         titleAndExitPanel.add(closePanelButton);
@@ -62,9 +58,7 @@ public class DetailPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         this.dataPanel = dataPanel;
-//        this.dataPanel.setLayout(new GridBagLayout());
         add(this.dataPanel);
-//        setPreferredSize(new Dimension(0,dataPanel.getHeight()+20));
     }
 
     ////////////////////////////////////

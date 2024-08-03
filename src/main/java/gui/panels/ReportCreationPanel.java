@@ -3,6 +3,7 @@ package gui.panels;
 import enums.ReportState;
 import gui.panels.details.DetailPanel;
 import gui.panels.details.DoorDetailsPanel;
+import gui.panels.details.SpecificDetailInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +37,32 @@ public class ReportCreationPanel extends JPanel {
         detailsContainer.setBackground(Color.yellow);
         detailsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         add(detailsScrollPane);
+    }
+
+    /**
+     * Adds a new detail panel to this panel
+     */
+    public void addNewDetailPanel() {
+
+        DetailPanel itemPanelToAdd = new DetailPanel(this, reportState, getListOfDetailsPanels().size() + 1);
+
+        SpecificDetailInterface dataPanelToAdd;
+        switch (reportState) {
+            case DOOR -> dataPanelToAdd = new DoorDetailsPanel(
+                    this,
+                    getListOfDetailsPanels().size() + 1
+            );
+            default -> dataPanelToAdd = null;
+        }
+
+        dataPanelToAdd.setup();
+        itemPanelToAdd.setup((JPanel) dataPanelToAdd);
+
+        getListOfDetailsPanels().add(itemPanelToAdd);
+        getDetailsContainer().add(itemPanelToAdd);
+
+        revalidate();
+        repaint();
     }
 
     ////////////////////////////////////

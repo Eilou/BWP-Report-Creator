@@ -11,10 +11,10 @@ import java.util.ArrayList;
  * Updates the report creation panel by removing detail input panel, relative to the
  * current report state
  */
-public class RemoveDetailsButtonHandler implements ActionListener {
+public class RemoveLastDetailButtonHandler implements ActionListener {
     private ReportState reportState;
     private ReportCreationPanel reportCreationPanel;
-    public RemoveDetailsButtonHandler(ReportState reportState, ReportCreationPanel reportCreationPanel) {
+    public RemoveLastDetailButtonHandler(ReportState reportState, ReportCreationPanel reportCreationPanel) {
         this.reportState = reportState;
         this.reportCreationPanel = reportCreationPanel;
     }
