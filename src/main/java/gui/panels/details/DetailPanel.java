@@ -19,7 +19,6 @@ public class DetailPanel extends JPanel {
     private JPanel parentPanel;
     private ReportState reportState;
     private Border border;
-    private String detailTitle;
     private JTextField titleField;
     private JButton closePanelButton;
     private JPanel dataPanel;
@@ -30,8 +29,8 @@ public class DetailPanel extends JPanel {
         setPreferredSize(new Dimension(0, 300));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
 
-        this.detailTitle = reportState.toString().charAt(0) + String.valueOf(count);
-        titleField = new JTextField(detailTitle);
+
+        titleField = new JTextField();
 
         closePanelButton = new JButton("DELETE");
 
@@ -64,6 +63,9 @@ public class DetailPanel extends JPanel {
 
         this.dataPanel = dataPanel;
         add(this.dataPanel);
+
+        titleField.setText(reportState.toString().charAt(0) + String.valueOf(getCount()));
+
         attachHandlers();
     }
 
