@@ -16,6 +16,7 @@ public class ToolbarPanel extends JPanel {
     private ReportState reportState;
     private ReportCreationPanel reportCreationPanel;
     private JButton addDetailButton;
+    private JCheckBox backfillCheckbox;
     private JButton removeDetailButton;
     private JButton previewButton;
     private JButton printButton;
@@ -27,6 +28,7 @@ public class ToolbarPanel extends JPanel {
         setPreferredSize(new Dimension(100, parentPanel.getHeight()));
 
         addDetailButton = new JButton("Add " + reportState);
+        backfillCheckbox = new JCheckBox();
         removeDetailButton = new JButton("Remove " + reportState);
         previewButton = new JButton("Preview Report");
         printButton = new JButton("Print Report");
@@ -47,6 +49,7 @@ public class ToolbarPanel extends JPanel {
         attachHandlers();
 
         add(addDetailButton);
+        add(backfillCheckbox);
         add(removeDetailButton);
         add(previewButton);
         add(printButton);
@@ -57,7 +60,7 @@ public class ToolbarPanel extends JPanel {
      */
     public void attachHandlers() {
         addDetailButton.addActionListener(
-                new AddDetailButtonHandler(reportState, reportCreationPanel));
+                new AddDetailButtonHandler(reportState, reportCreationPanel, backfillCheckbox));
         removeDetailButton.addActionListener(
                 new RemoveLastDetailButtonHandler(reportState, reportCreationPanel));
     }

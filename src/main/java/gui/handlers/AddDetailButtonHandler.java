@@ -4,6 +4,7 @@ import enums.ReportState;
 
 import gui.panels.ReportCreationPanel;
 
+import javax.swing.*;
 import java.awt.event.*;
 
 /**
@@ -13,9 +14,13 @@ import java.awt.event.*;
 public class AddDetailButtonHandler implements ActionListener {
     private ReportState reportState;
     private ReportCreationPanel reportCreationPanel;
-    public AddDetailButtonHandler(ReportState reportState, ReportCreationPanel reportCreationPanel) {
+    private JCheckBox backfillCheckbox;
+    public AddDetailButtonHandler(ReportState reportState,
+                                  ReportCreationPanel reportCreationPanel,
+                                  JCheckBox backfillCheckbox) {
         this.reportState = reportState;
         this.reportCreationPanel = reportCreationPanel;
+        this.backfillCheckbox = backfillCheckbox;
     }
 
     /**
@@ -25,7 +30,7 @@ public class AddDetailButtonHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        reportCreationPanel.addNewDetailPanel();
+        reportCreationPanel.addNewDetailPanel(backfillCheckbox.isSelected());
 
         System.out.println("Added " + reportState.toString().toLowerCase() + " panel");
     }

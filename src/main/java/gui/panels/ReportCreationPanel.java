@@ -45,7 +45,7 @@ public class ReportCreationPanel extends JPanel {
     /**
      * Adds a new detail panel to this panel
      */
-    public void addNewDetailPanel() {
+    public void addNewDetailPanel(Boolean backfill) {
 
         DetailPanel itemPanelToAdd = new DetailPanel(this, reportState, listOfDetailsPanels.size() + 1);
 
@@ -63,13 +63,9 @@ public class ReportCreationPanel extends JPanel {
         // or
             // keep track of those deleted if it's a middle one and then fill this
 
+        int count = -1;
 
-        int count = listOfDetailsPanels.size() + 1;
-        if (listOfDetailsPanels.isEmpty() || listOfDetailsPanels.get(listOfDetailsPanels.size() -1).getCount() == listOfDetailsPanels.size()) {
-            listOfDetailsPanels.add(itemPanelToAdd);
-            detailsContainer.add(itemPanelToAdd);
-
-        } else {
+        if (backfill && !middleDeletedIndexes.isEmpty()) {
             int indexToAdd = middleDeletedIndexes.get(0);
             middleDeletedIndexes.remove(0);
             count = indexToAdd + 1;
@@ -78,29 +74,25 @@ public class ReportCreationPanel extends JPanel {
             listOfDetailsPanels.add(indexToAdd, itemPanelToAdd);
             detailsContainer.add(itemPanelToAdd, indexToAdd);
         }
+        else {
+            if (listOfDetailsPanels.isEmpty()) {count = 1;}
+            else {count = listOfDetailsPanels.get(listOfDetailsPanels.size()-1).getCount() + 1;}
+            listOfDetailsPanels.add(itemPanelToAdd);
+            detailsContainer.add(itemPanelToAdd);
+        }
 
-
-//        if (listOfDetailsPanels.isEmpty()) {
+//        if (middleDeletedIndexes.isEmpty() || (listOfDetailsPanels.isEmpty() || listOfDetailsPanels.get(listOfDetailsPanels.size() -1).getCount() == listOfDetailsPanels.size())) {
 //            listOfDetailsPanels.add(itemPanelToAdd);
 //            detailsContainer.add(itemPanelToAdd);
-//        }
-//        else {
-//            DetailPanel lastPanel = listOfDetailsPanels.get(listOfDetailsPanels.size() -1);
-//            // can do this because both count and size are 1 above the indices which are base 0
-//            if (lastPanel.getCount() != listOfDetailsPanels.size()) {
-//                int indexToAdd = middleDeletedIndexes.get(0);
-//                middleDeletedIndexes.remove(0);
-//                // need to change the count value for this door as well
 //
-//                listOfDetailsPanels.add(indexToAdd, itemPanelToAdd);
-//                detailsContainer.add(itemPanelToAdd, indexToAdd);
+//        } else {
+//            int indexToAdd = middleDeletedIndexes.get(0);
+//            middleDeletedIndexes.remove(0);
+//            count = indexToAdd + 1;
+//            // need to change the count value for this door as well
 //
-//            }
-//
-//            else {
-//                listOfDetailsPanels.add(itemPanelToAdd);
-//                detailsContainer.add(itemPanelToAdd);
-//            }
+//            listOfDetailsPanels.add(indexToAdd, itemPanelToAdd);
+//            detailsContainer.add(itemPanelToAdd, indexToAdd);
 //        }
 
         SpecificDetailInterface dataPanelToAdd;
