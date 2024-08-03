@@ -1,12 +1,11 @@
 package items.doors;
 
 import enums.YesNoOptions;
+import items.Item;
 
 import java.awt.*;
 
-public class Door {
-
-    private int count;
+public class Door extends Item {
 
     private String floor;
     private String room;
@@ -37,7 +36,7 @@ public class Door {
      * initially each door panel will have a space to be filled out
      */
     public Door(int count) {
-        this.count = count;
+        super(count);
 
         floor = null;
         room = null;
@@ -64,6 +63,10 @@ public class Door {
     ////////////////////////////////////
     // getters and setters
     ////////////////////////////////////
+
+    public int getCount() {
+        return count;
+    }
     public String getFloor() {
         return floor;
     }

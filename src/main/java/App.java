@@ -13,6 +13,6 @@ public class App {
     public static void main (String[] args) {
         GUIFrame guiFrame = new GUIFrame();
         guiFrame.setup();
-        System.out.println(new Dimension(30,50));
+        System.out.println("Application GUI has loaded");
     }
 }

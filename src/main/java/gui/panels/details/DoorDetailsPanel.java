@@ -169,6 +169,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
      * Populates all the different comboboxes in the application
      */
     public void populateComboBoxes() {
+
         populateGivenComboBox(floorComboBox, new String[]{"Ground Floor","First Floor","Second Floor","Third Floor","Lower Ground Floor","Upper Ground Floor","Mezzanine","Basement 1","Basement 2"});
         populateGivenComboBox(wallConstructionComboBox, new String[]{"Masonry cavity wall","Timberframe","SIPS panel","100mm blockwork","140mm blockwork","215mm blockwork","89mm partition","100mm partition","140mm partition"});
         populateGivenComboBox(internalExternalComboBox, new String[]{"Internal", "External [1]"});
@@ -184,9 +185,13 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
         populateGivenComboBox(lockComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y, YesNoOptions.Y_5});
         populateGivenComboBox(handleComboBox, new YesNoOptions[]{YesNoOptions.Y});
 
-
-
-
     }
 
+    ////////////////////////////////////
+    // getters and setters
+    ////////////////////////////////////
+
+    public Door getDoor() {
+        return door;
+    }
 }

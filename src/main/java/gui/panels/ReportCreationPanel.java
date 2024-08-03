@@ -65,6 +65,21 @@ public class ReportCreationPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Removes a given detail panel from the scroll pane
+     * @param panelToRemove detail panel to be removed from this panel's scroll pane
+     */
+    public void removeDetailPanel(DetailPanel panelToRemove) {
+
+        getDetailsContainer().remove(panelToRemove);
+        listOfDetailsPanels.remove(panelToRemove);
+
+        // remove logically and visually
+        revalidate();
+        repaint();
+
+    }
+
     ////////////////////////////////////
     // getters and setters
     ////////////////////////////////////

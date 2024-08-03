@@ -1,6 +1,9 @@
 package gui.panels.details;
 
 import enums.ReportState;
+import gui.handlers.CloseDetailButtonHandler;
+import gui.panels.ReportCreationPanel;
+import items.Item;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -14,6 +17,7 @@ import java.awt.*;
 public class DetailPanel extends JPanel {
 
     private JPanel parentPanel;
+    private ReportState reportState;
     private int count;
     private Border border;
     private String detailTitle;
@@ -23,6 +27,7 @@ public class DetailPanel extends JPanel {
 
     public DetailPanel(JPanel parentPanel, ReportState reportState, int count) {
         this.parentPanel = parentPanel;
+        this.reportState = reportState;
         this.count = count;
         setPreferredSize(new Dimension(0, 300));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
@@ -59,6 +64,14 @@ public class DetailPanel extends JPanel {
 
         this.dataPanel = dataPanel;
         add(this.dataPanel);
+        attachHandlers();
+    }
+
+    /**
+     * Gives the buttons functionality
+     */
+    public void attachHandlers() {
+        closePanelButton.addActionListener(new CloseDetailButtonHandler((ReportCreationPanel) parentPanel, reportState, this));
     }
 
     ////////////////////////////////////
@@ -68,4 +81,16 @@ public class DetailPanel extends JPanel {
     public JPanel getDataPanel() {
         return dataPanel;
     }
+
+    /**
+     * Gets the item from the detail panel relative to the state of the report
+     * @return the current item attached to this detail panel
+     */
+    public Item getItem() {
+        return switch(reportState) {
+            case DOOR -> ((DoorDetailsPanel) dataPanel).getDoor();
+            default -> null;
+        };
+    }
+
 }

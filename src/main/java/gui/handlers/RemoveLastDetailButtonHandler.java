@@ -28,12 +28,9 @@ public class RemoveLastDetailButtonHandler implements ActionListener {
         ArrayList<DetailPanel> listOfDetailsPanels = reportCreationPanel.getListOfDetailsPanels();
         if (!listOfDetailsPanels.isEmpty()) {
             DetailPanel recentlyAddedPanel = listOfDetailsPanels.get(listOfDetailsPanels.size() - 1);
-            reportCreationPanel.getDetailsContainer().remove(recentlyAddedPanel);
-            listOfDetailsPanels.remove(recentlyAddedPanel);
 
-            // remove logically and visually
-            reportCreationPanel.revalidate();
-            reportCreationPanel.repaint();
+            reportCreationPanel.removeDetailPanel(recentlyAddedPanel);
+
             System.out.println("Removed most recently added " + reportState.toString().toLowerCase() + " " +
                     "panel");
         }
