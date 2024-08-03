@@ -16,8 +16,6 @@ import java.util.List;
 public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
 
     private JPanel parentPanel;
-    private int count;
-
     private Door door;
     private JPanel[][] gridPanels;
 
@@ -30,7 +28,11 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
     private final JComboBox<String> fireRatingComboBox = new JComboBox<>();
     private final JComboBox<YesNoOptions> glazedComboBox = new JComboBox<>();
     private final JComboBox<String> leafSizeComboBox = new JComboBox<>();
+    // want a dropdown next to this with sizes: imperial, metric or bespoke
+        // default should be imperial
+    // this then influences the options available from the numbers
     private final JCheckBox doubleLeafSizeCheckbox = new JCheckBox();
+    // this should be a dropdown box with options: single, double, triple, quad
 
     private final JComboBox<Integer> clearOpeningComboBox = new JComboBox<>();
     private final JComboBox<YesNoOptions> entranceLevelComboBox = new JComboBox<>();
@@ -62,7 +64,6 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
     public DoorDetailsPanel(JPanel parentPanel, int count) {
 
         this.parentPanel = parentPanel;
-        this.count = count;
         setPreferredSize(new Dimension(0, 200));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
 
@@ -115,10 +116,19 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
      * Position the inputs in the grid bag layout
      */
     public void positionForms() {
+        gridPanels[0][0].add(new JLabel("Floor"));
         gridPanels[0][0].add(floorComboBox);
+
+        gridPanels[0][1].add(new JLabel("Room"));
         gridPanels[0][1].add(roomComboBox);
+
+        gridPanels[0][2].add(new JLabel("Wall Construction"));
         gridPanels[0][2].add(wallConstructionComboBox);
+
+        gridPanels[0][3].add(new JLabel("Door Type"));
         gridPanels[0][3].add(doorTypeComboBox);
+
+        gridPanels[0][4].add(new JLabel("Internal or External"));
         gridPanels[0][4].add(internalExternalComboBox);
 
         gridPanels[1][0].add(partMThresholdComboBox);
@@ -193,5 +203,14 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
 
     public Door getDoor() {
         return door;
+    }
+
+    @Override
+    public int getCount() {
+        return door.getCount();
+    }
+
+    public void setCount(int newCount) {
+        door.setCount(newCount);
     }
 }

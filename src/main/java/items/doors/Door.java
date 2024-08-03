@@ -67,6 +67,9 @@ public class Door extends Item {
     public int getCount() {
         return count;
     }
+    public void setCount(int newCount) {
+        count = newCount;
+    }
     public String getFloor() {
         return floor;
     }

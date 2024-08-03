@@ -6,6 +6,7 @@ package items;
 public abstract class Item {
     protected int count;
     public abstract int getCount();
+    public abstract void setCount(int newCount);
 
     public Item(int count) {
         this.count = count;
