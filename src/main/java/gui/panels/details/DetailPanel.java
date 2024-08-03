@@ -2,11 +2,9 @@ package gui.panels.details;
 
 import enums.ReportState;
 
-import javax.sound.sampled.Line;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.border.*;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
 
 /**
@@ -20,21 +18,26 @@ public class DetailPanel extends JPanel {
     private Border border;
     private String detailTitle;
     private JTextField titleField;
+    private JButton closePanelButton;
     private JPanel dataPanel;
 
     public DetailPanel(JPanel parentPanel, ReportState reportState, int count) {
         this.parentPanel = parentPanel;
         this.count = count;
-        setPreferredSize(new Dimension(0, 200));
+        setPreferredSize(new Dimension(0, 300));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
 
         this.detailTitle = reportState.toString().charAt(0) + String.valueOf(count);
         titleField = new JTextField(detailTitle);
 
+        closePanelButton = new JButton("CLOSE");
+
         int margin = 5;
-        border = BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(margin,margin,margin,
-                        margin),
-                BorderFactory.createLineBorder(Color.black, 5));
+        border = BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(margin/4, 0, margin/4, 0, Color.black),
+                    BorderFactory.createCompoundBorder(
+                    BorderFactory.createEmptyBorder(2*margin, margin,2*margin, margin),
+                    BorderFactory.createLineBorder(Color.black, 5)));
 
     }
 
@@ -47,7 +50,13 @@ public class DetailPanel extends JPanel {
 
         JPanel titleAndExitPanel = new JPanel();
         titleAndExitPanel.setLayout(new BoxLayout(titleAndExitPanel, BoxLayout.LINE_AXIS));
+//        titleField.setColumns(20);
+
+//        titleField.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        closePanelButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
         titleAndExitPanel.add(titleField);
+        titleAndExitPanel.add(closePanelButton);
         add(titleAndExitPanel);
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
