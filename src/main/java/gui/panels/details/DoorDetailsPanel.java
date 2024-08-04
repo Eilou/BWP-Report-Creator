@@ -1,13 +1,11 @@
 package gui.panels.details;
 
-import enums.ReportState;
 import enums.YesNoOptions;
 import items.doors.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,11 +25,12 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
     private final JComboBox<YesNoOptions> partMThresholdComboBox = new JComboBox<>();
     private final JComboBox<String> fireRatingComboBox = new JComboBox<>();
     private final JComboBox<YesNoOptions> glazedComboBox = new JComboBox<>();
+    private final JComboBox<String> leafTypeComboBox = new JComboBox<>();
     private final JComboBox<String> leafSizeComboBox = new JComboBox<>();
     // want a dropdown next to this with sizes: imperial, metric or bespoke
         // default should be imperial
     // this then influences the options available from the numbers
-    private final JCheckBox doubleLeafSizeCheckbox = new JCheckBox();
+    private final JComboBox<String> leafNumberCheckbox = new JComboBox<>();
     // this should be a dropdown box with options: single, double, triple, quad
 
     private final JComboBox<Integer> clearOpeningComboBox = new JComboBox<>();
@@ -110,6 +109,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
 
         populateComboBoxes();
         positionForms();
+        setFormDefaults();
     }
 
     /**
@@ -179,9 +179,12 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
         leafSizeLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         leafSizeLabelPanel.add(leafSizeLabel);
         gridPanels[1][4].add(leafSizeLabelPanel);
-        gridPanels[1][4].setLayout(new BoxLayout(gridPanels[1][4], BoxLayout.LINE_AXIS));
-        gridPanels[1][4].add(leafSizeComboBox);
-        gridPanels[1][4].add(doubleLeafSizeCheckbox);
+        JPanel leafSizeInputPanel = new JPanel();
+        leafSizeInputPanel.setLayout(new BoxLayout(leafSizeInputPanel, BoxLayout.LINE_AXIS));
+        leafSizeInputPanel.add(leafTypeComboBox);
+        leafSizeInputPanel.add(leafSizeComboBox);
+        leafSizeInputPanel.add(leafNumberCheckbox);
+        gridPanels[1][4].add(leafSizeInputPanel);
 
         JLabel clearOpeningLabel = new JLabel("Clear Opening");
         JPanel clearOpeningLabelPanel = new JPanel();
@@ -284,6 +287,10 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
 
     }
 
+    public void setFormDefaults() {
+        leafTypeComboBox.setSelectedItem("Imperial");
+    }
+
     /**
      * Populates a given combobox with the contents of the array passed to it
      *
@@ -310,7 +317,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
         populateGivenComboBox(partMThresholdComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y_2});
         populateGivenComboBox(fireRatingComboBox, new String[]{"FD20 [3]","FD30 [3]","FD30-SC [3]","FD60 [3]"});
         populateGivenComboBox(glazedComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y_4});
+        populateGivenComboBox(leafTypeComboBox, new String[]{"Imperial", "Metric", "Bespoke"});
         populateGivenComboBox(leafSizeComboBox, new String[]{"610","686","762","838","626","726", "826","926","2 x 610","2 x 686","2 x 762","2 x 838","2 x 626","2 x 726","2 x 826","2 x 926"});
+        populateGivenComboBox(leafNumberCheckbox, new String[]{"Single", "Double", "Triple", "Quad"});
         populateGivenComboBox(entranceLevelComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y});
         populateGivenComboBox(additionalPlyLiningComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y});
         populateGivenComboBox(hingesComboBox, new String[]{"1 pair", "1 1/2 pair", "2 pair"}); //
