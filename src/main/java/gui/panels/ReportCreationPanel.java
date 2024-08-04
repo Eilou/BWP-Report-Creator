@@ -50,21 +50,9 @@ public class ReportCreationPanel extends JPanel {
         DetailPanel itemPanelToAdd = new DetailPanel(this, reportState, listOfDetailsPanels.size() + 1);
 
 
-
-//        int indexToAdd = listOfDetailsPanels.size();
-//        int count = listOfDetailsPanels.size() + 1;
-
-
-
-        // if the last item's count - 1 does not equal the number in the list, then there is one
-        // which has been deleted from the middle and should be backfilled in
-            // could do through looking through the list finding the missing number as it is out
-            // of sequence and then using this
-        // or
-            // keep track of those deleted if it's a middle one and then fill this
-
         int count = -1;
 
+        // give the option to either backfill or add to the front
         if (backfill && !middleDeletedIndexes.isEmpty()) {
             int indexToAdd = middleDeletedIndexes.get(0);
             middleDeletedIndexes.remove(0);
@@ -80,20 +68,6 @@ public class ReportCreationPanel extends JPanel {
             listOfDetailsPanels.add(itemPanelToAdd);
             detailsContainer.add(itemPanelToAdd);
         }
-
-//        if (middleDeletedIndexes.isEmpty() || (listOfDetailsPanels.isEmpty() || listOfDetailsPanels.get(listOfDetailsPanels.size() -1).getCount() == listOfDetailsPanels.size())) {
-//            listOfDetailsPanels.add(itemPanelToAdd);
-//            detailsContainer.add(itemPanelToAdd);
-//
-//        } else {
-//            int indexToAdd = middleDeletedIndexes.get(0);
-//            middleDeletedIndexes.remove(0);
-//            count = indexToAdd + 1;
-//            // need to change the count value for this door as well
-//
-//            listOfDetailsPanels.add(indexToAdd, itemPanelToAdd);
-//            detailsContainer.add(itemPanelToAdd, indexToAdd);
-//        }
 
         SpecificDetailInterface dataPanelToAdd;
         switch (reportState) {

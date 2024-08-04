@@ -17,3 +17,9 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.withType(Jar::class) {
+    manifest {
+        attributes["Main-Class"] = "App"
+    }
+}

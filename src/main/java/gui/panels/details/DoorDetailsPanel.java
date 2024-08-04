@@ -103,6 +103,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
                 gbc.gridx = column;
                 gbc.gridy = row;
 
+                if (row == 1 && column == 3) gbc.gridwidth = 2;
+                else gbc.gridwidth = 1;
+
                 add(gridPanels[row][column], gbc);
             }
         }
@@ -165,26 +168,31 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
         fireRatingLabelPanel.add(fireRatingLabel);
         gridPanels[1][1].add(fireRatingLabelPanel);
         gridPanels[1][1].add(fireRatingComboBox);
-//        gridPanels[1][2].add();
+
+
 
         JLabel glazedLabel = new JLabel("Glazed");
         JPanel glazedLabelPanel = new JPanel();
         glazedLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         glazedLabelPanel.add(glazedLabel);
-        gridPanels[1][3].add(glazedLabelPanel);
-        gridPanels[1][3].add(glazedComboBox);
+        gridPanels[1][2].add(glazedLabelPanel);
+        gridPanels[1][2].add(glazedComboBox);
+
+
 
         JLabel leafSizeLabel = new JLabel("Leaf Size");
         JPanel leafSizeLabelPanel = new JPanel();
         leafSizeLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         leafSizeLabelPanel.add(leafSizeLabel);
-        gridPanels[1][4].add(leafSizeLabelPanel);
+        gridPanels[1][3].add(leafSizeLabelPanel);
         JPanel leafSizeInputPanel = new JPanel();
         leafSizeInputPanel.setLayout(new BoxLayout(leafSizeInputPanel, BoxLayout.LINE_AXIS));
         leafSizeInputPanel.add(leafTypeComboBox);
         leafSizeInputPanel.add(leafSizeComboBox);
         leafSizeInputPanel.add(leafNumberCheckbox);
-        gridPanels[1][4].add(leafSizeInputPanel);
+        gridPanels[1][3].add(leafSizeInputPanel);
+
+        //        gridPanels[1][4].add();
 
         JLabel clearOpeningLabel = new JLabel("Clear Opening");
         JPanel clearOpeningLabelPanel = new JPanel();
