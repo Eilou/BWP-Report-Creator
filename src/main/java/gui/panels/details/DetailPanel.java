@@ -26,11 +26,11 @@ public class DetailPanel extends JPanel {
     public DetailPanel(JPanel parentPanel, ReportState reportState, int count) {
         this.parentPanel = parentPanel;
         this.reportState = reportState;
-        setPreferredSize(new Dimension(0, 300));
-        setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
+//        setPreferredSize(new Dimension(0, 300));
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, (int) (parentPanel.getHeight()*0.7)));
+//        setMaximumSize(getPreferredSize());
 
-
-        titleField = new JTextField();
+        titleField = new JTextField(20);
 
         closePanelButton = new JButton("DELETE");
 

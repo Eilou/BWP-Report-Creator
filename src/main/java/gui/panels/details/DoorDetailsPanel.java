@@ -64,8 +64,8 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
     public DoorDetailsPanel(JPanel parentPanel, int count) {
 
         this.parentPanel = parentPanel;
-        setPreferredSize(new Dimension(0, 200));
-        setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+//        setPreferredSize(new Dimension(0, 250));
+//        setMaximumSize(getPreferredSize());
 
         this.door = new Door(count);
         int rows = 5;
@@ -116,46 +116,170 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
      * Position the inputs in the grid bag layout
      */
     public void positionForms() {
-        gridPanels[0][0].add(new JLabel("Floor"));
+
+        JLabel floorLabel = new JLabel("Floor");
+        JPanel floorLabelPanel = new JPanel();
+        floorLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        floorLabelPanel.add(floorLabel);
+        gridPanels[0][0].add(floorLabelPanel);
         gridPanels[0][0].add(floorComboBox);
 
-        gridPanels[0][1].add(new JLabel("Room"));
+        JLabel roomLabel = new JLabel("Room");
+        JPanel roomLabelPanel = new JPanel();
+        roomLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        roomLabelPanel.add(roomLabel);
+        gridPanels[0][1].add(roomLabelPanel);
         gridPanels[0][1].add(roomComboBox);
 
-        gridPanels[0][2].add(new JLabel("Wall Construction"));
+        JLabel wallConstructionLabel = new JLabel("Wall Construction");
+        JPanel wallConstructionLabelPanel = new JPanel();
+        wallConstructionLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        wallConstructionLabelPanel.add(wallConstructionLabel);
+        gridPanels[0][2].add(wallConstructionLabelPanel);
         gridPanels[0][2].add(wallConstructionComboBox);
 
-        gridPanels[0][3].add(new JLabel("Door Type"));
+        JLabel doorTypeLabel = new JLabel("Door Type");
+        JPanel doorTypeLabelPanel = new JPanel();
+        doorTypeLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        doorTypeLabelPanel.add(doorTypeLabel);
+        gridPanels[0][3].add(doorTypeLabelPanel);
         gridPanels[0][3].add(doorTypeComboBox);
 
-        gridPanels[0][4].add(new JLabel("Internal or External"));
+        JLabel internalExternalLabel = new JLabel("Internal or External");
+        JPanel internalExternalLabelPanel = new JPanel();
+        internalExternalLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        internalExternalLabelPanel.add(internalExternalLabel);
+        gridPanels[0][4].add(internalExternalLabelPanel);
         gridPanels[0][4].add(internalExternalComboBox);
 
+        JLabel partMThresholdLabel = new JLabel("Part M Threshold");
+        JPanel partMThresholdLabelPanel = new JPanel();
+        partMThresholdLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        partMThresholdLabelPanel.add(partMThresholdLabel);
+        gridPanels[1][0].add(partMThresholdLabelPanel);
         gridPanels[1][0].add(partMThresholdComboBox);
+
+        JLabel fireRatingLabel = new JLabel("Fire Rating");
+        JPanel fireRatingLabelPanel = new JPanel();
+        fireRatingLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        fireRatingLabelPanel.add(fireRatingLabel);
+        gridPanels[1][1].add(fireRatingLabelPanel);
         gridPanels[1][1].add(fireRatingComboBox);
 //        gridPanels[1][2].add();
+
+        JLabel glazedLabel = new JLabel("Glazed");
+        JPanel glazedLabelPanel = new JPanel();
+        glazedLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        glazedLabelPanel.add(glazedLabel);
+        gridPanels[1][3].add(glazedLabelPanel);
         gridPanels[1][3].add(glazedComboBox);
 
+        JLabel leafSizeLabel = new JLabel("Leaf Size");
+        JPanel leafSizeLabelPanel = new JPanel();
+        leafSizeLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        leafSizeLabelPanel.add(leafSizeLabel);
+        gridPanels[1][4].add(leafSizeLabelPanel);
         gridPanels[1][4].setLayout(new BoxLayout(gridPanels[1][4], BoxLayout.LINE_AXIS));
         gridPanels[1][4].add(leafSizeComboBox);
         gridPanels[1][4].add(doubleLeafSizeCheckbox);
 
+        JLabel clearOpeningLabel = new JLabel("Clear Opening");
+        JPanel clearOpeningLabelPanel = new JPanel();
+        clearOpeningLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        clearOpeningLabelPanel.add(clearOpeningLabel);
+        gridPanels[2][0].add(clearOpeningLabelPanel);
         gridPanels[2][0].add(clearOpeningComboBox);
+
+        JLabel entranceLevelLabel = new JLabel("Entrance Level");
+        JPanel entranceLevelLabelPanel = new JPanel();
+        entranceLevelLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        entranceLevelLabelPanel.add(entranceLevelLabel);
+        gridPanels[2][1].add(entranceLevelLabelPanel);
         gridPanels[2][1].add(entranceLevelComboBox);
+
+        JLabel partMCompliantLabel = new JLabel("Part M Compliant");
+        JPanel partMCompliantLabelPanel = new JPanel();
+        partMCompliantLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        partMCompliantLabelPanel.add(partMCompliantLabel);
+        gridPanels[2][2].add(partMCompliantLabelPanel);
         gridPanels[2][2].add(partMCompliantComboBox);
+
+        JLabel additionalPlyLiningLabel = new JLabel("Additional Ply Lining");
+        JPanel additionalPlyLiningLabelPanel = new JPanel();
+        additionalPlyLiningLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        additionalPlyLiningLabelPanel.add(additionalPlyLiningLabel);
+        gridPanels[2][3].add(additionalPlyLiningLabelPanel);
         gridPanels[2][3].add(additionalPlyLiningComboBox);
 //        gridPanels[2][4].add();
 
+        JLabel structuralOpeningLabel = new JLabel("Structural Opening");
+        JPanel structuralOpeningLabelPanel = new JPanel();
+        structuralOpeningLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        structuralOpeningLabelPanel.add(structuralOpeningLabel);
+        gridPanels[3][0].add(structuralOpeningLabelPanel);
         gridPanels[3][0].add(structuralOpeningComboBox);
+
+        JLabel structuralOpeningDetailsLabel = new JLabel("Structural Opening Details");
+        JPanel structuralOpeningDetailsLabelPanel = new JPanel();
+        structuralOpeningDetailsLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        structuralOpeningDetailsLabelPanel.add(structuralOpeningDetailsLabel);
+        gridPanels[3][1].add(structuralOpeningDetailsLabelPanel);
         gridPanels[3][1].add(structuralOpeningDetailsTextField);
+
+        JLabel frameDetailsLabel = new JLabel("Frame Details");
+        JPanel frameDetailsLabelPanel = new JPanel();
+        frameDetailsLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        frameDetailsLabelPanel.add(frameDetailsLabel);
+        gridPanels[3][2].add(frameDetailsLabelPanel);
         gridPanels[3][2].add(frameDetailsTextField);
+
+        JLabel sillDetailsLabel = new JLabel("Sill Details");
+        JPanel sillDetailsLabelPanel = new JPanel();
+        sillDetailsLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        sillDetailsLabelPanel.add(sillDetailsLabel);
+        gridPanels[3][3].add(sillDetailsLabelPanel);
         gridPanels[3][3].add(sillDetailsTextField);
+
+        JLabel architraveTypeLabel = new JLabel("Architrave Type");
+        JPanel architraveTypeLabelPanel = new JPanel();
+        architraveTypeLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        architraveTypeLabelPanel.add(architraveTypeLabel);
+        gridPanels[3][4].add(architraveTypeLabelPanel);
         gridPanels[3][4].add(architraveTypeTextField);
 
+        JLabel hingesLabel = new JLabel("Hinges");
+        JPanel hingesLabelPanel = new JPanel();
+        hingesLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        hingesLabelPanel.add(hingesLabel);
+        gridPanels[4][0].add(hingesLabelPanel);
         gridPanels[4][0].add(hingesComboBox);
+
+        JLabel latchLabel = new JLabel("Latch");
+        JPanel latchLabelPanel = new JPanel();
+        latchLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        latchLabelPanel.add(latchLabel);
+        gridPanels[4][1].add(latchLabelPanel);
         gridPanels[4][1].add(latchComboBox);
+
+        JLabel lockLabel = new JLabel("Lock");
+        JPanel lockLabelPanel = new JPanel();
+        lockLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        lockLabelPanel.add(lockLabel);
+        gridPanels[4][2].add(lockLabelPanel);
         gridPanels[4][2].add(lockComboBox);
+
+        JLabel handleLabel = new JLabel("Handle");
+        JPanel handleLabelPanel = new JPanel();
+        handleLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        handleLabelPanel.add(handleLabel);
+        gridPanels[4][3].add(handleLabelPanel);
         gridPanels[4][3].add(handleComboBox);
+
+        JLabel additionalNotesLabel = new JLabel("Additional Notes");
+        JPanel additionalNotesLabelPanel = new JPanel();
+        additionalNotesLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        additionalNotesLabelPanel.add(additionalNotesLabel);
+        gridPanels[4][4].add(additionalNotesLabelPanel);
         gridPanels[4][4].add(additionalNotesTextField);
 
     }
