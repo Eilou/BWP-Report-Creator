@@ -15,7 +15,5 @@ public class App {
         GUIFrame guiFrame = new GUIFrame();
         guiFrame.setup();
         System.out.println("Application GUI has loaded");
-
-        System.out.println("Testing");
     }
 }
