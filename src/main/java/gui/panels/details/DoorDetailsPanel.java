@@ -1,6 +1,7 @@
 package gui.panels.details;
 
 import enums.YesNoOptions;
+import gui.handlers.CustomOptionHandler;
 import items.doors.*;
 
 import javax.swing.*;
@@ -92,7 +93,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
             for (int column = 0; column < gridPanels[0].length; column++) {
                 gridPanels[row][column] = new JPanel();
                 gridPanels[row][column].setLayout(new BoxLayout(gridPanels[row][column], BoxLayout.PAGE_AXIS));
-                gridPanels[row][column].setPreferredSize(new Dimension(50, 50));
+                gridPanels[row][column].setPreferredSize(new Dimension(50, 100));
                 gridPanels[row][column].setBorder(new LineBorder(Color.BLACK));
                 gridPanels[row][column].setBackground(new Color(255, 0, 255));
 
@@ -113,6 +114,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
         populateComboBoxes();
         positionForms();
         setFormDefaults();
+        attachHandlers();
     }
 
     /**
@@ -319,7 +321,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
      */
     public void populateComboBoxes() {
 
-        populateGivenComboBox(floorComboBox, new String[]{"Ground Floor","First Floor","Second Floor","Third Floor","Lower Ground Floor","Upper Ground Floor","Mezzanine","Basement 1","Basement 2"});
+        populateGivenComboBox(floorComboBox, new String[]{"Ground Floor","First Floor","Second " +
+                "Floor","Third Floor","Lower Ground Floor","Upper Ground Floor","Mezzanine",
+                "Basement 1","Basement 2", "Custom"});
         populateGivenComboBox(wallConstructionComboBox, new String[]{"Masonry cavity wall","Timberframe","SIPS panel","100mm blockwork","140mm blockwork","215mm blockwork","89mm partition","100mm partition","140mm partition"});
         populateGivenComboBox(internalExternalComboBox, new String[]{"Internal", "External [1]"});
         populateGivenComboBox(partMThresholdComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y_2});
@@ -335,6 +339,15 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
         populateGivenComboBox(latchComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y});
         populateGivenComboBox(lockComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y, YesNoOptions.Y_5});
         populateGivenComboBox(handleComboBox, new YesNoOptions[]{YesNoOptions.Y});
+
+    }
+
+    /**
+     * Add the event handlers to the comboboxes
+     */
+    public void attachHandlers() {
+
+        floorComboBox.addActionListener(new CustomOptionHandler(floorComboBox, gridPanels[0][0]));
 
     }
 
