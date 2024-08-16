@@ -32,6 +32,8 @@ public class CustomOptionHandler <T> implements ActionListener {
      * Handles the event
      *
      * @param e the event to be processed
+     *          TODO MAYEB I NEED TO REVALIDATE AND REPAINT THE REPORT CREATION PANEL AND THE
+     *          DETAIL PANEL COS SOMETHIGN IS AFOOT
      */
     @Override
     public void actionPerformed(ActionEvent e) {
