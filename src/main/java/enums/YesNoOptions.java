@@ -14,7 +14,8 @@ public enum YesNoOptions {
     NO,
     NO_EXCLAIM,
     N,
-    BLANK;
+    BLANK,
+    CUSTOM;
 
     /**
      * Controls how the enum will be printed as a string, will come in particularly handy for
@@ -29,6 +30,7 @@ public enum YesNoOptions {
             case Y_4 -> "Y[4]";
             case Y_5 -> "Y[5]";
             case NO_EXCLAIM -> "NO!";
+            case CUSTOM -> "Custom";
             case BLANK -> " ";
         };
     }

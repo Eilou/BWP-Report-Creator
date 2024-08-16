@@ -1,15 +1,17 @@
 package gui.handlers;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * Handler to add a custom text box when the "Custom" option is selected on each different combobox
+ * @param <T> Means can work it with both String combo boxes and YesNoOption ones
  */
-public class CustomOptionHandler implements ActionListener {
+public class CustomOptionHandler <T> implements ActionListener {
 
-    private JComboBox<String> comboBox;
+    private JComboBox<T> comboBox;
     private JPanel gridSectionPanel;
     private JTextField customTextField;
 
@@ -18,8 +20,9 @@ public class CustomOptionHandler implements ActionListener {
      *
      * @param comboBox         check here to see if its selected
      * @param gridSectionPanel the panel to update
+     *
      */
-    public CustomOptionHandler(JComboBox<String> comboBox, JPanel gridSectionPanel) {
+    public CustomOptionHandler (JComboBox<T> comboBox, JPanel gridSectionPanel) {
         this.comboBox = comboBox;
         this.gridSectionPanel = gridSectionPanel;
         this.customTextField = new JTextField("HELP ME");
@@ -32,7 +35,8 @@ public class CustomOptionHandler implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (comboBox.getSelectedItem() != null && comboBox.getSelectedItem().equals("Custom")) {
+        if (comboBox.getSelectedItem() != null && comboBox.getSelectedItem().toString().equals(
+                "Custom")) {
             gridSectionPanel.add(this.customTextField);
         } else {
             gridSectionPanel.remove(customTextField);

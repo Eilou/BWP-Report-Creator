@@ -321,24 +321,43 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
      */
     public void populateComboBoxes() {
 
-        populateGivenComboBox(floorComboBox, new String[]{"Ground Floor","First Floor","Second " +
+        populateGivenComboBox(floorComboBox, new String[]{"", "Ground Floor","First Floor",
+                "Second " +
                 "Floor","Third Floor","Lower Ground Floor","Upper Ground Floor","Mezzanine",
                 "Basement 1","Basement 2", "Custom"});
-        populateGivenComboBox(wallConstructionComboBox, new String[]{"Masonry cavity wall","Timberframe","SIPS panel","100mm blockwork","140mm blockwork","215mm blockwork","89mm partition","100mm partition","140mm partition"});
-        populateGivenComboBox(internalExternalComboBox, new String[]{"Internal", "External [1]"});
-        populateGivenComboBox(partMThresholdComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y_2});
-        populateGivenComboBox(fireRatingComboBox, new String[]{"FD20 [3]","FD30 [3]","FD30-SC [3]","FD60 [3]"});
-        populateGivenComboBox(glazedComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y_4});
-        populateGivenComboBox(leafTypeComboBox, new String[]{"Imperial", "Metric", "Bespoke"});
-        populateGivenComboBox(leafSizeComboBox, new String[]{"610","686","762","838","626","726", "826","926","2 x 610","2 x 686","2 x 762","2 x 838","2 x 626","2 x 726","2 x 826","2 x 926"});
-        populateGivenComboBox(leafNumberCheckbox, new String[]{"Single", "Double", "Triple", "Quad"});
-        populateGivenComboBox(entranceLevelComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y});
-        populateGivenComboBox(additionalPlyLiningComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y});
-        populateGivenComboBox(hingesComboBox, new String[]{"1 pair", "1 1/2 pair", "2 pair"}); //
+        populateGivenComboBox(wallConstructionComboBox, new String[]{"", "Masonry cavity wall",
+                "Timberframe","SIPS panel","100mm blockwork","140mm blockwork","215mm blockwork",
+                "89mm partition","100mm partition","140mm partition", "Custom"});
+        populateGivenComboBox(internalExternalComboBox, new String[]{"", "Internal", "External " +
+                "[1]",
+                "Custom"});
+        populateGivenComboBox(partMThresholdComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
+                YesNoOptions.Y_2, YesNoOptions.CUSTOM});
+        populateGivenComboBox(fireRatingComboBox, new String[]{"", "FD20 [3]","FD30 [3]","FD30-SC" +
+                " " +
+                "[3]","FD60 [3]", "Custom"});
+        populateGivenComboBox(glazedComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
+                YesNoOptions.Y_4, YesNoOptions.CUSTOM});
+        populateGivenComboBox(leafTypeComboBox, new String[]{"", "Imperial", "Metric", "Bespoke",
+                "Custom"});
+        populateGivenComboBox(leafSizeComboBox, new String[]{"", "610","686","762","838","626",
+                "726","826","926","2 x 610","2 x 686","2 x 762","2 x 838","2 x 626","2 x 726","2 x 826"
+                ,"2 x 926", "Custom"});
+        populateGivenComboBox(leafNumberCheckbox, new String[]{"Single", "Double", "Triple",
+                "Quad", "Custom"});
+        populateGivenComboBox(entranceLevelComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
+                YesNoOptions.Y, YesNoOptions.CUSTOM});
+        populateGivenComboBox(additionalPlyLiningComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
+                YesNoOptions.Y, YesNoOptions.CUSTOM});
         // needs turning into the unicode values
-        populateGivenComboBox(latchComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y});
-        populateGivenComboBox(lockComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y, YesNoOptions.Y_5});
-        populateGivenComboBox(handleComboBox, new YesNoOptions[]{YesNoOptions.Y});
+        populateGivenComboBox(hingesComboBox,
+                new String[]{"", "1 pair", "1 1/2 pair", "2 pair", "Custom"});
+
+        populateGivenComboBox(latchComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
+                YesNoOptions.Y, YesNoOptions.CUSTOM});
+        populateGivenComboBox(lockComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y
+                , YesNoOptions.Y_5, YesNoOptions.CUSTOM});
+        populateGivenComboBox(handleComboBox, new YesNoOptions[]{YesNoOptions.Y, YesNoOptions.CUSTOM});
 
     }
 
@@ -346,9 +365,10 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
      * Add the event handlers to the comboboxes
      */
     public void attachHandlers() {
-
-        floorComboBox.addActionListener(new CustomOptionHandler(floorComboBox, gridPanels[0][0]));
-
+        floorComboBox.addActionListener(new CustomOptionHandler<>(floorComboBox,
+                gridPanels[0][0]));
+        handleComboBox.addActionListener(new CustomOptionHandler<>(handleComboBox,
+                gridPanels[4][3]));
     }
 
     ////////////////////////////////////
