@@ -1,5 +1,7 @@
 package gui.handlers;
 
+import gui.panels.details.GridPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,8 +14,7 @@ import java.awt.event.ActionListener;
 public class CustomOptionHandler <T> implements ActionListener {
 
     private JComboBox<T> comboBox;
-    private JPanel gridSectionPanel;
-    private JTextField customTextField;
+    private GridPanel gridSectionPanel;
 
     /**
      * Sets up the handler to add a custom text box when needed
@@ -22,10 +23,9 @@ public class CustomOptionHandler <T> implements ActionListener {
      * @param gridSectionPanel the panel to update
      *
      */
-    public CustomOptionHandler (JComboBox<T> comboBox, JPanel gridSectionPanel) {
+    public CustomOptionHandler (JComboBox<T> comboBox, GridPanel gridSectionPanel) {
         this.comboBox = comboBox;
         this.gridSectionPanel = gridSectionPanel;
-        this.customTextField = new JTextField("HELP ME");
     }
 
     /**
@@ -33,17 +33,16 @@ public class CustomOptionHandler <T> implements ActionListener {
      *
      * @param e the event to be processed
      *          TODO MAYEB I NEED TO REVALIDATE AND REPAINT THE REPORT CREATION PANEL AND THE
-     *          DETAIL PANEL COS SOMETHIGN IS AFOOT
+     *          DETAIL PANEL COS Something IS AFOOT
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (comboBox.getSelectedItem() != null && comboBox.getSelectedItem().toString().equals(
                 "Custom")) {
-            gridSectionPanel.add(this.customTextField);
+            gridSectionPanel.addCustomOption();
         } else {
-            gridSectionPanel.remove(customTextField);
+            gridSectionPanel.removeCustomOption();
         }
-        gridSectionPanel.repaint();
-        gridSectionPanel.revalidate();
+
     }
 }

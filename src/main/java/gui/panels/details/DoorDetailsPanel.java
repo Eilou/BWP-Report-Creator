@@ -16,7 +16,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
 
     private JPanel parentPanel;
     private Door door;
-    private JPanel[][] gridPanels;
+    private GridPanel[][] gridPanels;
 
     private final JComboBox<String> floorComboBox = new JComboBox<>();
     private final JComboBox<String> roomComboBox = new JComboBox<>();
@@ -70,7 +70,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
         this.door = new Door(count);
         int rows = 5;
         int columns = 5;
-        gridPanels = new JPanel[rows][columns];
+        gridPanels = new GridPanel[rows][columns];
 
     }
 
@@ -91,7 +91,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
 
         for (int row = 0; row < gridPanels.length; row++) {
             for (int column = 0; column < gridPanels[0].length; column++) {
-                gridPanels[row][column] = new JPanel();
+                gridPanels[row][column] = new GridPanel();
                 gridPanels[row][column].setLayout(new BoxLayout(gridPanels[row][column], BoxLayout.PAGE_AXIS));
                 gridPanels[row][column].setPreferredSize(new Dimension(50, 100));
                 gridPanels[row][column].setBorder(new LineBorder(Color.BLACK));
@@ -171,16 +171,12 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
         gridPanels[1][1].add(fireRatingLabelPanel);
         gridPanels[1][1].add(fireRatingComboBox);
 
-
-
         JLabel glazedLabel = new JLabel("Glazed");
         JPanel glazedLabelPanel = new JPanel();
         glazedLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         glazedLabelPanel.add(glazedLabel);
         gridPanels[1][2].add(glazedLabelPanel);
         gridPanels[1][2].add(glazedComboBox);
-
-
 
         JLabel leafSizeLabel = new JLabel("Leaf Size");
         JPanel leafSizeLabelPanel = new JPanel();
@@ -367,6 +363,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface{
     public void attachHandlers() {
         floorComboBox.addActionListener(new CustomOptionHandler<>(floorComboBox,
                 gridPanels[0][0]));
+        roomComboBox.addActionListener(new CustomOptionHandler<>(roomComboBox, gridPanels[0][1]));
         handleComboBox.addActionListener(new CustomOptionHandler<>(handleComboBox,
                 gridPanels[4][3]));
     }
