@@ -10,14 +10,17 @@ public class Door extends Item {
     private String floor;
     private String room;
     private String wallConstruction;
-    private String type;
-    private Boolean internalExternal; // true = internal, false = external
+    private String doorType;
+    private String internalExternal; // true = internal, false = external (not boolean as might need to be blank)
     // this might require a reference to the key (numbered 1)
     private YesNoOptions partMThreshold; // true = yes, false = no
     private String fireRating;
     private YesNoOptions glazed; // yes or no
+
+    private String leafType;
     private Dimension leafSize;
-    private YesNoOptions doubleLeafSize; // true = yes: double meaning shows as 2x...x...
+    private String leafNumber; // single, double, triple, quad
+
     private int clearOpening;
     private YesNoOptions entranceLevel;
     private YesNoOptions partMCompliant; // YES or NO!... when null that means to leave blank
@@ -41,13 +44,16 @@ public class Door extends Item {
         floor = null;
         room = null;
         wallConstruction = null;
-        type = null;
+        doorType = null;
         internalExternal = null;
         partMThreshold = null;
         fireRating = null;
         glazed = null;
+
+        leafType = null;
         leafSize = null;
-        doubleLeafSize = null;
+        leafNumber = null;
+
         clearOpening = 0;
         entranceLevel = null;
         partMCompliant = null;
@@ -64,12 +70,29 @@ public class Door extends Item {
     // getters and setters
     ////////////////////////////////////
 
+    /**
+     * takes a value and its assigned attribute value sets the door instance to such
+     * ideally I would pass these mutator methods as parameters but what can ya do
+     * TODO
+     *
+     * @param attribute the type to modify
+     * @param value     the value to set to
+     */
+    @Override
+    public void setAttributeSwitcher(String attribute, Object value) {
+
+    }
+
+    @Override
     public int getCount() {
         return count;
     }
+
+    @Override
     public void setCount(int newCount) {
         count = newCount;
     }
+
     public String getFloor() {
         return floor;
     }
@@ -94,19 +117,19 @@ public class Door extends Item {
         this.wallConstruction = wallConstruction;
     }
 
-    public String getType() {
-        return type;
+    public String getDoorType() {
+        return doorType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDoorType(String doorType) {
+        this.doorType = doorType;
     }
 
-    public Boolean getInternalExternal() {
+    public String getInternalExternal() {
         return internalExternal;
     }
 
-    public void setInternalExternal(Boolean internalExternal) {
+    public void setInternalExternal(String internalExternal) {
         this.internalExternal = internalExternal;
     }
 
@@ -134,6 +157,14 @@ public class Door extends Item {
         this.glazed = glazed;
     }
 
+    public String getLeafType() {
+        return leafType;
+    }
+
+    public void setLeafType(String leafType) {
+        this.leafType = leafType;
+    }
+
     public Dimension getLeafSize() {
         return leafSize;
     }
@@ -142,12 +173,12 @@ public class Door extends Item {
         this.leafSize = leafSize;
     }
 
-    public YesNoOptions getDoubleLeafSize() {
-        return doubleLeafSize;
+    public String getLeafNumber() {
+        return leafNumber;
     }
 
-    public void setDoubleLeafSize(YesNoOptions doubleLeafSize) {
-        this.doubleLeafSize = doubleLeafSize;
+    public void setLeafNumber(String leafNumber) {
+        this.leafNumber = leafNumber;
     }
 
     public int getClearOpening() {

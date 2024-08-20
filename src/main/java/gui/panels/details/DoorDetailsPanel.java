@@ -2,13 +2,12 @@ package gui.panels.details;
 
 import enums.YesNoOptions;
 import gui.handlers.CustomOptionHandler;
+import gui.handlers.AttributeComboBoxHandler;
 import items.doors.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 /**
@@ -28,6 +27,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JComboBox<YesNoOptions> partMThresholdComboBox = new JComboBox<>();
     private final JComboBox<String> fireRatingComboBox = new JComboBox<>();
     private final JComboBox<YesNoOptions> glazedComboBox = new JComboBox<>();
+
     private final JComboBox<String> leafTypeComboBox = new JComboBox<>();
     private final JComboBox<String> leafSizeComboBox = new JComboBox<>();
     // want a dropdown next to this with sizes: imperial, metric or bespoke
@@ -41,6 +41,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JComboBox<YesNoOptions> partMCompliantComboBox = new JComboBox<>();
     // this doesn't actually need to be a partM compliant box, but should be updates as a result
     // of an if elseif else statement (look at the Excel sheet for reference)
+
     private final JComboBox<YesNoOptions> additionalPlyLiningComboBox = new JComboBox<>();
     private final JComboBox<String> structuralOpeningComboBox = new JComboBox<>();
     // this should be a lookup table
@@ -66,9 +67,6 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     public DoorDetailsPanel(JPanel parentPanel, int count) {
 
         this.parentPanel = parentPanel;
-//        setPreferredSize(new Dimension(0, 250));
-//        setMaximumSize(getPreferredSize());
-
         this.door = new Door(count);
         int rows = 5;
         int columns = 5;
@@ -81,7 +79,6 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
      */
     public void setup() {
 
-//        setBorder(border);
         setLayout(new GridBagLayout());
         setBackground(new Color(255, 0, 255));
 
@@ -147,7 +144,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         gridPanels[2][0].setup("Clear Opening", clearOpeningComboBox);
         gridPanels[2][1].setup("Entrance Level", entranceLevelComboBox);
-        gridPanels[2][2].setup("Part M Compliant", partMThresholdComboBox);
+        gridPanels[2][2].setup("Part M Compliant", partMCompliantComboBox);
         gridPanels[2][3].setup("Additional Ply Lining", additionalPlyLiningComboBox);
 
         //        gridPanels[2][4].add();
@@ -215,6 +212,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
                 "Quad", "Custom"});
         populateGivenComboBox(entranceLevelComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
                 YesNoOptions.Y, YesNoOptions.CUSTOM});
+//        populateGivenComboBox(partMCompliantComboBox, new YesNoOptions[]{YesNoOptions.BLANK, }); // this should be the lookup table
         populateGivenComboBox(additionalPlyLiningComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
                 YesNoOptions.Y, YesNoOptions.CUSTOM});
         // needs turning into the unicode values
@@ -231,10 +229,11 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
     /**
      * Add the event handlers to the comboboxes
+     * Feels like this could be done easier if I could pass the mutator methods of door like objects but here we are
+     * TODO
      */
     public void attachHandlers() {
-        floorComboBox.addActionListener(new CustomOptionHandler<>(floorComboBox,
-                gridPanels[0][0]));
+        floorComboBox.addActionListener(new CustomOptionHandler<>(floorComboBox, gridPanels[0][0]));
         floorComboBox.addActionListener(e -> door.setFloor((String) floorComboBox.getSelectedItem()));
 
         roomComboBox.addActionListener(new CustomOptionHandler<>(roomComboBox, gridPanels[0][1]));
@@ -243,11 +242,34 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         wallConstructionComboBox.addActionListener(new CustomOptionHandler<>(wallConstructionComboBox, gridPanels[0][2]));
         wallConstructionComboBox.addActionListener(e -> door.setWallConstruction((String) wallConstructionComboBox.getSelectedItem()));
 
-//        doorTypeComboBox.addActionListener(new CustomOptionHandler<>(doorTypeComboBox, ));
+        doorTypeComboBox.addActionListener(new CustomOptionHandler<>(doorTypeComboBox, gridPanels[0][3]));
+        doorTypeComboBox.addActionListener(e -> door.setDoorType((String) doorTypeComboBox.getSelectedItem()));
 
+        internalExternalComboBox.addActionListener(new CustomOptionHandler<>(internalExternalComboBox, gridPanels[0][4]));
+        internalExternalComboBox.addActionListener(e -> door.setInternalExternal((String) internalExternalComboBox.getSelectedItem()));
+
+        partMThresholdComboBox.addActionListener(new CustomOptionHandler<>(partMThresholdComboBox, gridPanels[1][0]));
+        partMThresholdComboBox.addActionListener(e -> door.setPartMThreshold((YesNoOptions) partMThresholdComboBox.getSelectedItem()));
+
+        fireRatingComboBox.addActionListener(new CustomOptionHandler<>(fireRatingComboBox, gridPanels[1][1]));
+        fireRatingComboBox.addActionListener(e -> door.setFireRating((String) fireRatingComboBox.getSelectedItem()));
+
+        glazedComboBox.addActionListener(new CustomOptionHandler<>(glazedComboBox, gridPanels[1][2]));
+        glazedComboBox.addActionListener(e -> door.setGlazed((YesNoOptions) glazedComboBox.getSelectedItem()));
 
         handleComboBox.addActionListener(new CustomOptionHandler<>(handleComboBox,
                 gridPanels[4][3]));
+
+    }
+
+    public <T> void attachAttributeHandler (JComboBox<T> comboBox, GridPanel<T> gridPanel, String attribute) {
+        comboBox.addActionListener(new CustomOptionHandler<>(comboBox, gridPanel));
+        comboBox.addActionListener(new AttributeComboBoxHandler(door, attribute));
+    }
+
+    // TODO and when I decide how best to handle this, then also do the GridPanel custom text field one
+    public void attachAttributeHandler(JTextField textField, String attribute) {
+
     }
 
     ////////////////////////////////////

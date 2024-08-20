@@ -1,5 +1,8 @@
 package gui.panels.details;
 
+import gui.handlers.CustomOptionHandler;
+import items.doors.Door;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,6 +20,7 @@ public class GridPanel<T> extends JPanel {
     private JTextField panelTextField;
     private JPanel secondPanel;
 
+    private Boolean customUsed;
     private JTextField customTextBox;
 
     /**
@@ -24,6 +28,7 @@ public class GridPanel<T> extends JPanel {
      */
     public GridPanel() {
         super();
+        customUsed = false;
         customTextBox = new JTextField("Custom option here");
     }
 
@@ -75,6 +80,8 @@ public class GridPanel<T> extends JPanel {
      */
     public void addCustomOption() {
         add(customTextBox);
+        customUsed = true;
+        // handle the custom text box updates when decided what to do with JTextField handler, as it will be the same
         revalidate();
         repaint();
     }
@@ -84,6 +91,7 @@ public class GridPanel<T> extends JPanel {
      */
     public void removeCustomOption() {
         remove(customTextBox);
+        customUsed = false;
         revalidate();
         repaint();
     }
