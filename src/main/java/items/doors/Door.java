@@ -73,14 +73,13 @@ public class Door extends Item {
     /**
      * takes a value and its assigned attribute value sets the door instance to such
      * ideally I would pass these mutator methods as parameters but what can ya do
-     * TODO
      *
      * @param attribute the type to modify
      * @param value     the value to set to
      */
     @Override
     public void setAttributeSwitcher(String attribute, Object value) {
-
+        System.out.println(attribute + " " + value);
     }
 
     @Override

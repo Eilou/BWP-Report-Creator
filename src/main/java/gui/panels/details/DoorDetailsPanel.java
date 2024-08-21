@@ -94,7 +94,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         for (int row = 0; row < gridPanels.length; row++) {
             for (int column = 0; column < gridPanels[0].length; column++) {
-                gridPanels[row][column] = new GridPanel();
+                gridPanels[row][column] = new GridPanel(this.door); //  the best part about GridPanel, is that it can be repeated using any type of Item, aren't I the best
                 gridPanels[row][column].setLayout(new BoxLayout(gridPanels[row][column], BoxLayout.PAGE_AXIS));
                 gridPanels[row][column].setPreferredSize(new Dimension(50, 100));
                 gridPanels[row][column].setBorder(new LineBorder(Color.BLACK));
@@ -237,6 +237,10 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
      * TODO
      */
     public void attachHandlers() {
+
+        gridPanels[0][0].attachAttributeHandler("floor combo box");
+        gridPanels[3][2].attachAttributeHandler("Frame Details text field");
+
 //        floorComboBox.addActionListener(new CustomOptionHandler<>(floorComboBox, gridPanels[0][0]));
 //        floorComboBox.addActionListener(e -> door.setFloor((String) floorComboBox.getSelectedItem()));
 //
@@ -263,19 +267,12 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 //
 //        handleComboBox.addActionListener(new CustomOptionHandler<>(handleComboBox,
 //                gridPanels[4][3]));
-        attachAttributeHandler(additionalNotesTextField, "additional notes");
+
+//        attachAttributeHandler(additionalNotesTextField, "additional notes");
 
     }
 
-    public <T> void attachAttributeHandler (JComboBox<T> comboBox, GridPanel<T> gridPanel, String attribute) {
-        comboBox.addActionListener(new CustomOptionHandler<>(comboBox, gridPanel));
-        comboBox.addActionListener(new AttributeComboBoxHandler(door, attribute));
-    }
 
-    // TODO and when I decide how best to handle this, then also do the GridPanel custom text field one
-    public void attachAttributeHandler(JTextField textField, String attribute) {
-        textField.getDocument().addDocumentListener(new AttributeTextFieldHandler());
-    }
 
     ////////////////////////////////////
     // getters and setters

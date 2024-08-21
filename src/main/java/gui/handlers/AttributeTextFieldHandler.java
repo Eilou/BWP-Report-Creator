@@ -1,9 +1,28 @@
 package gui.handlers;
 
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import items.Item;
+
+import javax.swing.*;
+import javax.swing.event.*;
 
 public class AttributeTextFieldHandler implements DocumentListener {
+
+    private JTextField textField;
+    private Item item;
+    private String attribute;
+
+    /**
+     * Sets up the handler. Could get the text field from the source of the event but that means
+     * going through the SwingUtilities library which may be shorter in code but is more complex
+     * @param textField the textField to read from
+     * @param item item to update
+     * @param attribute the item attribute to update
+     */
+    public AttributeTextFieldHandler(JTextField textField, Item item, String attribute) {
+        this.textField = textField;
+        this.item = item;
+        this.attribute = attribute;
+    }
 
     /**
      * Event generated when the document is written to
@@ -32,7 +51,10 @@ public class AttributeTextFieldHandler implements DocumentListener {
         updateItem();
     }
 
+    /**
+     * updates the item with the specified value
+     */
     public void updateItem() {
-        System.out.println("Hello world");
+        item.setAttributeSwitcher(attribute, textField.getText());
     }
 }
