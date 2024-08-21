@@ -31,8 +31,8 @@ public class Door extends Item {
     private String frameDetail;
     private String sillDetail;
     private String architraveType;
-    private Ironmongery ironmongery; // all parts to this group of fields will be encapsulated in
-    // this object
+    private Ironmongery ironmongery; // all parts to this group of fields will be encapsulated in this object
+    private String additionalNotes;
 
     /**
      * default constructor sets values to null as the gui will determine the values
@@ -64,23 +64,40 @@ public class Door extends Item {
         sillDetail = null;
         architraveType = null;
         ironmongery = new Ironmongery();
+        additionalNotes = null;
+    }
+
+    @Override
+    public String toString() {
+        return "Door{" +
+                "floor='" + floor + '\'' +
+                ", room='" + room + '\'' +
+                ", wallConstruction='" + wallConstruction + '\'' +
+                ", doorType='" + doorType + '\'' +
+                ", internalExternal='" + internalExternal + '\'' +
+                ", partMThreshold=" + partMThreshold +
+                ", fireRating='" + fireRating + '\'' +
+                ", glazed=" + glazed +
+                ", leafType='" + leafType + '\'' +
+                ", leafSize=" + leafSize +
+                ", leafNumber='" + leafNumber + '\'' +
+                ", clearOpening=" + clearOpening +
+                ", entranceLevel=" + entranceLevel +
+                ", partMCompliant=" + partMCompliant +
+                ", additionalPlyLining=" + additionalPlyLining +
+                ", structuralOpening=" + structuralOpening +
+                ", structuralOpeningDetails='" + structuralOpeningDetails + '\'' +
+                ", frameDetail='" + frameDetail + '\'' +
+                ", sillDetail='" + sillDetail + '\'' +
+                ", architraveType='" + architraveType + '\'' +
+                ", ironmongery=" + ironmongery +
+                ", additionalNotes='" + additionalNotes + '\'' +
+                "} " + super.toString();
     }
 
     ////////////////////////////////////
     // getters and setters
     ////////////////////////////////////
-
-    /**
-     * takes a value and its assigned attribute value sets the door instance to such
-     * ideally I would pass these mutator methods as parameters but what can ya do
-     *
-     * @param attribute the type to modify
-     * @param value     the value to set to
-     */
-    @Override
-    public void setAttributeSwitcher(String attribute, Object value) {
-        System.out.println(attribute + " " + value);
-    }
 
     @Override
     public int getCount() {
@@ -99,7 +116,7 @@ public class Door extends Item {
     public void setFloor(Object floor) { setFloor(String.valueOf(floor));}
     public void setFloor(String floor) {
         this.floor = floor;
-        System.out.println("Door " + count + ": set floor to " + floor);
+        System.out.println("Door " + count + ": set Floor:" + floor);
     }
 
     public String getRoom() {
@@ -262,4 +279,12 @@ public class Door extends Item {
         this.ironmongery = ironmongery;
     }
 
+    public String getAdditionalNotes() {
+        return additionalNotes;
+    }
+
+    public void setAdditionalNotes(String additionalNotes) {
+        this.additionalNotes = additionalNotes;
+        System.out.println("Door " + count + ": set Additional Notes to: " + additionalNotes);
+    }
 }

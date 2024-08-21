@@ -1,8 +1,5 @@
 package gui.handlers;
 
-import gui.panels.details.GridPanel;
-import items.Item;
-
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -11,14 +8,6 @@ import java.awt.event.*;
  * @param <T> Type value of the attribute to set
  */
 public class AttributeComboBoxHandler<T> implements ActionListener {
-
-//    private Item item;
-//    private String attribute;
-//
-//    public AttributeComboBoxHandler(Item item, String attribute) {
-//        this.item = item;
-//        this.attribute = attribute;
-//    }
 
     private Setter<T> setter;
 

@@ -1,28 +1,20 @@
 package gui.handlers;
 
-import items.Item;
-
 import javax.swing.*;
 import javax.swing.event.*;
 
 public class AttributeTextFieldHandler implements DocumentListener {
 
-    private JTextField textField;
-    private Item item;
-    private String attribute;
+    private  JTextField textField;
+    private Setter<String> setter;
 
     /**
      * Sets up the handler. Could get the text field from the source of the event but that means
      * going through the SwingUtilities library which may be shorter in code but is more complex
-     *
-     * @param textField the textField to read from
-     * @param item      item to update
-     * @param attribute the item attribute to update
      */
-    public AttributeTextFieldHandler(JTextField textField, Item item, String attribute) {
+    public AttributeTextFieldHandler(JTextField textField, Setter<String> setter) {
         this.textField = textField;
-        this.item = item;
-        this.attribute = attribute;
+        this.setter = setter;
     }
 
     /**
@@ -59,6 +51,6 @@ public class AttributeTextFieldHandler implements DocumentListener {
      * updates the item with the specified value
      */
     public void updateItem() {
-        item.setAttributeSwitcher(attribute, textField.getText());
+        setter.apply(textField.getText());
     }
 }

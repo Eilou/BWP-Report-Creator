@@ -82,7 +82,7 @@ public class GridPanel extends JPanel {
     /**
      * Polymorphic function to setup each different grip panel to help position them
      *
-     * @param labelText the label text of each grid section
+     * @param labelText    the label text of each grid section
      * @param premadePanel the second panel to be added below the label
      */
     public void setup(String labelText, JPanel premadePanel) {
@@ -91,29 +91,28 @@ public class GridPanel extends JPanel {
         add(secondPanel);
     }
 
-    public void attachAttributeHandler(Setter<?> setter) {
+    /**
+     * case 1: there is a combo box but not a text field and so add custom option handler and then also deal with comb box
+     * @param setter
+     */
+    public void attachCBAttributeHandler(Setter<?> setter) {
         // case 1: there is a combo box but not a text field
-        if (panelComboBox != null && panelTextField == null && secondPanel == null) {
-            panelComboBox.addActionListener(new CustomOptionHandler<>(panelComboBox, this));
-            panelComboBox.addActionListener(new AttributeComboBoxHandler<>(setter));
-        }
+        panelComboBox.addActionListener(new CustomOptionHandler<>(panelComboBox, this));
+        panelComboBox.addActionListener(new AttributeComboBoxHandler<>(setter));
 
-        // case 2: there is a text field but not a combo box
-//        else if (panelComboBox == null && panelTextField != null && secondPanel == null) {
-//            panelTextField.getDocument().addDocumentListener(new AttributeTextFieldHandler(panelTextField, setter));
-//        }
-        // case 3: there is a second panel (needs to be handled specifically)
+        //         case 3: there is a second panel (needs to be handled specifically)
+
+        System.out.println(item);
     }
 
-
-//    public void attachAttributeHandler(JComboBox<T> comboBox, GridPanel<T> gridPanel, String attribute) {
-//        comboBox.addActionListener(new CustomOptionHandler<>(comboBox, gridPanel));
-//        comboBox.addActionListener(new AttributeComboBoxHandler(door, attribute));
-//    }
-//
-//    public void attachAttributeHandler(JTextField textField, String attribute) {
-//        textField.getDocument().addDocumentListener(new AttributeTextFieldHandler(door, attribute));
-//    }
+    /**
+     * case 2: there is a text field but not a combo box
+     *
+     * @param setter different setter as we know it is only ever to be dealing with strings
+     */
+    public void attachTFAttributeHandler(Setter<String> setter) {
+        panelTextField.getDocument().addDocumentListener(new AttributeTextFieldHandler(panelTextField, setter));
+    }
 
     /**
      * Called when the custom option is selected in a combobox to add a section to add what you want to
