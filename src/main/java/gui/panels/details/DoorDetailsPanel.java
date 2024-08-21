@@ -1,13 +1,17 @@
 package gui.panels.details;
 
 import enums.YesNoOptions;
+import gui.handlers.AttributeTextFieldHandler;
 import gui.handlers.CustomOptionHandler;
 import gui.handlers.AttributeComboBoxHandler;
 import items.doors.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.util.List;
 
 /**
@@ -233,32 +237,33 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
      * TODO
      */
     public void attachHandlers() {
-        floorComboBox.addActionListener(new CustomOptionHandler<>(floorComboBox, gridPanels[0][0]));
-        floorComboBox.addActionListener(e -> door.setFloor((String) floorComboBox.getSelectedItem()));
-
-        roomComboBox.addActionListener(new CustomOptionHandler<>(roomComboBox, gridPanels[0][1]));
-        roomComboBox.addActionListener(e -> door.setRoom((String) roomComboBox.getSelectedItem()));
-
-        wallConstructionComboBox.addActionListener(new CustomOptionHandler<>(wallConstructionComboBox, gridPanels[0][2]));
-        wallConstructionComboBox.addActionListener(e -> door.setWallConstruction((String) wallConstructionComboBox.getSelectedItem()));
-
-        doorTypeComboBox.addActionListener(new CustomOptionHandler<>(doorTypeComboBox, gridPanels[0][3]));
-        doorTypeComboBox.addActionListener(e -> door.setDoorType((String) doorTypeComboBox.getSelectedItem()));
-
-        internalExternalComboBox.addActionListener(new CustomOptionHandler<>(internalExternalComboBox, gridPanels[0][4]));
-        internalExternalComboBox.addActionListener(e -> door.setInternalExternal((String) internalExternalComboBox.getSelectedItem()));
-
-        partMThresholdComboBox.addActionListener(new CustomOptionHandler<>(partMThresholdComboBox, gridPanels[1][0]));
-        partMThresholdComboBox.addActionListener(e -> door.setPartMThreshold((YesNoOptions) partMThresholdComboBox.getSelectedItem()));
-
-        fireRatingComboBox.addActionListener(new CustomOptionHandler<>(fireRatingComboBox, gridPanels[1][1]));
-        fireRatingComboBox.addActionListener(e -> door.setFireRating((String) fireRatingComboBox.getSelectedItem()));
-
-        glazedComboBox.addActionListener(new CustomOptionHandler<>(glazedComboBox, gridPanels[1][2]));
-        glazedComboBox.addActionListener(e -> door.setGlazed((YesNoOptions) glazedComboBox.getSelectedItem()));
-
-        handleComboBox.addActionListener(new CustomOptionHandler<>(handleComboBox,
-                gridPanels[4][3]));
+//        floorComboBox.addActionListener(new CustomOptionHandler<>(floorComboBox, gridPanels[0][0]));
+//        floorComboBox.addActionListener(e -> door.setFloor((String) floorComboBox.getSelectedItem()));
+//
+//        roomComboBox.addActionListener(new CustomOptionHandler<>(roomComboBox, gridPanels[0][1]));
+//        roomComboBox.addActionListener(e -> door.setRoom((String) roomComboBox.getSelectedItem()));
+//
+//        wallConstructionComboBox.addActionListener(new CustomOptionHandler<>(wallConstructionComboBox, gridPanels[0][2]));
+//        wallConstructionComboBox.addActionListener(e -> door.setWallConstruction((String) wallConstructionComboBox.getSelectedItem()));
+//
+//        doorTypeComboBox.addActionListener(new CustomOptionHandler<>(doorTypeComboBox, gridPanels[0][3]));
+//        doorTypeComboBox.addActionListener(e -> door.setDoorType((String) doorTypeComboBox.getSelectedItem()));
+//
+//        internalExternalComboBox.addActionListener(new CustomOptionHandler<>(internalExternalComboBox, gridPanels[0][4]));
+//        internalExternalComboBox.addActionListener(e -> door.setInternalExternal((String) internalExternalComboBox.getSelectedItem()));
+//
+//        partMThresholdComboBox.addActionListener(new CustomOptionHandler<>(partMThresholdComboBox, gridPanels[1][0]));
+//        partMThresholdComboBox.addActionListener(e -> door.setPartMThreshold((YesNoOptions) partMThresholdComboBox.getSelectedItem()));
+//
+//        fireRatingComboBox.addActionListener(new CustomOptionHandler<>(fireRatingComboBox, gridPanels[1][1]));
+//        fireRatingComboBox.addActionListener(e -> door.setFireRating((String) fireRatingComboBox.getSelectedItem()));
+//
+//        glazedComboBox.addActionListener(new CustomOptionHandler<>(glazedComboBox, gridPanels[1][2]));
+//        glazedComboBox.addActionListener(e -> door.setGlazed((YesNoOptions) glazedComboBox.getSelectedItem()));
+//
+//        handleComboBox.addActionListener(new CustomOptionHandler<>(handleComboBox,
+//                gridPanels[4][3]));
+        attachAttributeHandler(additionalNotesTextField, "additional notes");
 
     }
 
@@ -269,7 +274,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
     // TODO and when I decide how best to handle this, then also do the GridPanel custom text field one
     public void attachAttributeHandler(JTextField textField, String attribute) {
-
+        textField.getDocument().addDocumentListener(new AttributeTextFieldHandler());
     }
 
     ////////////////////////////////////

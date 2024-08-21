@@ -19,6 +19,12 @@ public class AttributeComboBoxHandler implements ActionListener {
         this.attribute = attribute;
     }
 
+    /**
+     * Handles the combo box events
+     * Cleverly, and conveniently if I am honest, if the custom option is selected, then the textField event handler will
+     * overwrite this, as that updates whenever the text box is typed in
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         JComboBox source = (JComboBox)e.getSource(); // unparameterised because there are multiple different combo boxes
