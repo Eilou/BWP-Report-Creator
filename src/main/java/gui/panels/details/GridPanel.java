@@ -3,6 +3,7 @@ package gui.panels.details;
 import gui.handlers.AttributeComboBoxHandler;
 import gui.handlers.AttributeTextFieldHandler;
 import gui.handlers.CustomOptionHandler;
+import gui.handlers.Setter;
 import items.Item;
 
 import javax.swing.*;
@@ -11,16 +12,15 @@ import java.awt.*;
 /**
  * Means we can access a custom text box to add or remove later
  * Having it as a class means that we always have a pointer readily available to read from when outputting to a PDF
- *
- * @param <T> Indicates which type of parameter dealing with in the combobox if panel contains one
+ * one
  */
-public class GridPanel<T> extends JPanel {
+public class GridPanel extends JPanel {
     private Item item;
 
     private JLabel gridLabel;
     private JPanel gridLabelPanel;
 
-    private JComboBox<T> panelComboBox;
+    private JComboBox<?> panelComboBox;
     private JTextField panelTextField;
     private JPanel secondPanel;
 
@@ -61,7 +61,7 @@ public class GridPanel<T> extends JPanel {
      * @param labelText The label text of each grid section
      * @param comboBox  the combobox within this grid panel
      */
-    public void setup(String labelText, JComboBox<T> comboBox) {
+    public void setup(String labelText, JComboBox<?> comboBox) {
         setupLabel(labelText);
         this.panelComboBox = comboBox;
         add(panelComboBox);
@@ -91,16 +91,17 @@ public class GridPanel<T> extends JPanel {
         add(secondPanel);
     }
 
-    public void attachAttributeHandler(String attribute) {
+    public void attachAttributeHandler(Setter<?> setter) {
         // case 1: there is a combo box but not a text field
         if (panelComboBox != null && panelTextField == null && secondPanel == null) {
             panelComboBox.addActionListener(new CustomOptionHandler<>(panelComboBox, this));
-            panelComboBox.addActionListener(new AttributeComboBoxHandler(item, attribute));
+            panelComboBox.addActionListener(new AttributeComboBoxHandler<>(setter));
         }
+
         // case 2: there is a text field but not a combo box
-        else if (panelComboBox == null && panelTextField != null && secondPanel == null) {
-            panelTextField.getDocument().addDocumentListener(new AttributeTextFieldHandler(panelTextField, item, attribute));
-        }
+//        else if (panelComboBox == null && panelTextField != null && secondPanel == null) {
+//            panelTextField.getDocument().addDocumentListener(new AttributeTextFieldHandler(panelTextField, setter));
+//        }
         // case 3: there is a second panel (needs to be handled specifically)
     }
 
@@ -147,11 +148,11 @@ public class GridPanel<T> extends JPanel {
         this.customTextBox = customTextBox;
     }
 
-    public JComboBox<T> getPanelComboBox() {
+    public JComboBox<?> getPanelComboBox() {
         return panelComboBox;
     }
 
-    public void setPanelComboBox(JComboBox<T> panelComboBox) {
+    public void setPanelComboBox(JComboBox<?> panelComboBox) {
         this.panelComboBox = panelComboBox;
     }
 

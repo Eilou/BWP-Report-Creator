@@ -14,8 +14,9 @@ public class AttributeTextFieldHandler implements DocumentListener {
     /**
      * Sets up the handler. Could get the text field from the source of the event but that means
      * going through the SwingUtilities library which may be shorter in code but is more complex
+     *
      * @param textField the textField to read from
-     * @param item item to update
+     * @param item      item to update
      * @param attribute the item attribute to update
      */
     public AttributeTextFieldHandler(JTextField textField, Item item, String attribute) {
@@ -26,6 +27,7 @@ public class AttributeTextFieldHandler implements DocumentListener {
 
     /**
      * Event generated when the document is written to
+     *
      * @param e the document event
      */
     @Override
@@ -35,6 +37,7 @@ public class AttributeTextFieldHandler implements DocumentListener {
 
     /**
      * Event generated when the document is deleted from
+     *
      * @param e the document event
      */
     @Override
@@ -44,6 +47,7 @@ public class AttributeTextFieldHandler implements DocumentListener {
 
     /**
      * Event generated when the document properties are changed
+     *
      * @param e the document event
      */
     @Override

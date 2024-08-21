@@ -238,8 +238,8 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
      */
     public void attachHandlers() {
 
-        gridPanels[0][0].attachAttributeHandler("floor combo box");
-        gridPanels[3][2].attachAttributeHandler("Frame Details text field");
+        gridPanels[0][0].attachAttributeHandler(door::setFloor);
+//        gridPanels[3][2].attachAttributeHandler("Frame Details text field");
 
 //        floorComboBox.addActionListener(new CustomOptionHandler<>(floorComboBox, gridPanels[0][0]));
 //        floorComboBox.addActionListener(e -> door.setFloor((String) floorComboBox.getSelectedItem()));

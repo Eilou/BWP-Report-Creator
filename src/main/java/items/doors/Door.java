@@ -96,8 +96,10 @@ public class Door extends Item {
         return floor;
     }
 
+    public void setFloor(Object floor) { setFloor(String.valueOf(floor));}
     public void setFloor(String floor) {
         this.floor = floor;
+        System.out.println("Door " + count + ": set floor to " + floor);
     }
 
     public String getRoom() {
@@ -259,4 +261,5 @@ public class Door extends Item {
     public void setIronmongery(Ironmongery ironmongery) {
         this.ironmongery = ironmongery;
     }
+
 }
