@@ -1,11 +1,15 @@
 package gui.panels;
 
 import enums.ReportState;
+import exporting.DoorReportBuilder;
 import gui.handlers.AddDetailButtonHandler;
+import gui.handlers.GenerateReportHandler;
 import gui.handlers.RemoveLastDetailButtonHandler;
+import gui.panels.details.DoorDetailsPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * Provides the toolbar on the left hand side of the application
@@ -18,8 +22,7 @@ public class ToolbarPanel extends JPanel {
     private JButton addDetailButton;
     private JCheckBox backfillCheckbox;
     private JButton removeDetailButton;
-    private JButton previewButton;
-    private JButton printButton;
+    private JButton generateReportButton;
 
     public ToolbarPanel(JPanel parentPanel, ReportState reportState, ReportCreationPanel reportCreationPanel) {
         this.parentPanel = parentPanel;
@@ -30,8 +33,7 @@ public class ToolbarPanel extends JPanel {
         addDetailButton = new JButton("Add " + reportState);
         backfillCheckbox = new JCheckBox();
         removeDetailButton = new JButton("Remove " + reportState);
-        previewButton = new JButton("Preview Report");
-        printButton = new JButton("Print Report");
+        generateReportButton = new JButton("Generate Report");
     }
 
     /**
@@ -51,8 +53,7 @@ public class ToolbarPanel extends JPanel {
         add(addDetailButton);
         add(backfillCheckbox);
         add(removeDetailButton);
-        add(previewButton);
-        add(printButton);
+        add(generateReportButton);
     }
 
     /**
@@ -63,6 +64,21 @@ public class ToolbarPanel extends JPanel {
                 new AddDetailButtonHandler(reportState, reportCreationPanel, backfillCheckbox));
         removeDetailButton.addActionListener(
                 new RemoveLastDetailButtonHandler(reportState, reportCreationPanel));
+        generateReportButton.addActionListener(new GenerateReportHandler(new DoorReportBuilder(reportCreationPanel)));
+    }
+
+    /**
+     * Updates the Generate report button to match whatever state the report creator is currently in
+     */
+    public void reloadGenerateReportButtonHandlers() {
+
+        ((GenerateReportHandler) generateReportButton.getActionListeners()[0]).setReportBuilder(
+                switch (reportState) {
+                    case DOOR -> new DoorReportBuilder(reportCreationPanel);
+                    default -> null;
+                }
+        );
+
     }
 
 }
