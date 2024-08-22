@@ -28,8 +28,8 @@ public class Door extends Item {
     private YesNoOptions additionalPlyLining; // yes or no
     private Dimension structuralOpening;
     private String structuralOpeningDetails;
-    private String frameDetail;
-    private String sillDetail;
+    private String frameDetails;
+    private String sillDetails;
     private String architraveType;
     private Ironmongery ironmongery; // all parts to this group of fields will be encapsulated in this object
     private String additionalNotes;
@@ -60,8 +60,8 @@ public class Door extends Item {
         additionalPlyLining = null;
         structuralOpening = null;
         structuralOpeningDetails = null;
-        frameDetail = null;
-        sillDetail = null;
+        frameDetails = null;
+        sillDetails = null;
         architraveType = null;
         ironmongery = new Ironmongery(this); // passing in a door so can go back and forth if needed (eg to get the count)
         additionalNotes = null;
@@ -87,8 +87,8 @@ public class Door extends Item {
                 ", additionalPlyLining=" + additionalPlyLining +
                 ", structuralOpening=" + structuralOpening +
                 ", structuralOpeningDetails='" + structuralOpeningDetails + '\'' +
-                ", frameDetail='" + frameDetail + '\'' +
-                ", sillDetail='" + sillDetail + '\'' +
+                ", frameDetail='" + frameDetails + '\'' +
+                ", sillDetail='" + sillDetails + '\'' +
                 ", architraveType='" + architraveType + '\'' +
                 ", ironmongery=" + ironmongery +
                 ", additionalNotes='" + additionalNotes + '\'' +
@@ -117,7 +117,7 @@ public class Door extends Item {
     public void setFloor(Object floor) { setFloor(String.valueOf(floor));}
     public void setFloor(String floor) {
         this.floor = floor;
-        System.out.println("Door " + count + ": set Floor:" + floor);
+        System.out.println("Door " + count + ": set Floor: " + floor);
     }
 
     public String getRoom() {
@@ -127,7 +127,7 @@ public class Door extends Item {
     public void setRoom(Object room) { setRoom(String.valueOf(room));}
     public void setRoom(String room) {
         this.room = room;
-        System.out.println("Door " + count + ": set Room:" + room);
+        System.out.println("Door " + count + ": set Room: " + room);
     }
 
     public String getWallConstruction() {
@@ -137,7 +137,7 @@ public class Door extends Item {
     public void setWallConstruction(Object wallConstruction) { setWallConstruction(String.valueOf(wallConstruction));}
     public void setWallConstruction(String wallConstruction) {
         this.wallConstruction = wallConstruction;
-        System.out.println("Door " + count + ": set Wall Construction:" + wallConstruction);
+        System.out.println("Door " + count + ": set Wall Construction: " + wallConstruction);
     }
 
     public String getDoorType() {
@@ -147,7 +147,7 @@ public class Door extends Item {
     public void setDoorType(Object doorType) { setDoorType(String.valueOf(doorType));}
     public void setDoorType(String doorType) {
         this.doorType = doorType;
-        System.out.println("Door " + count + ": set Door Type:" + doorType);
+        System.out.println("Door " + count + ": set Door Type: " + doorType);
     }
 
     public String getInternalExternal() {
@@ -157,7 +157,7 @@ public class Door extends Item {
     public void setInternalExternal(Object internalExternal) { setInternalExternal(String.valueOf(internalExternal));}
     public void setInternalExternal(String internalExternal) {
         this.internalExternal = internalExternal;
-        System.out.println("Door " + count + ": set Internal External:" + internalExternal);
+        System.out.println("Door " + count + ": set Internal External: " + internalExternal);
     }
 
     public YesNoOptions getPartMThreshold() {
@@ -167,7 +167,7 @@ public class Door extends Item {
     public void setPartMThreshold(Object partMThreshold) { setPartMThreshold(YesNoOptions.convert(String.valueOf(partMThreshold))); }
     public void setPartMThreshold(YesNoOptions partMThreshold) {
         this.partMThreshold = partMThreshold;
-        System.out.println("Door " + count + ": set Part M Threshold:" + partMThreshold);
+        System.out.println("Door " + count + ": set Part M Threshold: " + partMThreshold);
     }
 
     public String getFireRating() {
@@ -177,7 +177,7 @@ public class Door extends Item {
     public void setFireRating(Object fireRating) { setFireRating(String.valueOf(fireRating));}
     public void setFireRating(String fireRating) {
         this.fireRating = fireRating;
-        System.out.println("Door " + count + ": set Fire Rating:" + fireRating);
+        System.out.println("Door " + count + ": set Fire Rating: " + fireRating);
     }
 
     public YesNoOptions getGlazed() {
@@ -187,7 +187,7 @@ public class Door extends Item {
     public void setGlazed(Object glazed) { setGlazed(YesNoOptions.convert(String.valueOf(glazed)));}
     public void setGlazed(YesNoOptions glazed) {
         this.glazed = glazed;
-        System.out.println("Door " + count + ": set Glazed:" + glazed);
+        System.out.println("Door " + count + ": set Glazed: " + glazed);
     }
 
     public String getLeafType() {
@@ -232,7 +232,7 @@ public class Door extends Item {
     public void setEntranceLevel(Object entranceLevel) { setEntranceLevel(YesNoOptions.convert(String.valueOf(entranceLevel)));}
     public void setEntranceLevel(YesNoOptions entranceLevel) {
         this.entranceLevel = entranceLevel;
-        System.out.println("Door " + count + ": set Entrance Level:" + entranceLevel);
+        System.out.println("Door " + count + ": set Entrance Level: " + entranceLevel);
     }
 
     public YesNoOptions getPartMCompliant() {
@@ -242,7 +242,7 @@ public class Door extends Item {
     public void setPartMCompliant(Object partMCompliant) { setPartMCompliant(YesNoOptions.convert(String.valueOf(partMCompliant)));}
     public void setPartMCompliant(YesNoOptions partMCompliant) {
         this.partMCompliant = partMCompliant;
-        System.out.println("Door " + count + ": set Part M Compliant:" + partMCompliant);
+        System.out.println("Door " + count + ": set Part M Compliant: " + partMCompliant);
     }
 
     public YesNoOptions getAdditionalPlyLining() {
@@ -252,7 +252,7 @@ public class Door extends Item {
     public void setAdditionalPlyLining(Object additionalPlyLining) { setAdditionalPlyLining(YesNoOptions.convert(String.valueOf(additionalPlyLining)));}
     public void setAdditionalPlyLining(YesNoOptions additionalPlyLining) {
         this.additionalPlyLining = additionalPlyLining;
-        System.out.println("Door " + count + ": set Additional Ply Lining:" + additionalPlyLining);
+        System.out.println("Door " + count + ": set Additional Ply Lining: " + additionalPlyLining);
     }
 
     public Dimension getStructuralOpening() {
@@ -271,20 +271,22 @@ public class Door extends Item {
         this.structuralOpeningDetails = structuralOpeningDetails;
     }
 
-    public String getFrameDetail() {
-        return frameDetail;
+    public String getFrameDetails() {
+        return frameDetails;
     }
 
-    public void setFrameDetail(String frameDetail) {
-        this.frameDetail = frameDetail;
+    public void setFrameDetails(String frameDetails) {
+        this.frameDetails = frameDetails;
+        System.out.println("Door " + count + ": set Frame Details: " + frameDetails);
     }
 
-    public String getSillDetail() {
-        return sillDetail;
+    public String getSillDetails() {
+        return sillDetails;
     }
 
-    public void setSillDetail(String sillDetail) {
-        this.sillDetail = sillDetail;
+    public void setSillDetails(String sillDetails) {
+        this.sillDetails = sillDetails;
+        System.out.println("Door " + count + ": set Sill Details: " + sillDetails);
     }
 
     public String getArchitraveType() {
@@ -293,6 +295,7 @@ public class Door extends Item {
 
     public void setArchitraveType(String architraveType) {
         this.architraveType = architraveType;
+        System.out.println("Door " + count + ": set Architrave Type: " + architraveType);
     }
 
     public Ironmongery getIronmongery() {

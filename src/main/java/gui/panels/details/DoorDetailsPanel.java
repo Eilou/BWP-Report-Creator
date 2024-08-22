@@ -1,17 +1,11 @@
 package gui.panels.details;
 
 import enums.YesNoOptions;
-import gui.handlers.AttributeTextFieldHandler;
-import gui.handlers.CustomOptionHandler;
-import gui.handlers.AttributeComboBoxHandler;
 import items.doors.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 import java.util.List;
 
 /**
@@ -278,18 +272,15 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         //todo view drop down table description at top
 //        gridPanels[3][0].attachCBAttributeHandler(door::setStructuralOpening);
 
-//        gridPanels[3][1].setup("Structural Opening Details", structuralOpeningDetailsTextField);
-//        gridPanels[3][2].setup("Frame Details", frameDetailsTextField);
-//        gridPanels[3][3].setup("Sill Details", sillDetailsTextField);
-//        gridPanels[3][4].setup("Architrave Type", architraveTypeTextField);
+        gridPanels[3][1].attachTFAttributeHandler(door::setStructuralOpeningDetails);
+        gridPanels[3][2].attachTFAttributeHandler(door::setFrameDetails);
+        gridPanels[3][3].attachTFAttributeHandler(door::setSillDetails);
+        gridPanels[3][4].attachTFAttributeHandler(door::setArchitraveType);
 
         gridPanels[4][0].attachCBAttributeHandler(door.getIronmongery()::setHinges);
         gridPanels[4][1].attachCBAttributeHandler(door.getIronmongery()::setLatch);
         gridPanels[4][2].attachCBAttributeHandler(door.getIronmongery()::setLock);
         gridPanels[4][3].attachCBAttributeHandler(door.getIronmongery()::setHandle);
-        gridPanels[4][4].setup("Additional Notes", additionalNotesTextField);
-
-        gridPanels[0][0].attachCBAttributeHandler(door::setFloor);
         gridPanels[4][4].attachTFAttributeHandler(door::setAdditionalNotes);
 
     }

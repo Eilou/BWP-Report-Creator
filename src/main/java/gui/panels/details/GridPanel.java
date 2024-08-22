@@ -93,7 +93,7 @@ public class GridPanel extends JPanel {
 
     /**
      * case 1: there is a combo box but not a text field and so add custom option handler and then also deal with comb box
-     * @param setter
+     * @param setter the method reference to set a given attribute
      */
     public void attachCBAttributeHandler(Setter<?> setter) {
         // case 1: there is a combo box but not a text field
