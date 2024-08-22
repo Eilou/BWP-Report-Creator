@@ -40,6 +40,8 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JComboBox<String> leafNumberCheckbox = new JComboBox<>();
     // this should be a dropdown box with options: single, double, triple, quad
 
+    // todo lookup table realtive to leaf size
+    // anything which is relative could ask whether want a dropdown which gets default filled with custom option, or just use a text field
     private final JComboBox<Integer> clearOpeningComboBox = new JComboBox<>();
     private final JComboBox<YesNoOptions> entranceLevelComboBox = new JComboBox<>();
     private final JComboBox<YesNoOptions> partMCompliantComboBox = new JComboBox<>();
@@ -214,11 +216,19 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
                 , "2 x 926", "Custom"});
         populateGivenComboBox(leafNumberCheckbox, new String[]{"Single", "Double", "Triple",
                 "Quad", "Custom"});
+
+        //todo clear opening thing, want to be realtive to leaf size width, but then also part of a drop down to override
+
         populateGivenComboBox(entranceLevelComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
                 YesNoOptions.Y, YesNoOptions.CUSTOM});
-//        populateGivenComboBox(partMCompliantComboBox, new YesNoOptions[]{YesNoOptions.BLANK, }); // this should be the lookup table
+
+        // todo populateGivenComboBox(partMCompliantComboBox, new YesNoOptions[]{YesNoOptions.BLANK, }); // this should be the lookup table
+
         populateGivenComboBox(additionalPlyLiningComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
                 YesNoOptions.Y, YesNoOptions.CUSTOM});
+
+        //todo structural opening populating, might need to make custom dimension class so can override the toString
+
         // needs turning into the unicode values
         populateGivenComboBox(hingesComboBox,
                 new String[]{"", "1 pair", "1 1/2 pair", "2 pair", "Custom"});
@@ -239,37 +249,48 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     public void attachHandlers() {
 
         gridPanels[0][0].attachCBAttributeHandler(door::setFloor);
+        gridPanels[0][1].attachCBAttributeHandler(door::setRoom);
+        gridPanels[0][2].attachCBAttributeHandler(door::setWallConstruction);
+        gridPanels[0][3].attachCBAttributeHandler(door::setDoorType);
+        gridPanels[0][4].attachCBAttributeHandler(door::setInternalExternal);
+
+        gridPanels[1][0].attachCBAttributeHandler(door::setPartMThreshold);
+        gridPanels[1][1].attachCBAttributeHandler(door::setFireRating);
+        gridPanels[1][2].attachCBAttributeHandler(door::setGlazed);
+
+        //TODO
+//        JPanel leafSizeInputPanel = new JPanel();
+//        leafSizeInputPanel.setLayout(new BoxLayout(leafSizeInputPanel, BoxLayout.LINE_AXIS));
+//        leafSizeInputPanel.add(leafTypeComboBox);
+//        leafSizeInputPanel.add(leafSizeComboBox);
+//        leafSizeInputPanel.add(leafNumberCheckbox);
+//        gridPanels[1][3].setup("Leaf Size", leafSizeInputPanel);
+
+        //        gridPanels[1][4].add();
+
+//        gridPanels[2][0].attachCBAttributeHandler(door::setClearOpening);
+        gridPanels[2][1].attachCBAttributeHandler(door::setEntranceLevel);
+        gridPanels[2][2].attachCBAttributeHandler(door::setPartMCompliant);
+        gridPanels[2][3].attachCBAttributeHandler(door::setAdditionalPlyLining);
+
+        //        gridPanels[2][4].add();
+
+        //todo view drop down table description at top
+//        gridPanels[3][0].attachCBAttributeHandler(door::setStructuralOpening);
+
+//        gridPanels[3][1].setup("Structural Opening Details", structuralOpeningDetailsTextField);
+//        gridPanels[3][2].setup("Frame Details", frameDetailsTextField);
+//        gridPanels[3][3].setup("Sill Details", sillDetailsTextField);
+//        gridPanels[3][4].setup("Architrave Type", architraveTypeTextField);
+
+        gridPanels[4][0].attachCBAttributeHandler(door.getIronmongery()::setHinges);
+        gridPanels[4][1].attachCBAttributeHandler(door.getIronmongery()::setLatch);
+        gridPanels[4][2].attachCBAttributeHandler(door.getIronmongery()::setLock);
+        gridPanels[4][3].attachCBAttributeHandler(door.getIronmongery()::setHandle);
+        gridPanels[4][4].setup("Additional Notes", additionalNotesTextField);
+
+        gridPanels[0][0].attachCBAttributeHandler(door::setFloor);
         gridPanels[4][4].attachTFAttributeHandler(door::setAdditionalNotes);
-//        gridPanels[3][2].attachAttributeHandler("Frame Details text field");
-
-//        floorComboBox.addActionListener(new CustomOptionHandler<>(floorComboBox, gridPanels[0][0]));
-//        floorComboBox.addActionListener(e -> door.setFloor((String) floorComboBox.getSelectedItem()));
-//
-//        roomComboBox.addActionListener(new CustomOptionHandler<>(roomComboBox, gridPanels[0][1]));
-//        roomComboBox.addActionListener(e -> door.setRoom((String) roomComboBox.getSelectedItem()));
-//
-//        wallConstructionComboBox.addActionListener(new CustomOptionHandler<>(wallConstructionComboBox, gridPanels[0][2]));
-//        wallConstructionComboBox.addActionListener(e -> door.setWallConstruction((String) wallConstructionComboBox.getSelectedItem()));
-//
-//        doorTypeComboBox.addActionListener(new CustomOptionHandler<>(doorTypeComboBox, gridPanels[0][3]));
-//        doorTypeComboBox.addActionListener(e -> door.setDoorType((String) doorTypeComboBox.getSelectedItem()));
-//
-//        internalExternalComboBox.addActionListener(new CustomOptionHandler<>(internalExternalComboBox, gridPanels[0][4]));
-//        internalExternalComboBox.addActionListener(e -> door.setInternalExternal((String) internalExternalComboBox.getSelectedItem()));
-//
-//        partMThresholdComboBox.addActionListener(new CustomOptionHandler<>(partMThresholdComboBox, gridPanels[1][0]));
-//        partMThresholdComboBox.addActionListener(e -> door.setPartMThreshold((YesNoOptions) partMThresholdComboBox.getSelectedItem()));
-//
-//        fireRatingComboBox.addActionListener(new CustomOptionHandler<>(fireRatingComboBox, gridPanels[1][1]));
-//        fireRatingComboBox.addActionListener(e -> door.setFireRating((String) fireRatingComboBox.getSelectedItem()));
-//
-//        glazedComboBox.addActionListener(new CustomOptionHandler<>(glazedComboBox, gridPanels[1][2]));
-//        glazedComboBox.addActionListener(e -> door.setGlazed((YesNoOptions) glazedComboBox.getSelectedItem()));
-//
-//        handleComboBox.addActionListener(new CustomOptionHandler<>(handleComboBox,
-//                gridPanels[4][3]));
-
-//        attachAttributeHandler(additionalNotesTextField, "additional notes");
 
     }
 

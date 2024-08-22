@@ -100,9 +100,7 @@ public class GridPanel extends JPanel {
         panelComboBox.addActionListener(new CustomOptionHandler<>(panelComboBox, this));
         panelComboBox.addActionListener(new AttributeComboBoxHandler<>(setter));
 
-        //         case 3: there is a second panel (needs to be handled specifically)
-
-        System.out.println(item);
+        // case 3: there is a second panel (needs to be handled specifically)
     }
 
     /**
