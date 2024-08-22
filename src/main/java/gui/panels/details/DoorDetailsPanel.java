@@ -194,6 +194,8 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         populateGivenComboBox(wallConstructionComboBox, new String[]{"", "Masonry cavity wall",
                 "Timberframe", "SIPS panel", "100mm blockwork", "140mm blockwork", "215mm blockwork",
                 "89mm partition", "100mm partition", "140mm partition", "Custom"});
+        //todo doortype
+
         populateGivenComboBox(internalExternalComboBox, new String[]{"", "Internal", "External " +
                 "[1]", "Custom"});
         populateGivenComboBox(partMThresholdComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
