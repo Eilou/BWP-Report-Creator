@@ -1,6 +1,5 @@
 package gui.panels.details;
 
-import enums.YesNoOptions;
 import items.doors.*;
 
 import javax.swing.*;
@@ -22,9 +21,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JComboBox<String> wallConstructionComboBox = new JComboBox<>();
     private final JComboBox<String> doorTypeComboBox = new JComboBox<>();
     private final JComboBox<String> internalExternalComboBox = new JComboBox<>();
-    private final JComboBox<YesNoOptions> partMThresholdComboBox = new JComboBox<>();
+    private final JComboBox<String> partMThresholdComboBox = new JComboBox<>();
     private final JComboBox<String> fireRatingComboBox = new JComboBox<>();
-    private final JComboBox<YesNoOptions> glazedComboBox = new JComboBox<>();
+    private final JComboBox<String> glazedComboBox = new JComboBox<>();
 
     private final JComboBox<String> leafTypeComboBox = new JComboBox<>();
     private final JComboBox<String> leafSizeComboBox = new JComboBox<>();
@@ -37,12 +36,12 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     // todo lookup table realtive to leaf size
     // anything which is relative could ask whether want a dropdown which gets default filled with custom option, or just use a text field
     private final JComboBox<Integer> clearOpeningComboBox = new JComboBox<>();
-    private final JComboBox<YesNoOptions> entranceLevelComboBox = new JComboBox<>();
-    private final JComboBox<YesNoOptions> partMCompliantComboBox = new JComboBox<>();
+    private final JComboBox<String> entranceLevelComboBox = new JComboBox<>();
+    private final JComboBox<String> partMCompliantComboBox = new JComboBox<>();
     // this doesn't actually need to be a partM compliant box, but should be updates as a result
     // of an if elseif else statement (look at the Excel sheet for reference)
 
-    private final JComboBox<YesNoOptions> additionalPlyLiningComboBox = new JComboBox<>();
+    private final JComboBox<String> additionalPlyLiningComboBox = new JComboBox<>();
     private final JComboBox<String> structuralOpeningComboBox = new JComboBox<>();
     // this should be a lookup table
     private final JTextField structuralOpeningDetailsTextField = new JTextField();
@@ -52,9 +51,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JTextField architraveTypeTextField = new JTextField();
 
     private final JComboBox<String> hingesComboBox = new JComboBox<>();
-    private final JComboBox<YesNoOptions> latchComboBox = new JComboBox<>();
-    private final JComboBox<YesNoOptions> lockComboBox = new JComboBox<>();
-    private final JComboBox<YesNoOptions> handleComboBox = new JComboBox<>();
+    private final JComboBox<String> latchComboBox = new JComboBox<>();
+    private final JComboBox<String> lockComboBox = new JComboBox<>();
+    private final JComboBox<String> handleComboBox = new JComboBox<>();
     private final JTextField additionalNotesTextField = new JTextField();
 
     /**
@@ -198,13 +197,11 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         populateGivenComboBox(internalExternalComboBox, new String[]{"", "Internal", "External " +
                 "[1]", "Custom"});
-        populateGivenComboBox(partMThresholdComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
-                YesNoOptions.Y_2, YesNoOptions.CUSTOM});
+        populateGivenComboBox(partMThresholdComboBox, new String[]{"", "Y [2]", "Custom"});
         populateGivenComboBox(fireRatingComboBox, new String[]{"", "FD20 [3]", "FD30 [3]", "FD30-SC" +
                 " " +
                 "[3]", "FD60 [3]", "Custom"});
-        populateGivenComboBox(glazedComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
-                YesNoOptions.Y_4, YesNoOptions.CUSTOM});
+        populateGivenComboBox(glazedComboBox, new String[]{"", "Y [4]", "Custom"});
         populateGivenComboBox(leafTypeComboBox, new String[]{"", "Imperial", "Metric", "Bespoke",
                 "Custom"});
         populateGivenComboBox(leafSizeComboBox, new String[]{"", "610", "686", "762", "838", "626",
@@ -215,25 +212,20 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         //todo clear opening thing, want to be realtive to leaf size width, but then also part of a drop down to override
 
-        populateGivenComboBox(entranceLevelComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
-                YesNoOptions.Y, YesNoOptions.CUSTOM});
+        populateGivenComboBox(entranceLevelComboBox, new String[]{"", "Y", "Custom"});
 
         // todo populateGivenComboBox(partMCompliantComboBox, new YesNoOptions[]{YesNoOptions.BLANK, }); // this should be the lookup table
 
-        populateGivenComboBox(additionalPlyLiningComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
-                YesNoOptions.Y, YesNoOptions.CUSTOM});
+        populateGivenComboBox(additionalPlyLiningComboBox, new String[]{"", "Y", "Custom"});
 
         //todo structural opening populating, might need to make custom dimension class so can override the toString
 
         // needs turning into the unicode values
-        populateGivenComboBox(hingesComboBox,
-                new String[]{"", "1 pair", "1 1/2 pair", "2 pair", "Custom"});
+        populateGivenComboBox(hingesComboBox, new String[]{"", "1 pair", "1 1/2 pair", "2 pair", "Custom"});
 
-        populateGivenComboBox(latchComboBox, new YesNoOptions[]{YesNoOptions.BLANK,
-                YesNoOptions.Y, YesNoOptions.CUSTOM});
-        populateGivenComboBox(lockComboBox, new YesNoOptions[]{YesNoOptions.BLANK, YesNoOptions.Y
-                , YesNoOptions.Y_5, YesNoOptions.CUSTOM});
-        populateGivenComboBox(handleComboBox, new YesNoOptions[]{YesNoOptions.Y, YesNoOptions.CUSTOM});
+        populateGivenComboBox(latchComboBox, new String[]{"", "Y", "Custom"});
+        populateGivenComboBox(lockComboBox, new String[]{"", "Y", "Y [5]", "Custom"});
+        populateGivenComboBox(handleComboBox, new String[]{"Y", "Custom"});
 
     }
 

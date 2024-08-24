@@ -1,6 +1,5 @@
 package items.doors;
 
-import enums.YesNoOptions;
 import items.Item;
 
 import java.awt.*;
@@ -13,19 +12,19 @@ public class Door extends Item {
     private String doorType;
     private String internalExternal; // true = internal, false = external (not boolean as might need to be blank)
     // this might require a reference to the key (numbered 1)
-    private YesNoOptions partMThreshold; // true = yes, false = no
+    private String partMThreshold; // true = yes, false = no
     private String fireRating;
-    private YesNoOptions glazed; // yes or no
+    private String glazed; // yes or no
 
     private String leafType;
     private Dimension leafSize;
     private String leafNumber; // single, double, triple, quad
 
     private int clearOpening;
-    private YesNoOptions entranceLevel;
-    private YesNoOptions partMCompliant; // YES or NO!... when null that means to leave blank
+    private String entranceLevel;
+    private String partMCompliant; // YES or NO!... when null that means to leave blank
     // null is different to NO!
-    private YesNoOptions additionalPlyLining; // yes or no
+    private String additionalPlyLining; // yes or no
     private Dimension structuralOpening;
     private String structuralOpeningDetails;
     private String frameDetails;
@@ -46,18 +45,18 @@ public class Door extends Item {
         wallConstruction = "";
         doorType = "";
         internalExternal = "";
-        partMThreshold = YesNoOptions.BLANK;
+        partMThreshold = "";
         fireRating = "";
-        glazed = YesNoOptions.BLANK;
+        glazed = "";
 
         leafType = "";
         leafSize = new Dimension(-1, -1);
         leafNumber = "";
 
         clearOpening = -1;
-        entranceLevel = YesNoOptions.BLANK;
-        partMCompliant = YesNoOptions.BLANK;
-        additionalPlyLining = YesNoOptions.BLANK;
+        entranceLevel = "";
+        partMCompliant = "";
+        additionalPlyLining = "";
         structuralOpening = new Dimension(-1, -1);
         structuralOpeningDetails = "";
         frameDetails = "";
@@ -160,12 +159,12 @@ public class Door extends Item {
         System.out.println("Door " + count + ": set Internal External: " + internalExternal);
     }
 
-    public YesNoOptions getPartMThreshold() {
+    public String getPartMThreshold() {
         return partMThreshold;
     }
 
-    public void setPartMThreshold(Object partMThreshold) { setPartMThreshold(YesNoOptions.convert(String.valueOf(partMThreshold))); }
-    public void setPartMThreshold(YesNoOptions partMThreshold) {
+    public void setPartMThreshold(Object partMThreshold) { setPartMThreshold(String.valueOf(partMThreshold)); }
+    public void setPartMThreshold(String partMThreshold) {
         this.partMThreshold = partMThreshold;
         System.out.println("Door " + count + ": set Part M Threshold: " + partMThreshold);
     }
@@ -180,12 +179,12 @@ public class Door extends Item {
         System.out.println("Door " + count + ": set Fire Rating: " + fireRating);
     }
 
-    public YesNoOptions getGlazed() {
+    public String getGlazed() {
         return glazed;
     }
 
-    public void setGlazed(Object glazed) { setGlazed(YesNoOptions.convert(String.valueOf(glazed)));}
-    public void setGlazed(YesNoOptions glazed) {
+    public void setGlazed(Object glazed) { setGlazed(String.valueOf(glazed));}
+    public void setGlazed(String glazed) {
         this.glazed = glazed;
         System.out.println("Door " + count + ": set Glazed: " + glazed);
     }
@@ -225,32 +224,32 @@ public class Door extends Item {
         this.clearOpening = clearOpening;
     }
 
-    public YesNoOptions getEntranceLevel() {
+    public String getEntranceLevel() {
         return entranceLevel;
     }
 
-    public void setEntranceLevel(Object entranceLevel) { setEntranceLevel(YesNoOptions.convert(String.valueOf(entranceLevel)));}
-    public void setEntranceLevel(YesNoOptions entranceLevel) {
+    public void setEntranceLevel(Object entranceLevel) { setEntranceLevel(String.valueOf(entranceLevel));}
+    public void setEntranceLevel(String entranceLevel) {
         this.entranceLevel = entranceLevel;
         System.out.println("Door " + count + ": set Entrance Level: " + entranceLevel);
     }
 
-    public YesNoOptions getPartMCompliant() {
+    public String getPartMCompliant() {
         return partMCompliant;
     }
 
-    public void setPartMCompliant(Object partMCompliant) { setPartMCompliant(YesNoOptions.convert(String.valueOf(partMCompliant)));}
-    public void setPartMCompliant(YesNoOptions partMCompliant) {
+    public void setPartMCompliant(Object partMCompliant) { setPartMCompliant(String.valueOf(partMCompliant));}
+    public void setPartMCompliant(String partMCompliant) {
         this.partMCompliant = partMCompliant;
         System.out.println("Door " + count + ": set Part M Compliant: " + partMCompliant);
     }
 
-    public YesNoOptions getAdditionalPlyLining() {
+    public String getAdditionalPlyLining() {
         return additionalPlyLining;
     }
 
-    public void setAdditionalPlyLining(Object additionalPlyLining) { setAdditionalPlyLining(YesNoOptions.convert(String.valueOf(additionalPlyLining)));}
-    public void setAdditionalPlyLining(YesNoOptions additionalPlyLining) {
+    public void setAdditionalPlyLining(Object additionalPlyLining) { setAdditionalPlyLining(String.valueOf(additionalPlyLining));}
+    public void setAdditionalPlyLining(String additionalPlyLining) {
         this.additionalPlyLining = additionalPlyLining;
         System.out.println("Door " + count + ": set Additional Ply Lining: " + additionalPlyLining);
     }

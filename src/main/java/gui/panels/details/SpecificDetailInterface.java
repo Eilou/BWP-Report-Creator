@@ -5,7 +5,7 @@ package gui.panels.details;
  * different things
  */
 public interface SpecificDetailInterface {
-    public void setup();
-    public int getCount();
-    public void setCount(int newCount);
+    void setup();
+    int getCount();
+    void setCount(int newCount);
 }

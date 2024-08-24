@@ -1,16 +1,13 @@
 package items.doors;
 
-import com.sun.jdi.connect.Connector;
-import enums.YesNoOptions;
-
 public class Ironmongery {
     private Door door; // the door this iron mongery is linked to
     private String hinges;
     private Boolean doubleHinges;  // if the per leaf option selected then this is a double
     // could do that these options only appear if the double leaf size option is checked
-    private YesNoOptions latch; // Y, N, blank
-    private YesNoOptions lock; // true = Y, false = Y[5]
-    private YesNoOptions handle; // true = Y, null = Blank
+    private String latch; // Y, N, blank
+    private String lock; // true = Y, false = Y[5]
+    private String handle; // true = Y, null = Blank
 
     /**
      * default constructor sets values to null as the gui will determine the values
@@ -20,9 +17,9 @@ public class Ironmongery {
         this.door = door;
         hinges = "";
         doubleHinges = false;
-        latch = YesNoOptions.BLANK;
-        lock = YesNoOptions.BLANK;
-        handle = YesNoOptions.BLANK;
+        latch = "";
+        lock = "";
+        handle = "";
     }
 
     ////////////////////////////////////
@@ -49,32 +46,32 @@ public class Ironmongery {
         this.doubleHinges = doubleHinges;
     }
 
-    public YesNoOptions getLatch() {
+    public String getLatch() {
         return latch;
     }
 
-    public void setLatch(Object latch) { setLatch(YesNoOptions.convert(String.valueOf(latch)));}
-    public void setLatch(YesNoOptions latch) {
+    public void setLatch(Object latch) { setLatch(String.valueOf(latch));}
+    public void setLatch(String latch) {
         this.latch = latch;
         System.out.println("Door " + door.getCount() + ": set Latch to: " + latch);
     }
 
-    public YesNoOptions getLock() {
+    public String getLock() {
         return lock;
     }
 
-    public void setLock(Object lock) { setLock(YesNoOptions.convert(String.valueOf(lock)));}
-    public void setLock(YesNoOptions lock) {
+    public void setLock(Object lock) { setLock(String.valueOf(lock));}
+    public void setLock(String lock) {
         this.lock = lock;
         System.out.println("Door " + door.getCount() + ": set Lock to: " + lock);
     }
 
-    public YesNoOptions getHandle() {
+    public String getHandle() {
         return handle;
     }
 
-    public void setHandle(Object handle) { setHandle(YesNoOptions.convert(String.valueOf(handle)));}
-    public void setHandle(YesNoOptions handle) {
+    public void setHandle(Object handle) { setHandle(String.valueOf(handle));}
+    public void setHandle(String handle) {
         this.handle = handle;
         System.out.println("Door " + door.getCount() + ": set Handle to: " + handle);
     }
