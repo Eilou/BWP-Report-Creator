@@ -41,30 +41,30 @@ public class Door extends Item {
     public Door(int count) {
         super(count);
 
-        floor = null;
-        room = null;
-        wallConstruction = null;
-        doorType = null;
-        internalExternal = null;
-        partMThreshold = null;
-        fireRating = null;
-        glazed = null;
+        floor = "";
+        room = "";
+        wallConstruction = "";
+        doorType = "";
+        internalExternal = "";
+        partMThreshold = YesNoOptions.BLANK;
+        fireRating = "";
+        glazed = YesNoOptions.BLANK;
 
-        leafType = null;
-        leafSize = null;
-        leafNumber = null;
+        leafType = "";
+        leafSize = new Dimension(-1, -1);
+        leafNumber = "";
 
-        clearOpening = 0;
-        entranceLevel = null;
-        partMCompliant = null;
-        additionalPlyLining = null;
-        structuralOpening = null;
-        structuralOpeningDetails = null;
-        frameDetails = null;
-        sillDetails = null;
-        architraveType = null;
+        clearOpening = -1;
+        entranceLevel = YesNoOptions.BLANK;
+        partMCompliant = YesNoOptions.BLANK;
+        additionalPlyLining = YesNoOptions.BLANK;
+        structuralOpening = new Dimension(-1, -1);
+        structuralOpeningDetails = "";
+        frameDetails = "";
+        sillDetails = "";
+        architraveType = "";
         ironmongery = new Ironmongery(this); // passing in a door so can go back and forth if needed (eg to get the count)
-        additionalNotes = null;
+        additionalNotes = "";
     }
 
     @Override

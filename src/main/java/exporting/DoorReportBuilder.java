@@ -1,11 +1,12 @@
 package exporting;
 
 import gui.panels.ReportCreationPanel;
-import gui.panels.details.DetailPanel;
-import gui.panels.details.DoorDetailsPanel;
+import gui.panels.details.*;
 import items.doors.Door;
 
+import java.awt.*;
 import java.io.*;
+
 
 /**
  * A class used to take the information in the current app and build an HTML website from it
@@ -20,7 +21,6 @@ public class DoorReportBuilder implements ReportBuilder{
     public DoorReportBuilder(ReportCreationPanel reportCreationPanel) {
         this.reportCreationPanel = reportCreationPanel;
         stringBuilder = new StringBuilder();
-        generateHTML();
     }
 
     /**
@@ -45,10 +45,15 @@ public class DoorReportBuilder implements ReportBuilder{
      */
     public void writeToFile() {
         try {
-            PrintWriter pw = new PrintWriter(new FileWriter("exportedProjects/test.html"));
+            String filePath = "currentExport/currentExport.html";
+            PrintWriter pw = new PrintWriter(new FileWriter(filePath));
             pw.println(stringBuilder);
             pw.flush();
             pw.close();
+
+            File htmlFile = new File(filePath);
+            Desktop.getDesktop().browse(htmlFile.toURI());
+
             //todo open in browser
         }
         catch (IOException e) {

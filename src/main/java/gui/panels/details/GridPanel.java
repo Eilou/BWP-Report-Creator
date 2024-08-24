@@ -117,6 +117,7 @@ public class GridPanel extends JPanel {
      */
     public void addCustomOption() {
         add(customTextBox);
+//        customTextBox.addActionListener(new AttributeTextFieldHandler(customTextBox, ));
         customUsed = true;
         // handle the custom text box updates when decided what to do with JTextField handler, as it will be the same
         revalidate();

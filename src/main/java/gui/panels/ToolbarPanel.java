@@ -33,7 +33,8 @@ public class ToolbarPanel extends JPanel {
         addDetailButton = new JButton("Add " + reportState);
         backfillCheckbox = new JCheckBox();
         removeDetailButton = new JButton("Remove " + reportState);
-        generateReportButton = new JButton("Generate Report");
+        generateReportButton = new JButton("Generate");
+
     }
 
     /**

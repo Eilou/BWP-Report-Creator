@@ -18,12 +18,17 @@ public class Ironmongery {
      */
     public Ironmongery(Door door) {
         this.door = door;
-        hinges = null;
-        doubleHinges = null;
-        latch = null;
-        lock = null;
-        handle = null;
+        hinges = "";
+        doubleHinges = false;
+        latch = YesNoOptions.BLANK;
+        lock = YesNoOptions.BLANK;
+        handle = YesNoOptions.BLANK;
     }
+
+    ////////////////////////////////////
+    // getters and setters
+    // in some setters there is one with an object parameter, this is due to how I have multiple types of combo box
+    ////////////////////////////////////
 
     public String getHinges() {
         return hinges;
