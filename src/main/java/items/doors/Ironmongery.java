@@ -24,14 +24,12 @@ public class Ironmongery {
 
     ////////////////////////////////////
     // getters and setters
-    // in some setters there is one with an object parameter, this is due to how I have multiple types of combo box
     ////////////////////////////////////
 
     public String getHinges() {
         return hinges;
     }
 
-    public void setHinges(Object hinges) { setHinges(String.valueOf(hinges));}
     public void setHinges(String hinges) {
         this.hinges = hinges;
         System.out.println("Door " + door.getCount() + ": set Hinges to: " + hinges);
@@ -50,7 +48,6 @@ public class Ironmongery {
         return latch;
     }
 
-    public void setLatch(Object latch) { setLatch(String.valueOf(latch));}
     public void setLatch(String latch) {
         this.latch = latch;
         System.out.println("Door " + door.getCount() + ": set Latch to: " + latch);
@@ -60,7 +57,6 @@ public class Ironmongery {
         return lock;
     }
 
-    public void setLock(Object lock) { setLock(String.valueOf(lock));}
     public void setLock(String lock) {
         this.lock = lock;
         System.out.println("Door " + door.getCount() + ": set Lock to: " + lock);
@@ -70,7 +66,6 @@ public class Ironmongery {
         return handle;
     }
 
-    public void setHandle(Object handle) { setHandle(String.valueOf(handle));}
     public void setHandle(String handle) {
         this.handle = handle;
         System.out.println("Door " + door.getCount() + ": set Handle to: " + handle);

@@ -1,5 +1,7 @@
 package gui.panels;
 
+import gui.Styling;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -22,11 +24,13 @@ public class StatisticsPanel extends JPanel {
      * adds in the text to the statistics panel
      */
     public void setup() {
-        setBackground(Color.blue);
+        setBackground(Styling.FOREGROUND);
+        setForeground(Styling.TEXT);
+
         setLayout(new GridLayout(1, 0));
 
         text.setText("Statistics Filler Text");
-        text.setForeground(Color.white);
+        text.setForeground(Styling.TEXT);
         text.setHorizontalAlignment(JLabel.CENTER);
         add(text);
     }

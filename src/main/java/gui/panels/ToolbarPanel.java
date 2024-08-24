@@ -2,6 +2,7 @@ package gui.panels;
 
 import enums.ReportState;
 import exporting.DoorReportBuilder;
+import gui.Styling;
 import gui.handlers.AddDetailButtonHandler;
 import gui.handlers.GenerateReportHandler;
 import gui.handlers.RemoveLastDetailButtonHandler;
@@ -41,11 +42,13 @@ public class ToolbarPanel extends JPanel {
      * Add the buttons onto the GUI and locate them as appropriate
      */
     public void setup() {
-        setBackground(Color.green);
+        setBackground(Styling.FOREGROUND);
+        setForeground(Styling.TEXT);
         setLayout(new GridLayout(0,1));
 
         JLabel text = new JLabel();
         text.setText("Toolbar Filler Text");
+        text.setForeground(Styling.TEXT);
         text.setHorizontalAlignment(JLabel.CENTER);
         add(text);
 

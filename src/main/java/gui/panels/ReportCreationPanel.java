@@ -1,6 +1,7 @@
 package gui.panels;
 
 import enums.ReportState;
+import gui.Styling;
 import gui.panels.details.DetailPanel;
 import gui.panels.details.DoorDetailsPanel;
 import gui.panels.details.SpecificDetailInterface;
@@ -33,11 +34,13 @@ public class ReportCreationPanel extends JPanel {
     }
 
     public void setup() {
-        setBackground(Color.green);
+        setBackground(Styling.BACKGROUND);
+//        setForeground(Styling.FOREGROUND);
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         detailsContainer.setLayout(new BoxLayout(detailsContainer, BoxLayout.PAGE_AXIS));
-        detailsContainer.setBackground(Color.yellow);
+        detailsContainer.setBackground(Styling.BORDER);
+//        detailsContainer.setForeground(Styling.FOREGROUND);
         detailsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         add(detailsScrollPane);
     }
@@ -78,6 +81,7 @@ public class ReportCreationPanel extends JPanel {
             default -> dataPanelToAdd = null;
         }
 
+        assert dataPanelToAdd != null;
         dataPanelToAdd.setup();
         itemPanelToAdd.setup((JPanel) dataPanelToAdd);
 

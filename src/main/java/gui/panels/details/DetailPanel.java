@@ -1,6 +1,7 @@
 package gui.panels.details;
 
 import enums.ReportState;
+import gui.Styling;
 import gui.handlers.CloseDetailButtonHandler;
 import gui.panels.ReportCreationPanel;
 import items.Item;
@@ -49,7 +50,7 @@ public class DetailPanel extends JPanel {
                 BorderFactory.createMatteBorder(margin / 4, 0, margin / 4, 0, Color.black),
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createEmptyBorder(2 * margin, margin, 2 * margin, margin),
-                        BorderFactory.createLineBorder(Color.black, 5)));
+                        BorderFactory.createLineBorder(Styling.BORDER, 5)));
 
     }
 
@@ -57,7 +58,9 @@ public class DetailPanel extends JPanel {
      * Sets up the layout for each detail panel
      */
     public void setup(JPanel dataPanel) {
-        setBackground(Color.red);
+        setBackground(Styling.BACKGROUND);
+        setForeground(Styling.FOREGROUND);
+
         setBorder(border);
 
         JPanel titleAndExitPanel = new JPanel();

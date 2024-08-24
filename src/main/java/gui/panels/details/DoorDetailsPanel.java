@@ -1,5 +1,6 @@
 package gui.panels.details;
 
+import gui.Styling;
 import items.doors.*;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JComboBox<String> floorComboBox = new JComboBox<>();
     private final JComboBox<String> roomComboBox = new JComboBox<>();
     private final JComboBox<String> wallConstructionComboBox = new JComboBox<>();
-    private final JComboBox<String> doorTypeComboBox = new JComboBox<>();
+    private final JTextField doorTypeTextField = new JTextField();
     private final JComboBox<String> internalExternalComboBox = new JComboBox<>();
     private final JComboBox<String> partMThresholdComboBox = new JComboBox<>();
     private final JComboBox<String> fireRatingComboBox = new JComboBox<>();
@@ -79,21 +80,21 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     public void setup() {
 
         setLayout(new GridBagLayout());
-        setBackground(new Color(255, 0, 255));
+        setBackground(Styling.FOREGROUND);
 
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(10, 10, 10, 10);
 
         for (int row = 0; row < gridPanels.length; row++) {
             for (int column = 0; column < gridPanels[0].length; column++) {
                 gridPanels[row][column] = new GridPanel(this.door); //  the best part about GridPanel, is that it can be repeated using any type of Item, aren't I the best
                 gridPanels[row][column].setLayout(new BoxLayout(gridPanels[row][column], BoxLayout.PAGE_AXIS));
                 gridPanels[row][column].setPreferredSize(new Dimension(50, 100));
-                gridPanels[row][column].setBorder(new LineBorder(Color.BLACK));
-                gridPanels[row][column].setBackground(new Color(199, 166, 199));
+                gridPanels[row][column].setBorder(new LineBorder(Styling.BORDER));
+                gridPanels[row][column].setBackground(Styling.BACKGROUND);
 
                 gbc.fill = GridBagConstraints.BOTH; // stretch both horizontally and vertically
                 gbc.weightx = 1.0; // expand in both directions at equal rates
@@ -125,7 +126,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[0][0].setup("Floor", floorComboBox);
         gridPanels[0][1].setup("Room", roomComboBox);
         gridPanels[0][2].setup("Wall Construction", wallConstructionComboBox);
-        gridPanels[0][3].setup("Door Type", doorTypeComboBox);
+        gridPanels[0][3].setup("Door Type", doorTypeTextField);
         gridPanels[0][4].setup("Internal or External", internalExternalComboBox);
 
         gridPanels[1][0].setup("Part M Threshold", partMThresholdComboBox);
@@ -168,6 +169,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
     /**
      * Populates a given combobox with the contents of the array passed to it
+     * todo this feels like it would be better in GridPanel.java but also not in some ways
      *
      * @param comboBox     the combobox to add items to
      * @param optionsToAdd the options to add
@@ -186,29 +188,16 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
      */
     public void populateComboBoxes() {
 
-        populateGivenComboBox(floorComboBox, new String[]{"", "Ground Floor", "First Floor",
-                "Second Floor", "Third Floor", "Lower Ground Floor", "Upper Ground Floor", "Mezzanine",
-                "Basement 1", "Basement 2", "Custom"});
+        populateGivenComboBox(floorComboBox, new String[]{"", "Ground Floor", "First Floor", "Second Floor", "Third Floor", "Lower Ground Floor", "Upper Ground Floor", "Mezzanine", "Basement 1", "Basement 2", "Custom"});
         populateGivenComboBox(roomComboBox, new String[]{"", "Custom"});
-        populateGivenComboBox(wallConstructionComboBox, new String[]{"", "Masonry cavity wall",
-                "Timberframe", "SIPS panel", "100mm blockwork", "140mm blockwork", "215mm blockwork",
-                "89mm partition", "100mm partition", "140mm partition", "Custom"});
-        //todo doortype
-
-        populateGivenComboBox(internalExternalComboBox, new String[]{"", "Internal", "External " +
-                "[1]", "Custom"});
+        populateGivenComboBox(wallConstructionComboBox, new String[]{"", "Masonry cavity wall", "Timberframe", "SIPS panel", "100mm blockwork", "140mm blockwork", "215mm blockwork", "89mm partition", "100mm partition", "140mm partition", "Custom"});
+        populateGivenComboBox(internalExternalComboBox, new String[]{"", "Internal", "External [1]", "Custom"});
         populateGivenComboBox(partMThresholdComboBox, new String[]{"", "Y [2]", "Custom"});
-        populateGivenComboBox(fireRatingComboBox, new String[]{"", "FD20 [3]", "FD30 [3]", "FD30-SC" +
-                " " +
-                "[3]", "FD60 [3]", "Custom"});
+        populateGivenComboBox(fireRatingComboBox, new String[]{"", "FD20 [3]", "FD30 [3]", "FD30-SC [3]", "FD60 [3]", "Custom"});
         populateGivenComboBox(glazedComboBox, new String[]{"", "Y [4]", "Custom"});
-        populateGivenComboBox(leafTypeComboBox, new String[]{"", "Imperial", "Metric", "Bespoke",
-                "Custom"});
-        populateGivenComboBox(leafSizeComboBox, new String[]{"", "610", "686", "762", "838", "626",
-                "726", "826", "926", "2 x 610", "2 x 686", "2 x 762", "2 x 838", "2 x 626", "2 x 726", "2 x 826"
-                , "2 x 926", "Custom"});
-        populateGivenComboBox(leafNumberCheckbox, new String[]{"Single", "Double", "Triple",
-                "Quad", "Custom"});
+        populateGivenComboBox(leafTypeComboBox, new String[]{"", "Imperial", "Metric", "Bespoke", "Custom"});
+        populateGivenComboBox(leafSizeComboBox, new String[]{"", "610", "686", "762", "838", "626", "726", "826", "926", "2 x 610", "2 x 686", "2 x 762", "2 x 838", "2 x 626", "2 x 726", "2 x 826", "2 x 926", "Custom"});
+        populateGivenComboBox(leafNumberCheckbox, new String[]{"Single", "Double", "Triple", "Quad", "Custom"});
 
         //todo clear opening thing, want to be realtive to leaf size width, but then also part of a drop down to override
 
@@ -239,7 +228,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[0][0].attachCBAttributeHandler(door::setFloor);
         gridPanels[0][1].attachCBAttributeHandler(door::setRoom);
         gridPanels[0][2].attachCBAttributeHandler(door::setWallConstruction);
-        gridPanels[0][3].attachCBAttributeHandler(door::setDoorType);
+        gridPanels[0][3].attachTFAttributeHandler(door::setDoorType);
         gridPanels[0][4].attachCBAttributeHandler(door::setInternalExternal);
 
         gridPanels[1][0].attachCBAttributeHandler(door::setPartMThreshold);
