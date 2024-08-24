@@ -35,7 +35,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
     // todo lookup table realtive to leaf size
     // anything which is relative could ask whether want a dropdown which gets default filled with custom option, or just use a text field
-    private final JComboBox<Integer> clearOpeningComboBox = new JComboBox<>();
+    private final JComboBox<String> clearOpeningComboBox = new JComboBox<>();
     private final JComboBox<String> entranceLevelComboBox = new JComboBox<>();
     private final JComboBox<String> partMCompliantComboBox = new JComboBox<>();
     // this doesn't actually need to be a partM compliant box, but should be updates as a result

@@ -5,15 +5,15 @@ import javax.swing.event.*;
 
 public class AttributeTextFieldHandler implements DocumentListener {
 
-    private  JTextField textField;
+    private  JTextField sourceTextField;
     private Setter<String> setter;
 
     /**
      * Sets up the handler. Could get the text field from the source of the event but that means
      * going through the SwingUtilities library which may be shorter in code but is more complex
      */
-    public AttributeTextFieldHandler(JTextField textField, Setter<String> setter) {
-        this.textField = textField;
+    public AttributeTextFieldHandler(JTextField sourceTextField, Setter<String> setter) {
+        this.sourceTextField = sourceTextField;
         this.setter = setter;
     }
 
@@ -51,6 +51,6 @@ public class AttributeTextFieldHandler implements DocumentListener {
      * updates the item with the specified value
      */
     public void updateItem() {
-        setter.apply(textField.getText());
+        setter.apply(sourceTextField.getText());
     }
 }
