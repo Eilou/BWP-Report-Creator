@@ -1,5 +1,6 @@
 package exporting;
 
+import gui.panels.ProjectDetailsPanel;
 import gui.panels.ReportCreationPanel;
 import gui.panels.details.*;
 import items.doors.Door;
@@ -15,11 +16,13 @@ import java.io.*;
 public class DoorReportBuilder implements ReportBuilder{
 
     private ReportCreationPanel reportCreationPanel;
+    private ProjectDetailsPanel projectDetailsPanel;
     private StringBuilder stringBuilder;
     private PrintWriter printWriter;
 
-    public DoorReportBuilder(ReportCreationPanel reportCreationPanel) {
+    public DoorReportBuilder(ReportCreationPanel reportCreationPanel, ProjectDetailsPanel projectDetailsPanel) {
         this.reportCreationPanel = reportCreationPanel;
+        this.projectDetailsPanel = projectDetailsPanel;
         stringBuilder = new StringBuilder();
     }
 
@@ -84,9 +87,9 @@ public class DoorReportBuilder implements ReportBuilder{
         stringBuilder.append(
             "    <header>\n" +
             "        <div id=\"project-details\">\n" +
-            "            <h1>PROJECT: <span>Title of the project goes here</span></h1>  <!-- To fill in -->\n" + //todo
-            "            <h1>PROJECT NUMBER: <span>XXX ####</span></h1> <!-- To fill in -->\n" + //todo
-            "            <h1>DOOR SCHEDULE: <span>CZ01</span></h1> <!-- To fill in -->\n" + //todo
+            "            <h1>PROJECT: <span>"+projectDetailsPanel.getTitleField().getText()+"</span></h1>  <!-- To fill in -->\n" + //todo
+            "            <h1>PROJECT NUMBER: <span>"+projectDetailsPanel.getProjectNumberField().getText()+"</span></h1> <!-- To fill in -->\n" + //todo
+            "            <h1>DOOR SCHEDULE: <span>"+projectDetailsPanel.getItemNumberField().getText()+"</span></h1> <!-- To fill in -->\n" + //todo
             "        </div>\n" +
             "\n" +
             "        <div id=\"internal-door-summary\">\n" +

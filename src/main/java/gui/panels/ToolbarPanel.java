@@ -20,15 +20,18 @@ public class ToolbarPanel extends JPanel {
     private JPanel parentPanel;
     private ReportState reportState;
     private ReportCreationPanel reportCreationPanel;
+    private ProjectDetailsPanel projectDetailsPanel;
+
     private JButton addDetailButton;
     private JCheckBox backfillCheckbox;
     private JButton removeDetailButton;
     private JButton generateReportButton;
 
-    public ToolbarPanel(JPanel parentPanel, ReportState reportState, ReportCreationPanel reportCreationPanel) {
+    public ToolbarPanel(JPanel parentPanel, ReportState reportState, ReportCreationPanel reportCreationPanel, ProjectDetailsPanel projectDetailsPanel) {
         this.parentPanel = parentPanel;
         this.reportState = reportState;
         this.reportCreationPanel = reportCreationPanel;
+        this.projectDetailsPanel = projectDetailsPanel;
 //        setPreferredSize(new Dimension(100, parentPanel.getHeight()));
 
         addDetailButton = new JButton();
@@ -81,17 +84,18 @@ public class ToolbarPanel extends JPanel {
         });
         removeDetailButton.addActionListener(
                 new RemoveLastDetailButtonHandler(reportState, reportCreationPanel));
-        generateReportButton.addActionListener(new GenerateReportHandler(new DoorReportBuilder(reportCreationPanel)));
+        generateReportButton.addActionListener(new GenerateReportHandler(new DoorReportBuilder(reportCreationPanel, projectDetailsPanel)));
     }
 
     /**
-     * Updates the Generate report button to match whatever state the report creator is currently in
+     * Updates the Generate report button to match whatever state the report creator is currently in by changing which
+     * type of report builder the GenerateReportHandler is using
      */
     public void reloadGenerateReportButtonHandlers() {
 
         ((GenerateReportHandler) generateReportButton.getActionListeners()[0]).setReportBuilder(
                 switch (reportState) {
-                    case DOOR -> new DoorReportBuilder(reportCreationPanel);
+                    case DOOR -> new DoorReportBuilder(reportCreationPanel, projectDetailsPanel);
                     default -> null;
                 }
         );

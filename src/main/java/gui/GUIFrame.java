@@ -15,7 +15,7 @@ public class GUIFrame extends JFrame {
 
     private ReportState reportState;
     private Container contentPane;
-    private StatisticsPanel statisticsPanel;
+    private ProjectDetailsPanel projectDetailsPanel;
     private ToolbarPanel toolbarPanel;
     private ReportCreationPanel reportCreationPanel;
 
@@ -27,8 +27,8 @@ public class GUIFrame extends JFrame {
 
         this.contentPane = getContentPane();
         reportCreationPanel = new ReportCreationPanel((JPanel) contentPane, reportState);
-        statisticsPanel = new StatisticsPanel((JPanel) contentPane);
-        toolbarPanel = new ToolbarPanel((JPanel) contentPane, reportState, reportCreationPanel);
+        projectDetailsPanel = new ProjectDetailsPanel((JPanel) contentPane, reportState);
+        toolbarPanel = new ToolbarPanel((JPanel) contentPane, reportState, reportCreationPanel, projectDetailsPanel);
     }
 
     /**
@@ -40,8 +40,8 @@ public class GUIFrame extends JFrame {
         contentPane.setBackground(Color.red);
         contentPane.setLayout(new BorderLayout());
 
-        statisticsPanel.setup();
-        contentPane.add(statisticsPanel, BorderLayout.NORTH);
+        projectDetailsPanel.setup();
+        contentPane.add(projectDetailsPanel, BorderLayout.NORTH);
 
         toolbarPanel.setup();
         contentPane.add(toolbarPanel, BorderLayout.WEST);
