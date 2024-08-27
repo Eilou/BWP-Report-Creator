@@ -29,12 +29,16 @@ public class ToolbarPanel extends JPanel {
         this.parentPanel = parentPanel;
         this.reportState = reportState;
         this.reportCreationPanel = reportCreationPanel;
-        setPreferredSize(new Dimension(100, parentPanel.getHeight()));
+//        setPreferredSize(new Dimension(100, parentPanel.getHeight()));
 
-        addDetailButton = new JButton("Add " + reportState);
+        addDetailButton = new JButton();
+        addDetailButton.setIcon(new ImageIcon("src/main/resources/buttonIcons/addItemIcon.png"));
         backfillCheckbox = new JCheckBox();
-        removeDetailButton = new JButton("Remove " + reportState);
-        generateReportButton = new JButton("Generate");
+        backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Disabled.png"));
+        removeDetailButton = new JButton();
+        removeDetailButton.setIcon(new ImageIcon("src/main/resources/buttonIcons/deleteLastIcon.png"));
+        generateReportButton = new JButton("");
+        generateReportButton.setIcon(new ImageIcon("src/main/resources/buttonIcons/generateIcon.png"));
 
     }
 
@@ -54,8 +58,13 @@ public class ToolbarPanel extends JPanel {
 
         attachHandlers();
 
-        add(addDetailButton);
-        add(backfillCheckbox);
+        JPanel addDetailPanel = new JPanel();
+        addDetailPanel.setLayout(new BoxLayout(addDetailPanel, BoxLayout.LINE_AXIS));
+        addDetailPanel.add(addDetailButton);
+        addDetailPanel.add(backfillCheckbox);
+        add(addDetailPanel);
+//        add(addDetailButton);
+//        add(backfillCheckbox);
         add(removeDetailButton);
         add(generateReportButton);
     }
@@ -66,6 +75,10 @@ public class ToolbarPanel extends JPanel {
     public void attachHandlers() {
         addDetailButton.addActionListener(
                 new AddDetailButtonHandler(reportState, reportCreationPanel, backfillCheckbox));
+        backfillCheckbox.addActionListener(e -> {
+            if (backfillCheckbox.isSelected()) backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Enabled.png"));
+            else backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Disabled.png"));
+        });
         removeDetailButton.addActionListener(
                 new RemoveLastDetailButtonHandler(reportState, reportCreationPanel));
         generateReportButton.addActionListener(new GenerateReportHandler(new DoorReportBuilder(reportCreationPanel)));
