@@ -1,9 +1,6 @@
 package gui.panels.details;
 
-import gui.handlers.AttributeComboBoxHandler;
-import gui.handlers.AttributeTextFieldHandler;
-import gui.handlers.CustomOptionHandler;
-import gui.handlers.Setter;
+import gui.handlers.*;
 import items.Item;
 
 import javax.swing.*;
@@ -93,6 +90,7 @@ public class GridPanel extends JPanel {
 
     /**
      * case 1: there is a combo box but not a text field and so add custom option handler and then also deal with comb box
+     *
      * @param setter the method reference to set a given attribute
      */
     public void attachCBAttributeHandler(Setter<String> setter) {
@@ -101,8 +99,6 @@ public class GridPanel extends JPanel {
 
         panelComboBox.addActionListener(new CustomOptionHandler<>(panelComboBox, this));
         panelComboBox.addActionListener(new AttributeComboBoxHandler(panelComboBox, setter));
-
-        // case 3: there is a second panel (needs to be handled specifically)
     }
 
     /**
@@ -112,6 +108,33 @@ public class GridPanel extends JPanel {
      */
     public void attachTFAttributeHandler(Setter<String> setter) {
         panelTextField.getDocument().addDocumentListener(new AttributeTextFieldHandler(panelTextField, setter));
+    }
+
+    /**
+     * Treats an inner combo box in a second panel as if it is the same as a grid panel with just a combo box
+     * case 3: there is a second panel (needs to be handled specifically)
+     *
+     * @param setter the attribute to set
+     * @param innerPanel the panel to add the custom text box to
+     * @param innerComboBox the combo box to read from
+     */
+    public void attachSpecificAttributeHandler(Setter<String> setter, JPanel innerPanel, JComboBox<String> innerComboBox) {
+        JTextField innerCustomTextField = new JTextField("Custom option here"); // cannot use class's custom text field as this one object variant will need multiple custom options
+        innerCustomTextField.getDocument().addDocumentListener(new AttributeTextFieldHandler(innerCustomTextField, setter));
+
+        innerComboBox.addActionListener(new InnerCustomOptionHandler<>(innerComboBox, innerPanel, innerCustomTextField));
+        innerComboBox.addActionListener(new AttributeComboBoxHandler(innerComboBox, setter));
+    }
+
+    /**
+     * Treats an inner text field in a second panel as if it is the same as a grid panel with just a text field
+     *
+     * @param setter the attribute to set
+     * @param innerPanel the panel to add the custom text box to
+     * @param innerTextField the text field to read from
+     */
+    public void attachSpecificAttributeHandler(Setter<String> setter, JPanel innerPanel, JTextField innerTextField) {
+
     }
 
     /**

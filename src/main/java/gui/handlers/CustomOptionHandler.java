@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 /**
  * Handler to add a custom text box when the "Custom" option is selected on each different combobox
- * @param <T> Means can work it with both String combo boxes and YesNoOption ones
+ * @param <T> Often will be type string
  */
 public class CustomOptionHandler <T> implements ActionListener {
 

@@ -194,6 +194,10 @@ public class Door extends Item {
     }
 
     //todo
+    public void setLeafSize(String leafSize) {
+        // this is a temporary holder to test other code works before working on this one
+        setLeafSize(new Dimension(0,0));
+    }
     public void setLeafSize(Dimension leafSize) {
         this.leafSize = leafSize;
     }

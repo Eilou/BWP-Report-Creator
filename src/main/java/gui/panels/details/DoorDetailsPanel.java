@@ -1,6 +1,7 @@
 package gui.panels.details;
 
 import gui.Styling;
+import gui.handlers.Setter;
 import items.doors.*;
 
 import javax.swing.*;
@@ -26,12 +27,15 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JComboBox<String> fireRatingComboBox = new JComboBox<>();
     private final JComboBox<String> glazedComboBox = new JComboBox<>();
 
+    private final JPanel leafSizeInnerPanel = new JPanel();
+    private final JPanel leafTypeInnerPanel = new JPanel();
+    private final JPanel leafNumberInnerPanel = new JPanel();
     private final JComboBox<String> leafTypeComboBox = new JComboBox<>();
     private final JComboBox<String> leafSizeComboBox = new JComboBox<>();
     // want a dropdown next to this with sizes: imperial, metric or bespoke
     // default should be imperial
     // this then influences the options available from the numbers
-    private final JComboBox<String> leafNumberCheckbox = new JComboBox<>();
+    private final JComboBox<String> leafNumberComboBox = new JComboBox<>();
     // this should be a dropdown box with options: single, double, triple, quad
 
     // todo lookup table realtive to leaf size
@@ -135,9 +139,19 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         JPanel leafSizeInputPanel = new JPanel();
         leafSizeInputPanel.setLayout(new BoxLayout(leafSizeInputPanel, BoxLayout.LINE_AXIS));
-        leafSizeInputPanel.add(leafTypeComboBox);
-        leafSizeInputPanel.add(leafSizeComboBox);
-        leafSizeInputPanel.add(leafNumberCheckbox);
+
+        leafTypeInnerPanel.setLayout(new BoxLayout(leafTypeInnerPanel, BoxLayout.PAGE_AXIS));
+        leafTypeInnerPanel.add(leafTypeComboBox);
+
+        leafSizeInnerPanel.setLayout(new BoxLayout(leafSizeInnerPanel, BoxLayout.PAGE_AXIS));
+        leafSizeInnerPanel.add(leafSizeComboBox);
+
+        leafNumberInnerPanel.setLayout(new BoxLayout(leafNumberInnerPanel, BoxLayout.PAGE_AXIS));
+        leafNumberInnerPanel.add(leafNumberComboBox);
+
+        leafSizeInputPanel.add(leafTypeInnerPanel);
+        leafSizeInputPanel.add(leafSizeInnerPanel);
+        leafSizeInputPanel.add(leafNumberInnerPanel);
         gridPanels[1][3].setup("Leaf Size", leafSizeInputPanel);
 
         //        gridPanels[1][4].add();
@@ -197,7 +211,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         populateGivenComboBox(glazedComboBox, new String[]{"", "Y [4]", "Custom"});
         populateGivenComboBox(leafTypeComboBox, new String[]{"", "Imperial", "Metric", "Bespoke", "Custom"});
         populateGivenComboBox(leafSizeComboBox, new String[]{"", "610", "686", "762", "838", "626", "726", "826", "926", "2 x 610", "2 x 686", "2 x 762", "2 x 838", "2 x 626", "2 x 726", "2 x 826", "2 x 926", "Custom"});
-        populateGivenComboBox(leafNumberCheckbox, new String[]{"Single", "Double", "Triple", "Quad", "Custom"});
+        populateGivenComboBox(leafNumberComboBox, new String[]{"Single", "Double", "Triple", "Quad", "Custom"});
 
         //todo clear opening thing, want to be realtive to leaf size width, but then also part of a drop down to override
 
@@ -235,6 +249,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[1][1].attachCBAttributeHandler(door::setFireRating);
         gridPanels[1][2].attachCBAttributeHandler(door::setGlazed);
 
+        gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafType, leafTypeInnerPanel, leafTypeComboBox);
+        gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafSize, leafSizeInnerPanel, leafSizeComboBox);
+        gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafNumber, leafNumberInnerPanel, leafNumberComboBox);
         //TODO
 //        JPanel leafSizeInputPanel = new JPanel();
 //        leafSizeInputPanel.setLayout(new BoxLayout(leafSizeInputPanel, BoxLayout.LINE_AXIS));
@@ -267,7 +284,6 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[4][4].attachTFAttributeHandler(door::setAdditionalNotes);
 
     }
-
 
 
     ////////////////////////////////////

@@ -25,7 +25,7 @@ public class AttributeComboBoxHandler implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        setter.apply((String) sourceComboBox.getSelectedItem()); // itll work, trust, literally everything is an object (i think)
+        setter.apply((String) sourceComboBox.getSelectedItem());
 
     }
 }

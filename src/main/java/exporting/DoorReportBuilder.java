@@ -172,7 +172,11 @@ public class DoorReportBuilder implements ReportBuilder{
             stringBuilder.append("                    </li>\n");
             stringBuilder.append("                    <li>\n");
             stringBuilder.append("                        <span>Leaf Size:</span>\n");
-            stringBuilder.append("                        <span>762 x 1981</span> <!-- To fill in -->\n"); //todo
+            stringBuilder.append("                        <span>\n");
+            stringBuilder.append("                            <div>"+ door.getLeafType()+"</div> <!-- To fill in -->\n");
+            stringBuilder.append("                            <div>"+ door.getLeafSize()+"</div> <!-- To fill in -->\n");
+            stringBuilder.append("                            <div>"+ door.getLeafNumber()+"</div> <!-- To fill in -->\n");
+            stringBuilder.append("                        </span>\n");
             stringBuilder.append("                    </li>\n");
             stringBuilder.append("                    <li>\n");
             stringBuilder.append("                        <span>Fire Rating:</span>\n");
