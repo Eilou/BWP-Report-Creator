@@ -1,4 +1,5 @@
 import gui.GUIFrame;
+import jdk.jfr.Event;
 
 import java.awt.*;
 //import com.itextpdf.io.font.FontConstant;
@@ -12,9 +13,20 @@ import java.awt.*;
 public class App {
 
     public static void main (String[] args) {
-        GUIFrame guiFrame = new GUIFrame();
-        guiFrame.setup();
-        System.out.println("Application GUI has loaded");
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GUIFrame guiFrame = new GUIFrame();
+                    guiFrame.setup();
+                    System.out.println("Application GUI has loaded");
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
 }
