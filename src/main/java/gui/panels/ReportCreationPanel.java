@@ -35,15 +35,14 @@ public class ReportCreationPanel extends JPanel {
 
     public void setup() {
         setBackground(Styling.BACKGROUND);
-//        setForeground(Styling.FOREGROUND);
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         detailsContainer.setLayout(new GridBagLayout());
-
         detailsContainer.setBackground(Styling.BORDER);
-//        detailsContainer.setForeground(Styling.FOREGROUND);
         detailsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
         add(detailsScrollPane);
+
     }
 
     /**
@@ -62,8 +61,8 @@ public class ReportCreationPanel extends JPanel {
         gbc.insets = new Insets(0, 0, 0, 0);
 
         gbc.fill = GridBagConstraints.BOTH; // stretch both horizontally and vertically
-        gbc.weightx = 1.0; // expand in the x direction but not in the y
-        gbc.weighty = 0.0;
+        gbc.weightx = 1; // expand in the x direction but not in the y
+        gbc.weighty = 0;
 
         gbc.gridx = 0;
         gbc.gridy = 0;

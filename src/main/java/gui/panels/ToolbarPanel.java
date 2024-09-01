@@ -26,14 +26,15 @@ public class ToolbarPanel extends JPanel {
     private JCheckBox backfillCheckbox;
     private JButton removeDetailButton;
     private JButton generateReportButton;
+    private JButton summaryButton;
 
     public ToolbarPanel(JPanel parentPanel, ReportState reportState, ReportCreationPanel reportCreationPanel, ProjectDetailsPanel projectDetailsPanel) {
         this.parentPanel = parentPanel;
         this.reportState = reportState;
         this.reportCreationPanel = reportCreationPanel;
         this.projectDetailsPanel = projectDetailsPanel;
-//        setPreferredSize(new Dimension(100, parentPanel.getHeight()));
 
+        summaryButton = new JButton("Summary");
         addDetailButton = new JButton();
         addDetailButton.setIcon(new ImageIcon("src/main/resources/buttonIcons/addItemIcon.png"));
         backfillCheckbox = new JCheckBox();
@@ -53,12 +54,6 @@ public class ToolbarPanel extends JPanel {
         setForeground(Styling.TEXT);
         setLayout(new GridLayout(0,1));
 
-        JLabel text = new JLabel();
-        text.setText("Toolbar Filler Text");
-        text.setForeground(Styling.TEXT);
-        text.setHorizontalAlignment(JLabel.CENTER);
-        add(text);
-
         attachHandlers();
 
         JPanel addDetailPanel = new JPanel();
@@ -66,10 +61,9 @@ public class ToolbarPanel extends JPanel {
         addDetailPanel.add(addDetailButton);
         addDetailPanel.add(backfillCheckbox);
         add(addDetailPanel);
-//        add(addDetailButton);
-//        add(backfillCheckbox);
         add(removeDetailButton);
         add(generateReportButton);
+        add(summaryButton);
     }
 
     /**
