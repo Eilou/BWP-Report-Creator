@@ -38,7 +38,8 @@ public class ReportCreationPanel extends JPanel {
 //        setForeground(Styling.FOREGROUND);
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        detailsContainer.setLayout(new BoxLayout(detailsContainer, BoxLayout.PAGE_AXIS));
+        detailsContainer.setLayout(new GridBagLayout());
+
         detailsContainer.setBackground(Styling.BORDER);
 //        detailsContainer.setForeground(Styling.FOREGROUND);
         detailsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
@@ -52,8 +53,20 @@ public class ReportCreationPanel extends JPanel {
 
         DetailPanel itemPanelToAdd = new DetailPanel(this, reportState, listOfDetailsPanels.size() + 1);
 
-
         int count = -1;
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.insets = new Insets(0, 0, 0, 0);
+
+        gbc.fill = GridBagConstraints.BOTH; // stretch both horizontally and vertically
+        gbc.weightx = 1.0; // expand in the x direction but not in the y
+        gbc.weighty = 0.0;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
 
         // give the option to either backfill or add to the front
         if (backfill && !middleDeletedIndexes.isEmpty()) {
@@ -63,13 +76,19 @@ public class ReportCreationPanel extends JPanel {
             // need to change the count value for this door as well
 
             listOfDetailsPanels.add(indexToAdd, itemPanelToAdd);
-            detailsContainer.add(itemPanelToAdd, indexToAdd);
+
+            gbc.gridy = indexToAdd;
+
+            detailsContainer.add(itemPanelToAdd, gbc);
         }
         else {
             if (listOfDetailsPanels.isEmpty()) {count = 1;}
             else {count = listOfDetailsPanels.get(listOfDetailsPanels.size()-1).getCount() + 1;}
             listOfDetailsPanels.add(itemPanelToAdd);
-            detailsContainer.add(itemPanelToAdd);
+
+            // this is really a hell mary
+            gbc.gridy = count;
+            detailsContainer.add(itemPanelToAdd, gbc);
         }
 
         SpecificDetailInterface dataPanelToAdd;

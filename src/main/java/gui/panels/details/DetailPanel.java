@@ -80,25 +80,10 @@ public class DetailPanel extends JPanel {
         titleAndExitPanel.add(editMinimiseButton);
         titleAndExitPanel.add(closePanelButton);
 
-        setLayout(new GridBagLayout());
-
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.insets = new Insets(0, 0, 0, 0);
-
-        gbc.fill = GridBagConstraints.BOTH; // stretch both horizontally and vertically
-        gbc.weightx = 1.0; // expand in both directions at equal rates
-        gbc.weighty = 0.0;
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        add(titleAndExitPanel);
         this.dataPanel = dataPanel;
-        add(titleAndExitPanel, gbc);
-        gbc.gridy = 1;
-        add(this.dataPanel, gbc);
+        add(this.dataPanel);
 
         titleField.setText(reportState.toString().charAt(0) + String.valueOf(getCount()));
 
