@@ -3,6 +3,7 @@ package gui.panels.details;
 import enums.ReportState;
 import gui.Styling;
 import gui.handlers.CloseDetailButtonHandler;
+import gui.handlers.EditMinimiseButtonHandler;
 import gui.panels.ReportCreationPanel;
 import items.Item;
 
@@ -22,6 +23,7 @@ public class DetailPanel extends JPanel {
     private Border border;
     private JTextField titleField;
     private JButton closePanelButton;
+    private JButton editMinimiseButton;
     private JPanel dataPanel;
 
     /**
@@ -37,13 +39,15 @@ public class DetailPanel extends JPanel {
         this.parentPanel = parentPanel;
         this.reportState = reportState;
 //        setPreferredSize(new Dimension(parentPanel.getWidth(), (int) (parentPanel.getHeight()*0.65)));
-        setMinimumSize(new Dimension(0, (int) (parentPanel.getHeight() * 0.65)));
-        setMaximumSize(new Dimension(Integer.MAX_VALUE, (int) (parentPanel.getHeight() * 0.65)));
+//        setMinimumSize(new Dimension(0, (int) (parentPanel.getHeight() * 0.65)));
+//        setMaximumSize(new Dimension(Integer.MAX_VALUE, (int) (parentPanel.getHeight() * 0.65)));
 //        setMaximumSize(getPreferredSize());
 
-        titleField = new JTextField(20);
+        titleField = new JTextField();
+//        titleField.setMaximumSize(titleField.getPreferredSize());
 
         closePanelButton = new JButton("DELETE");
+        editMinimiseButton = new JButton("Minimise");
 
         int margin = 5;
         border = BorderFactory.createCompoundBorder(
@@ -64,12 +68,32 @@ public class DetailPanel extends JPanel {
         setBorder(border);
 
         JPanel titleAndExitPanel = new JPanel();
-        titleAndExitPanel.setLayout(new BoxLayout(titleAndExitPanel, BoxLayout.LINE_AXIS));
+        titleAndExitPanel.setLayout(new GridBagLayout());
+
+        editMinimiseButton.setBackground(Color.green);
+        editMinimiseButton.setForeground(Color.black);
+
         closePanelButton.setBackground(Color.red);
         closePanelButton.setForeground(Color.white);
 
-        titleAndExitPanel.add(titleField);
-        titleAndExitPanel.add(closePanelButton);
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.insets = new Insets(0, 0, 0, 0);
+
+        gbc.fill = GridBagConstraints.BOTH; // stretch both horizontally and vertically
+        gbc.weightx = 1.0; // expand in both directions at equal rates
+        gbc.weighty = 0.0;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+
+        titleAndExitPanel.add(titleField, gbc);
+        gbc.gridx = 1;
+        titleAndExitPanel.add(editMinimiseButton, gbc);
+        gbc.gridx = 2;
+        titleAndExitPanel.add(closePanelButton, gbc);
         add(titleAndExitPanel);
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -87,6 +111,7 @@ public class DetailPanel extends JPanel {
      */
     public void attachHandlers() {
         closePanelButton.addActionListener(new CloseDetailButtonHandler((ReportCreationPanel) parentPanel, reportState, this));
+        editMinimiseButton.addActionListener(new EditMinimiseButtonHandler(this, dataPanel));
     }
 
     ////////////////////////////////////
@@ -126,4 +151,11 @@ public class DetailPanel extends JPanel {
         ((SpecificDetailInterface) dataPanel).setCount(newCount);
     }
 
+    public JButton getEditMinimiseButton() {
+        return editMinimiseButton;
+    }
+
+    public void setEditMinimiseButton(JButton editMinimiseButton) {
+        this.editMinimiseButton = editMinimiseButton;
+    }
 }
