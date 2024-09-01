@@ -77,6 +77,7 @@ public class ReportCreationPanel extends JPanel {
 
             listOfDetailsPanels.add(indexToAdd, itemPanelToAdd);
 
+            // don't need to -1 here as count is +1
             gbc.gridy = indexToAdd;
 
             detailsContainer.add(itemPanelToAdd, gbc);
@@ -86,8 +87,8 @@ public class ReportCreationPanel extends JPanel {
             else {count = listOfDetailsPanels.get(listOfDetailsPanels.size()-1).getCount() + 1;}
             listOfDetailsPanels.add(itemPanelToAdd);
 
-            // this is really a hell mary
-            gbc.gridy = count;
+            // -1 as I am basing the grid y off the count here which is one above the index value
+            gbc.gridy = count - 1;
             detailsContainer.add(itemPanelToAdd, gbc);
         }
 
