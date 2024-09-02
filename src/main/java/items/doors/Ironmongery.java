@@ -1,6 +1,8 @@
 package items.doors;
 
-public class Ironmongery {
+import java.io.Serializable;
+
+public class Ironmongery implements Serializable {
     private Door door; // the door this iron mongery is linked to
     private String hinges;
     private Boolean doubleHinges;  // if the per leaf option selected then this is a double

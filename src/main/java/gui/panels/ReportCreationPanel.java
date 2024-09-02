@@ -8,19 +8,20 @@ import gui.panels.details.SpecificDetailInterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
  * Holds the area where you can create a report
  */
-public class ReportCreationPanel extends JPanel {
+public class ReportCreationPanel extends JPanel implements Serializable{
 
     private ArrayList<DetailPanel> listOfDetailsPanels;
     private ArrayList<Integer> middleDeletedIndexes;
     private ReportState reportState;
 
-    private JPanel detailsContainer;
-    private JScrollPane detailsScrollPane;
+    private transient JPanel detailsContainer;
+    private transient JScrollPane detailsScrollPane;
 
     public ReportCreationPanel(ReportState reportState) {
         this.reportState = reportState;
@@ -124,6 +125,64 @@ public class ReportCreationPanel extends JPanel {
         revalidate();
         repaint();
 
+    }
+
+    /**
+     * Writes the current state of the app to a file to be loaded in later
+     *
+     * @param file the file path to save to
+     * @throws IOException if the file path doesn't exist
+     */
+    public void save(File file) throws IOException {
+        FileOutputStream fos = new FileOutputStream(file);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(reportState);
+        oos.writeObject(listOfDetailsPanels);
+        oos.writeObject(middleDeletedIndexes);
+
+        fos.close();
+    }
+
+    /**
+     * Retrieves a saved version of the app in byte form, then updates the current one to match,
+     * finally it runs setup() to ensure all handlers are appropriately assigned
+     *
+     * @param file file to read from
+     * @throws IOException if the file does not exist
+     */
+    public void load(File file) throws IOException {
+
+        FileInputStream fis = new FileInputStream(file);
+
+        try {
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            this.reportState = (ReportState) ois.readObject();
+            this.listOfDetailsPanels = (ArrayList<DetailPanel>) ois.readObject();
+            this.middleDeletedIndexes = (ArrayList<Integer>) ois.readObject();
+
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.anchor = GridBagConstraints.NORTH;
+            gbc.gridwidth = 1;
+            gbc.gridheight = 1;
+            gbc.insets = new Insets(0, 0, 0, 0);
+
+            gbc.fill = GridBagConstraints.BOTH; // stretch both horizontally and vertically
+            gbc.weightx = 1; // expand in the x direction but not in the y
+            gbc.weighty = 0;
+
+            gbc.gridx = 0;
+
+            for (gbc.gridy = 0; gbc.gridy < listOfDetailsPanels.size(); gbc.gridy++)
+                detailsContainer.add(listOfDetailsPanels.get(gbc.gridy), gbc);
+            repaint();
+            revalidate();
+
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally { // not optimal but more readable
+            fis.close();
+        }
     }
 
     ////////////////////////////////////

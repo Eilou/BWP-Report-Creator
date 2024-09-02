@@ -2,6 +2,7 @@ package gui.panels;
 
 import enums.ReportState;
 import exporting.DoorReportBuilder;
+import gui.GUIFrame;
 import gui.Styling;
 import gui.handlers.AddDetailButtonHandler;
 import gui.handlers.GenerateReportHandler;
@@ -9,14 +10,16 @@ import gui.handlers.RemoveLastDetailButtonHandler;
 import gui.panels.details.DoorDetailsPanel;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
  * Provides the toolbar on the left hand side of the application
  */
-public class ToolbarPanel extends JPanel implements Serializable {
+public class ToolbarPanel extends JPanel {
 
     private ReportState reportState;
     private ReportCreationPanel reportCreationPanel;
@@ -37,7 +40,6 @@ public class ToolbarPanel extends JPanel implements Serializable {
         this.reportCreationPanel = reportCreationPanel;
         this.projectDetailsPanel = projectDetailsPanel;
 
-
         saveButton = new JButton("Save");
         openButton = new JButton("Open");
 
@@ -57,9 +59,10 @@ public class ToolbarPanel extends JPanel implements Serializable {
      * Add the buttons onto the GUI and locate them as appropriate
      */
     public void setup() {
+
         setBackground(Styling.FOREGROUND);
         setForeground(Styling.TEXT);
-        setLayout(new GridLayout(0,1));
+        setLayout(new GridLayout(0, 1));
 
         attachHandlers();
 
@@ -80,14 +83,51 @@ public class ToolbarPanel extends JPanel implements Serializable {
      * Attach the handlers to the buttons to give them functionality
      */
     public void attachHandlers() {
-        addDetailButton.addActionListener(
-                new AddDetailButtonHandler(reportState, reportCreationPanel, backfillCheckbox));
+
+        saveButton.addActionListener(lambda -> {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "BWP Report Creator Files", "bwparchirc");
+
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showSaveDialog(null); // null parent so appears in the middle
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                System.out.println("User chose to save file: " + chooser.getSelectedFile().getName());
+                try {
+                    reportCreationPanel.save(chooser.getSelectedFile());
+                } catch (IOException e) {
+                    System.out.println("User has chosen to write to a file which doesn't yet exist");
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        openButton.addActionListener(lambda -> {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "BWP Report Creator Files", "bwparchirc");
+
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(null); // null parent so appears in the middle
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                System.out.println("User chose to open file: " + chooser.getSelectedFile().getName());
+                try {
+                    reportCreationPanel.load(chooser.getSelectedFile());
+                } catch (IOException e) {
+                    System.out.println("User has chosen to read from a file which doesn't yet exist");
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        addDetailButton.addActionListener(new AddDetailButtonHandler(reportState, reportCreationPanel, backfillCheckbox));
         backfillCheckbox.addActionListener(e -> {
-            if (backfillCheckbox.isSelected()) backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Enabled.png"));
+            if (backfillCheckbox.isSelected())
+                backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Enabled.png"));
             else backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Disabled.png"));
         });
-        removeDetailButton.addActionListener(
-                new RemoveLastDetailButtonHandler(reportState, reportCreationPanel));
+
+        removeDetailButton.addActionListener(new RemoveLastDetailButtonHandler(reportState, reportCreationPanel));
         generateReportButton.addActionListener(new GenerateReportHandler(new DoorReportBuilder(reportCreationPanel, projectDetailsPanel)));
     }
 

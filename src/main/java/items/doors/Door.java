@@ -3,8 +3,9 @@ package items.doors;
 import items.Item;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Door extends Item {
+public class Door extends Item implements Serializable {
 
     private String floor;
     private String room;
