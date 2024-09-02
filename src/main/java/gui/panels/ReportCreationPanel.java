@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Holds the area where you can create a report
  */
-public class ReportCreationPanel extends JPanel implements Serializable{
+public class ReportCreationPanel extends JPanel implements Serializable {
 
     private ArrayList<DetailPanel> listOfDetailsPanels;
     private ArrayList<Integer> middleDeletedIndexes;
@@ -180,7 +180,7 @@ public class ReportCreationPanel extends JPanel implements Serializable{
             gbc.gridy = 0;
 
             for (DetailPanel currentPanel : listOfDetailsPanels) {
-                gbc.gridy = currentPanel.getItem().getCount()-1; // the count value never changes with the door, so it can be used to insert at the correct point without needing to store null values in the array list (which would be embarrassing)
+                gbc.gridy = currentPanel.getItem().getCount() - 1; // the count value never changes with the door, so it can be used to insert at the correct point without needing to store null values in the array list (which would be embarrassing)
                 currentPanel.setParentPanel(this); // reassign the event handlers
                 currentPanel.attachHandlers();
                 detailsContainer.add(currentPanel, gbc);
@@ -194,6 +194,17 @@ public class ReportCreationPanel extends JPanel implements Serializable{
         } finally { // not optimal but more readable
             fis.close();
         }
+    }
+
+    /**
+     * Clears out any existing details ready to add in new ones
+     */
+    public void reset() {
+        this.listOfDetailsPanels = new ArrayList<>();
+        this.middleDeletedIndexes = new ArrayList<>();
+        this.detailsContainer.removeAll();
+        repaint();
+        revalidate();
     }
 
     ////////////////////////////////////

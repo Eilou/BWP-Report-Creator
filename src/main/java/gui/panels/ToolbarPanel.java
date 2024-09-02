@@ -23,6 +23,7 @@ public class ToolbarPanel extends JPanel {
     private ReportCreationPanel reportCreationPanel;
     private ProjectDetailsPanel projectDetailsPanel;
 
+    private JButton newButton;
     private JButton saveButton;
     private JButton openButton;
 
@@ -38,6 +39,7 @@ public class ToolbarPanel extends JPanel {
         this.reportCreationPanel = reportCreationPanel;
         this.projectDetailsPanel = projectDetailsPanel;
 
+        newButton = new JButton("New");
         saveButton = new JButton("Save");
         openButton = new JButton("Open");
 
@@ -64,6 +66,7 @@ public class ToolbarPanel extends JPanel {
 
         attachHandlers();
 
+        add(newButton);
         add(saveButton);
         add(openButton);
 
@@ -82,8 +85,12 @@ public class ToolbarPanel extends JPanel {
      */
     public void attachHandlers() {
 
+        newButton.addActionListener(e -> {
+            projectDetailsPanel.reset();
+            reportCreationPanel.reset();
+            //todo add warning
+        });
         saveButton.addActionListener(new SaveButtonHandler(reportCreationPanel, projectDetailsPanel));
-
         openButton.addActionListener(new OpenButtonHandler(reportCreationPanel, projectDetailsPanel));
 
         addDetailButton.addActionListener(new AddDetailButtonHandler(reportState, reportCreationPanel, backfillCheckbox));

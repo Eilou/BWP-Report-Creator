@@ -47,6 +47,8 @@ public class OpenButtonHandler implements ActionListener {
             else {
 
                 //todo reset the system beforehand
+                projectDetailsPanel.reset();
+                reportCreationPanel.reset();
 
                 System.out.println("User chose to open file: " + fileName);
                 System.out.println(chooser.getSelectedFile());

@@ -34,32 +34,20 @@ public class ProjectDetailsPanel extends JPanel implements Serializable {
 
     public ProjectDetailsPanel(ReportState reportState) {
         this.reportState = reportState;
-//        setPreferredSize(new Dimension(parentPanel.getWidth(), 50));
 
-//        titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         titlePanel = new JPanel(new BorderLayout());
-        titleLabel = new JLabel("Project Title:");
-        titleField = new JTextField("Insert title here");
+        titleLabel = new JLabel();
+        titleField = new JTextField();
 
         projectNumberPanel = new JPanel(new BorderLayout());
-        projectNumberLabel = new JLabel("Project Number:");
-        projectNumberField = new JTextField("XXX ####");
+        projectNumberLabel = new JLabel();
+        projectNumberField = new JTextField();
 
         itemNumberPanel = new JPanel(new BorderLayout());
+        itemNumberLabel = new JLabel();
+        itemNumberField = new JTextField();
 
-        String labelText = "";
-        String fieldText = "";
-        switch (this.reportState) {
-            case DOOR -> {
-                labelText = "Door Schedule:";
-                fieldText = "CZ01";
-            }
-            default -> {
-            }
-        }
-        itemNumberLabel = new JLabel(labelText);
-        itemNumberField = new JTextField(fieldText);
-
+        setDefaultValues();
     }
 
     /**
@@ -115,6 +103,30 @@ public class ProjectDetailsPanel extends JPanel implements Serializable {
     }
 
     /**
+     * Sets the default texts for the different components
+     */
+    public void setDefaultValues() {
+        titleLabel.setText("Project Title:");
+        titleField.setText("Insert title here");
+
+        projectNumberLabel.setText("Project Number:");
+        projectNumberField.setText("XXX ####");
+
+        String labelText = "";
+        String fieldText = "";
+        switch (this.reportState) {
+            case DOOR -> {
+                labelText = "Door Schedule:";
+                fieldText = "CZ01";
+            }
+            default -> {
+            }
+        }
+        itemNumberLabel.setText(labelText);
+        itemNumberField.setText(fieldText);
+    }
+
+    /**
      * Gets the value held in the text fields, then serializes them
      *
      * @param file the file path to save to
@@ -166,6 +178,13 @@ public class ProjectDetailsPanel extends JPanel implements Serializable {
             fis.close();
             return readSoFar;
         }
+    }
+
+    /**
+     * Resets the different elements back to their original values
+     */
+    public void reset() {
+        setDefaultValues();
     }
 
     ////

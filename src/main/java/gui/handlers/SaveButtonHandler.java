@@ -1,5 +1,6 @@
 package gui.handlers;
 
+import gui.Styling;
 import gui.panels.ProjectDetailsPanel;
 import gui.panels.ReportCreationPanel;
 
@@ -40,6 +41,7 @@ public class SaveButtonHandler implements ActionListener {
         int returnVal = chooser.showSaveDialog(null); // null parent so appears in the middle of a user's screen
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
+            // ensure only saving to files with the correct extension
             String fileName = chooser.getSelectedFile().getName();
             if (fileName.lastIndexOf('.') == -1 || !(fileName.strip().substring(fileName.lastIndexOf('.'))).equals(".bwparchirc")) {
                 JOptionPane.showOptionDialog(null, "Chosen invalid file type", "File Error", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, new String[]{"Okay"}, "Okay");
