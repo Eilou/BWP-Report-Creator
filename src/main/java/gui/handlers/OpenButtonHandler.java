@@ -18,6 +18,11 @@ public class OpenButtonHandler implements ActionListener {
         this.reportCreationPanel = reportCreationPanel;
     }
 
+    /**
+     * Prompts the user with a pop out window to choose the file to read from then opens it,  if an appropriate file chosen
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();

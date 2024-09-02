@@ -172,13 +172,13 @@ public class ReportCreationPanel extends JPanel implements Serializable{
             gbc.weighty = 0;
 
             gbc.gridx = 0;
+            gbc.gridy = 0;
 
-            for (gbc.gridy = 0; gbc.gridy < listOfDetailsPanels.size(); gbc.gridy++) {
-                DetailPanel currentPanel = listOfDetailsPanels.get(gbc.gridy);
+            for (DetailPanel currentPanel : listOfDetailsPanels) {
+                gbc.gridy = currentPanel.getItem().getCount()-1; // the count value never changes with the door, so it can be used to insert at the correct point without needing to store null values in the array list (which would be embarrassing)
                 currentPanel.setParentPanel(this); // reassign the event handlers
                 currentPanel.attachHandlers();
                 detailsContainer.add(currentPanel, gbc);
-
             }
 
             repaint();

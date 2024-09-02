@@ -18,6 +18,10 @@ public class SaveButtonHandler implements ActionListener {
         this.reportCreationPanel = reportCreationPanel;
     }
 
+    /**
+     * Prompts the user with a pop out window to choose the file to save to then updates writes to this file if appropriate one chosen
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
