@@ -173,8 +173,14 @@ public class ReportCreationPanel extends JPanel implements Serializable{
 
             gbc.gridx = 0;
 
-            for (gbc.gridy = 0; gbc.gridy < listOfDetailsPanels.size(); gbc.gridy++)
-                detailsContainer.add(listOfDetailsPanels.get(gbc.gridy), gbc);
+            for (gbc.gridy = 0; gbc.gridy < listOfDetailsPanels.size(); gbc.gridy++) {
+                DetailPanel currentPanel = listOfDetailsPanels.get(gbc.gridy);
+                currentPanel.setParentPanel(this); // reassign the event handlers
+                currentPanel.attachHandlers();
+                detailsContainer.add(currentPanel, gbc);
+
+            }
+
             repaint();
             revalidate();
 

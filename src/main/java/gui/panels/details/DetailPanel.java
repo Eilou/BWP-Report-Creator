@@ -38,13 +38,8 @@ public class DetailPanel extends JPanel {
     public DetailPanel(JPanel parentPanel, ReportState reportState, int count) {
         this.parentPanel = parentPanel;
         this.reportState = reportState;
-//        setPreferredSize(new Dimension(parentPanel.getWidth(), (int) (parentPanel.getHeight()*0.65)));
-//        setMinimumSize(new Dimension(0, (int) (parentPanel.getHeight() * 0.65)));
-//        setMaximumSize(new Dimension(Integer.MAX_VALUE, (int) (parentPanel.getHeight() * 0.65)));
-//        setMaximumSize(getPreferredSize());
 
         titleField = new JTextField();
-//        titleField.setMaximumSize(titleField.getPreferredSize());
 
         closePanelButton = new JButton("DELETE");
         editMinimiseButton = new JButton("Minimise");
@@ -141,5 +136,9 @@ public class DetailPanel extends JPanel {
 
     public void setEditMinimiseButton(JButton editMinimiseButton) {
         this.editMinimiseButton = editMinimiseButton;
+    }
+
+    public void setParentPanel(JPanel parentPanel) {
+        this.parentPanel = parentPanel;
     }
 }

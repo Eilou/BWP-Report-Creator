@@ -4,9 +4,7 @@ import enums.ReportState;
 import exporting.DoorReportBuilder;
 import gui.GUIFrame;
 import gui.Styling;
-import gui.handlers.AddDetailButtonHandler;
-import gui.handlers.GenerateReportHandler;
-import gui.handlers.RemoveLastDetailButtonHandler;
+import gui.handlers.*;
 import gui.panels.details.DoorDetailsPanel;
 
 import javax.swing.*;
@@ -84,41 +82,9 @@ public class ToolbarPanel extends JPanel {
      */
     public void attachHandlers() {
 
-        saveButton.addActionListener(lambda -> {
-            JFileChooser chooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "BWP Report Creator Files", "bwparchirc");
+        saveButton.addActionListener(new SaveButtonHandler(reportCreationPanel));
 
-            chooser.setFileFilter(filter);
-            int returnVal = chooser.showSaveDialog(null); // null parent so appears in the middle
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                System.out.println("User chose to save file: " + chooser.getSelectedFile().getName());
-                try {
-                    reportCreationPanel.save(chooser.getSelectedFile());
-                } catch (IOException e) {
-                    System.out.println("User has chosen to write to a file which doesn't yet exist");
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        openButton.addActionListener(lambda -> {
-            JFileChooser chooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "BWP Report Creator Files", "bwparchirc");
-
-            chooser.setFileFilter(filter);
-            int returnVal = chooser.showOpenDialog(null); // null parent so appears in the middle
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                System.out.println("User chose to open file: " + chooser.getSelectedFile().getName());
-                try {
-                    reportCreationPanel.load(chooser.getSelectedFile());
-                } catch (IOException e) {
-                    System.out.println("User has chosen to read from a file which doesn't yet exist");
-                    e.printStackTrace();
-                }
-            }
-        });
+        openButton.addActionListener(new OpenButtonHandler(reportCreationPanel));
 
         addDetailButton.addActionListener(new AddDetailButtonHandler(reportState, reportCreationPanel, backfillCheckbox));
         backfillCheckbox.addActionListener(e -> {
