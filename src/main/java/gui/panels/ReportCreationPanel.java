@@ -134,7 +134,7 @@ public class ReportCreationPanel extends JPanel implements Serializable{
      * @throws IOException if the file path doesn't exist
      */
     public void save(File file) throws IOException {
-        FileOutputStream fos = new FileOutputStream(file);
+        FileOutputStream fos = new FileOutputStream(file, true);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
         oos.writeObject(reportState);
@@ -151,13 +151,18 @@ public class ReportCreationPanel extends JPanel implements Serializable{
      * @param file file to read from
      * @throws IOException if the file does not exist
      */
-    public void load(File file) throws IOException {
+    @SuppressWarnings("unchecked") // this is to counter the ois.readObject(), but I know they're correct so it's fine
+    public void load(File file, long readSoFar) throws IOException {
 
         FileInputStream fis = new FileInputStream(file);
 
         try {
+            // skip ahead to where read so far
+            fis.getChannel().position(readSoFar);
+
             ObjectInputStream ois = new ObjectInputStream(fis);
             this.reportState = (ReportState) ois.readObject();
+
             this.listOfDetailsPanels = (ArrayList<DetailPanel>) ois.readObject();
             this.middleDeletedIndexes = (ArrayList<Integer>) ois.readObject();
 

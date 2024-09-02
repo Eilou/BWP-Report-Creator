@@ -82,9 +82,9 @@ public class ToolbarPanel extends JPanel {
      */
     public void attachHandlers() {
 
-        saveButton.addActionListener(new SaveButtonHandler(reportCreationPanel));
+        saveButton.addActionListener(new SaveButtonHandler(reportCreationPanel, projectDetailsPanel));
 
-        openButton.addActionListener(new OpenButtonHandler(reportCreationPanel));
+        openButton.addActionListener(new OpenButtonHandler(reportCreationPanel, projectDetailsPanel));
 
         addDetailButton.addActionListener(new AddDetailButtonHandler(reportState, reportCreationPanel, backfillCheckbox));
         backfillCheckbox.addActionListener(e -> {
@@ -111,5 +111,6 @@ public class ToolbarPanel extends JPanel {
         );
 
     }
+
 
 }

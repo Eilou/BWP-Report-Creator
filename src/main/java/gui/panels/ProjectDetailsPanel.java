@@ -2,29 +2,35 @@ package gui.panels;
 
 import enums.ReportState;
 import gui.Styling;
+import gui.panels.details.DetailPanel;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Holds general information about the
  */
-public class ProjectDetailsPanel extends JPanel {
+public class ProjectDetailsPanel extends JPanel implements Serializable {
 
     private ReportState reportState;
 
-    private JPanel titlePanel;
-    private JLabel titleLabel;
-    private JTextField titleField;
+    private transient JPanel titlePanel;
+    private transient JLabel titleLabel;
+    private transient JTextField titleField;
+    private String titleValue;
 
-    private JPanel projectNumberPanel;
-    private JLabel projectNumberLabel;
-    private JTextField projectNumberField;
+    private transient JPanel projectNumberPanel;
+    private transient JLabel projectNumberLabel;
+    private transient JTextField projectNumberField;
+    private String projectNumberValue;
 
-    private JPanel itemNumberPanel;
-    private JLabel itemNumberLabel;
-    private JTextField itemNumberField;
+    private transient JPanel itemNumberPanel;
+    private transient JLabel itemNumberLabel;
+    private transient JTextField itemNumberField;
+    private String itemNumberValue;
 
     public ProjectDetailsPanel(ReportState reportState) {
         this.reportState = reportState;
@@ -106,6 +112,60 @@ public class ProjectDetailsPanel extends JPanel {
         repaint();
         revalidate();
 
+    }
+
+    /**
+     * Gets the value held in the text fields, then serializes them
+     *
+     * @param file the file path to save to
+     * @throws IOException if the file path doesn't exist
+     */
+    public void save(File file) throws IOException {
+
+        titleValue = titleField.getText();
+        projectNumberValue = projectNumberField.getText();
+        itemNumberValue = itemNumberField.getText();
+
+        FileOutputStream fos = new FileOutputStream(file);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(reportState);
+        oos.writeObject(titleValue);
+        oos.writeObject(projectNumberValue);
+        oos.writeObject(itemNumberValue);
+
+        fos.close();
+    }
+
+    /**
+     * Deserializes the values then assigns them to their respective text fields
+     *
+     * @param file the file to read from
+     * @return the amount of bytes of the file already read
+     * @throws IOException if the file path doesn't exist
+     */
+    public long load(File file) throws IOException {
+
+        FileInputStream fis = new FileInputStream(file);
+
+        try {
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            this.reportState = (ReportState) ois.readObject();
+            this.titleValue = (String) ois.readObject();
+            this.projectNumberValue = (String) ois.readObject();
+            this.itemNumberValue = (String) ois.readObject();
+
+            titleField.setText(titleValue);
+             projectNumberField.setText(projectNumberValue);
+             itemNumberField.setText(itemNumberValue);
+
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally { // not optimal but more readable
+            long readSoFar = fis.getChannel().position();
+            fis.close();
+            return readSoFar;
+        }
     }
 
     ////
