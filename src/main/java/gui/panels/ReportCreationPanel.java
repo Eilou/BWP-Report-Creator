@@ -15,7 +15,6 @@ import java.util.ArrayList;
  */
 public class ReportCreationPanel extends JPanel {
 
-    private JPanel parentPanel;
     private ArrayList<DetailPanel> listOfDetailsPanels;
     private ArrayList<Integer> middleDeletedIndexes;
     private ReportState reportState;
@@ -23,8 +22,7 @@ public class ReportCreationPanel extends JPanel {
     private JPanel detailsContainer;
     private JScrollPane detailsScrollPane;
 
-    public ReportCreationPanel(JPanel parentPanel, ReportState reportState) {
-        this.parentPanel = parentPanel;
+    public ReportCreationPanel(ReportState reportState) {
         this.reportState = reportState;
         listOfDetailsPanels = new ArrayList<>();
         middleDeletedIndexes = new ArrayList<>();
@@ -80,10 +78,12 @@ public class ReportCreationPanel extends JPanel {
             gbc.gridy = indexToAdd;
 
             detailsContainer.add(itemPanelToAdd, gbc);
-        }
-        else {
-            if (listOfDetailsPanels.isEmpty()) {count = 1;}
-            else {count = listOfDetailsPanels.get(listOfDetailsPanels.size()-1).getCount() + 1;}
+        } else {
+            if (listOfDetailsPanels.isEmpty()) {
+                count = 1;
+            } else {
+                count = listOfDetailsPanels.get(listOfDetailsPanels.size() - 1).getCount() + 1;
+            }
             listOfDetailsPanels.add(itemPanelToAdd);
 
             // -1 as I am basing the grid y off the count here which is one above the index value
@@ -93,10 +93,7 @@ public class ReportCreationPanel extends JPanel {
 
         SpecificDetailInterface dataPanelToAdd;
         switch (reportState) {
-            case DOOR -> dataPanelToAdd = new DoorDetailsPanel(
-                    this,
-                    count
-            );
+            case DOOR -> dataPanelToAdd = new DoorDetailsPanel(count);
             default -> dataPanelToAdd = null;
         }
 
@@ -110,12 +107,13 @@ public class ReportCreationPanel extends JPanel {
 
     /**
      * Removes a given detail panel from the scroll pane
+     *
      * @param panelToRemove detail panel to be removed from this panel's scroll pane
      */
     public void removeDetailPanel(DetailPanel panelToRemove) {
 
         // if not removing the end item, add it to the middle removed list
-        if (!panelToRemove.equals(listOfDetailsPanels.get(listOfDetailsPanels.size()-1))) {
+        if (!panelToRemove.equals(listOfDetailsPanels.get(listOfDetailsPanels.size() - 1))) {
             middleDeletedIndexes.add(panelToRemove.getCount() - 1);
         }
 

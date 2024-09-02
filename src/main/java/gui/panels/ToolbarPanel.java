@@ -11,30 +11,36 @@ import gui.panels.details.DoorDetailsPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 /**
  * Provides the toolbar on the left hand side of the application
  */
-public class ToolbarPanel extends JPanel {
+public class ToolbarPanel extends JPanel implements Serializable {
 
-    private JPanel parentPanel;
     private ReportState reportState;
     private ReportCreationPanel reportCreationPanel;
     private ProjectDetailsPanel projectDetailsPanel;
+
+    private JButton saveButton;
+    private JButton openButton;
 
     private JButton addDetailButton;
     private JCheckBox backfillCheckbox;
     private JButton removeDetailButton;
     private JButton generateReportButton;
+
     private JButton summaryButton;
 
-    public ToolbarPanel(JPanel parentPanel, ReportState reportState, ReportCreationPanel reportCreationPanel, ProjectDetailsPanel projectDetailsPanel) {
-        this.parentPanel = parentPanel;
+    public ToolbarPanel(ReportState reportState, ReportCreationPanel reportCreationPanel, ProjectDetailsPanel projectDetailsPanel) {
         this.reportState = reportState;
         this.reportCreationPanel = reportCreationPanel;
         this.projectDetailsPanel = projectDetailsPanel;
 
-        summaryButton = new JButton("Summary");
+
+        saveButton = new JButton("Save");
+        openButton = new JButton("Open");
+
         addDetailButton = new JButton();
         addDetailButton.setIcon(new ImageIcon("src/main/resources/buttonIcons/addItemIcon.png"));
         backfillCheckbox = new JCheckBox();
@@ -44,6 +50,7 @@ public class ToolbarPanel extends JPanel {
         generateReportButton = new JButton("");
         generateReportButton.setIcon(new ImageIcon("src/main/resources/buttonIcons/generateIcon.png"));
 
+        summaryButton = new JButton("Summary");
     }
 
     /**
@@ -55,6 +62,9 @@ public class ToolbarPanel extends JPanel {
         setLayout(new GridLayout(0,1));
 
         attachHandlers();
+
+        add(saveButton);
+        add(openButton);
 
         JPanel addDetailPanel = new JPanel();
         addDetailPanel.setLayout(new BoxLayout(addDetailPanel, BoxLayout.LINE_AXIS));

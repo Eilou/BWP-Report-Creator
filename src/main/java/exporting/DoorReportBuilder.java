@@ -18,7 +18,6 @@ public class DoorReportBuilder implements ReportBuilder{
     private ReportCreationPanel reportCreationPanel;
     private ProjectDetailsPanel projectDetailsPanel;
     private StringBuilder stringBuilder;
-    private PrintWriter printWriter;
 
     public DoorReportBuilder(ReportCreationPanel reportCreationPanel, ProjectDetailsPanel projectDetailsPanel) {
         this.reportCreationPanel = reportCreationPanel;
@@ -56,8 +55,6 @@ public class DoorReportBuilder implements ReportBuilder{
 
             File htmlFile = new File(filePath);
             Desktop.getDesktop().browse(htmlFile.toURI());
-
-            //todo open in browser
         }
         catch (IOException e) {
             System.out.println("Exception when writing to file");

@@ -130,11 +130,10 @@ public class GridPanel extends JPanel {
      * Treats an inner text field in a second panel as if it is the same as a grid panel with just a text field
      *
      * @param setter the attribute to set
-     * @param innerPanel the panel to add the custom text box to
      * @param innerTextField the text field to read from
      */
-    public void attachSpecificAttributeHandler(Setter<String> setter, JPanel innerPanel, JTextField innerTextField) {
-
+    public void attachSpecificAttributeHandler(Setter<String> setter, JTextField innerTextField) {
+        innerTextField.getDocument().addDocumentListener(new AttributeTextFieldHandler(innerTextField, setter));
     }
 
     /**

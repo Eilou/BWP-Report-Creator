@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface {
 
-    private JPanel parentPanel;
     private Door door;
     private GridPanel[][] gridPanels; // left as raw as it may be YesNoOption or String
 
@@ -65,12 +64,10 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
      * Constructor called when the add item is called in door report state, instancing the
      * different inputs to then be added in later
      *
-     * @param parentPanel the panel which this panel is nested in
      * @param count       the door number
      */
-    public DoorDetailsPanel(JPanel parentPanel, int count) {
+    public DoorDetailsPanel(int count) {
 
-        this.parentPanel = parentPanel;
         this.door = new Door(count);
         int rows = 5;
         int columns = 5;

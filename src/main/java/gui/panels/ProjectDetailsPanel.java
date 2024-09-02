@@ -12,7 +12,6 @@ import java.awt.*;
  */
 public class ProjectDetailsPanel extends JPanel {
 
-    private JPanel parentPanel;
     private ReportState reportState;
 
     private JPanel titlePanel;
@@ -27,8 +26,7 @@ public class ProjectDetailsPanel extends JPanel {
     private JLabel itemNumberLabel;
     private JTextField itemNumberField;
 
-    public ProjectDetailsPanel(JPanel parentPanel, ReportState reportState) {
-        this.parentPanel = parentPanel;
+    public ProjectDetailsPanel(ReportState reportState) {
         this.reportState = reportState;
 //        setPreferredSize(new Dimension(parentPanel.getWidth(), 50));
 
@@ -50,7 +48,8 @@ public class ProjectDetailsPanel extends JPanel {
                 labelText = "Door Schedule:";
                 fieldText = "CZ01";
             }
-            default -> {}
+            default -> {
+            }
         }
         itemNumberLabel = new JLabel(labelText);
         itemNumberField = new JTextField(fieldText);
