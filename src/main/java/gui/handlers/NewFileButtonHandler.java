@@ -27,7 +27,7 @@ public class NewFileButtonHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int returnValue = JOptionPane.showOptionDialog(
-                null, "Are you sure you want to open a new file", "Open a new file?",
+                null, "Are you sure you want to start a new file", "Open a new file?",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null,
                 new String[]{"Yes", "Cancel"}, "Yes");
         if (returnValue == JOptionPane.YES_OPTION) {

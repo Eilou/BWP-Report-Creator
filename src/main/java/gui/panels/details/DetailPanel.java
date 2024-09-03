@@ -57,7 +57,7 @@ public class DetailPanel extends JPanel {
      * Sets up the layout for each detail panel
      */
     public void setup(JPanel dataPanel) {
-        setBackground(Styling.BACKGROUND);
+        setBackground(Styling.BORDER);
         setForeground(Styling.FOREGROUND);
 
         setBorder(border);

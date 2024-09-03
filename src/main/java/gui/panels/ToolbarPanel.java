@@ -2,11 +2,17 @@ package gui.panels;
 
 import enums.ReportState;
 import exporting.DoorReportBuilder;
+import gui.StyledButton;
 import gui.Styling;
 import gui.handlers.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+
 
 /**
  * Provides the toolbar on the left hand side of the application
@@ -17,36 +23,35 @@ public class ToolbarPanel extends JPanel {
     private ReportCreationPanel reportCreationPanel;
     private ProjectDetailsPanel projectDetailsPanel;
 
-    private JButton newFileButton;
-    private JButton saveButton;
-    private JButton openButton;
+    private StyledButton newFileButton;
+    private StyledButton saveButton;
+    private StyledButton openButton;
 
-    private JButton addDetailButton;
+    private StyledButton addDetailButton;
     private JCheckBox backfillCheckbox;
-    private JButton removeDetailButton;
-    private JButton generateReportButton;
+    private StyledButton removeDetailButton;
+    private StyledButton generateReportButton;
 
-    private JButton summaryButton;
+    private StyledButton summaryButton;
 
     public ToolbarPanel(ReportState reportState, ReportCreationPanel reportCreationPanel, ProjectDetailsPanel projectDetailsPanel) {
         this.reportState = reportState;
         this.reportCreationPanel = reportCreationPanel;
         this.projectDetailsPanel = projectDetailsPanel;
 
-        newFileButton = new JButton("New");
-        saveButton = new JButton("Save");
-        openButton = new JButton("Open");
+        newFileButton = new StyledButton("New");
+        saveButton = new StyledButton("Save");
+        openButton = new StyledButton("Open");
 
-        addDetailButton = new JButton();
-        addDetailButton.setIcon(new ImageIcon("src/main/resources/buttonIcons/addItemIcon.png"));
+
+        addDetailButton = new StyledButton();
         backfillCheckbox = new JCheckBox();
-        backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Disabled.png"));
-        removeDetailButton = new JButton();
-        removeDetailButton.setIcon(new ImageIcon("src/main/resources/buttonIcons/deleteLastIcon.png"));
-        generateReportButton = new JButton("");
-        generateReportButton.setIcon(new ImageIcon("src/main/resources/buttonIcons/generateIcon.png"));
 
-        summaryButton = new JButton("Summary");
+        removeDetailButton = new StyledButton();
+        generateReportButton = new StyledButton();
+
+        summaryButton = new StyledButton("Summary");
+
     }
 
     /**
@@ -58,6 +63,11 @@ public class ToolbarPanel extends JPanel {
         setForeground(Styling.TEXT);
         setLayout(new GridLayout(0, 1));
 
+        setBorder(BorderFactory.createCompoundBorder(
+                        new LineBorder(Styling.TEXT),
+                        new LineBorder(Styling.FOREGROUND, 5)));
+
+        styleButtons();
         attachHandlers();
 
         add(newFileButton);
@@ -66,12 +76,35 @@ public class ToolbarPanel extends JPanel {
 
         JPanel addDetailPanel = new JPanel();
         addDetailPanel.setLayout(new BoxLayout(addDetailPanel, BoxLayout.LINE_AXIS));
+        addDetailPanel.setBackground(Styling.FOREGROUND);
+        addDetailPanel.setForeground(Styling.TEXT);
+        addDetailPanel.setBorder(new LineBorder(Styling.TEXT));
         addDetailPanel.add(addDetailButton);
         addDetailPanel.add(backfillCheckbox);
+
         add(addDetailPanel);
         add(removeDetailButton);
         add(generateReportButton);
         add(summaryButton);
+    }
+
+    /**
+     * Style the button elements
+     */
+    public void styleButtons() {
+        newFileButton.setup(UIManager.getIcon("FileView.fileIcon"));
+        saveButton.setup(UIManager.getIcon("FileView.floppyDriveIcon"));
+        openButton.setup(UIManager.getIcon("FileView.directoryIcon"));
+
+        addDetailButton.setup(new ImageIcon("src/main/resources/buttonIcons/addItemIcon.png"));
+        addDetailButton.setBorder(new EmptyBorder(0,0,0,0));
+        backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Disabled.png"));
+
+        removeDetailButton.setup(new ImageIcon("src/main/resources/buttonIcons/deleteLastIcon.png"));
+
+        generateReportButton.setup(new ImageIcon("src/main/resources/buttonIcons/generateIcon.png"));
+        summaryButton.setup();
+
     }
 
     /**

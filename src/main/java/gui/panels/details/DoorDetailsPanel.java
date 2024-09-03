@@ -98,8 +98,8 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
                 gridPanels[row][column].setBackground(Styling.BACKGROUND);
 
                 gbc.fill = GridBagConstraints.BOTH; // stretch both horizontally and vertically
-                gbc.weightx = 1.0; // expand in both directions at equal rates
-                gbc.weighty = 1.0;
+                gbc.weightx = 1; // expand in both directions at equal rates
+                gbc.weighty = 1;
 
                 gbc.gridx = column;
                 gbc.gridy = row;

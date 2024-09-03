@@ -7,6 +7,7 @@ import gui.panels.details.DoorDetailsPanel;
 import gui.panels.details.SpecificDetailInterface;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class ReportCreationPanel extends JPanel implements Serializable {
         detailsContainer.setLayout(new GridBagLayout());
         detailsContainer.setBackground(Styling.BORDER);
         detailsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        detailsScrollPane.setBorder(new EmptyBorder(0,0,0,0));
 
         add(detailsScrollPane);
 

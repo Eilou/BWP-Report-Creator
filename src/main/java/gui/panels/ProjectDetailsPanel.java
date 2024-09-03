@@ -58,7 +58,12 @@ public class ProjectDetailsPanel extends JPanel implements Serializable {
         setForeground(Styling.TEXT);
 
         setLayout(new GridBagLayout());
-        setBorder(new LineBorder(Styling.FOREGROUND, 10));
+        setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Styling.TEXT),
+                new LineBorder(Styling.FOREGROUND, 10)
+                )
+        );
+//        setBorder();
 
         GridBagConstraints gbc = new GridBagConstraints();
 
