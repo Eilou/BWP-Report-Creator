@@ -42,7 +42,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JComboBox<String> clearOpeningComboBox = new JComboBox<>();
     private final JComboBox<String> entranceLevelComboBox = new JComboBox<>();
     private final JComboBox<String> partMCompliantComboBox = new JComboBox<>();
-    //todo
+    //todo:
     // this doesn't actually need to be a partM compliant box, but should be updates as a result
     // of an if elseif else statement (look at the Excel sheet for reference)
 
@@ -65,7 +65,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
      * Constructor called when the add item is called in door report state, instancing the
      * different inputs to then be added in later
      *
-     * @param count       the door number
+     * @param count the door number
      */
     public DoorDetailsPanel(int count) {
 
@@ -136,7 +136,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[1][2].setup("Glazed", glazedComboBox);
 
         JPanel leafSizeInputPanel = new JPanel();
-        leafSizeInputPanel.setLayout(new BoxLayout(leafSizeInputPanel, BoxLayout.LINE_AXIS));
+        leafSizeInputPanel.setLayout(new GridLayout(1,3));
 
         leafTypeInnerPanel.setLayout(new BoxLayout(leafTypeInnerPanel, BoxLayout.PAGE_AXIS));
         leafTypeInnerPanel.add(leafTypeComboBox);
@@ -244,8 +244,10 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[1][2].attachCBAttributeHandler(door::setGlazed);
 
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafType, leafTypeInnerPanel, leafTypeComboBox);
+
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafSize, leafSizeInnerPanel, leafSizeComboBox);
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafNumber, leafNumberInnerPanel, leafNumberComboBox);
+
         //TODO
 //        JPanel leafSizeInputPanel = new JPanel();
 //        leafSizeInputPanel.setLayout(new BoxLayout(leafSizeInputPanel, BoxLayout.LINE_AXIS));

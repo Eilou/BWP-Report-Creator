@@ -188,6 +188,7 @@ public class Door extends Item implements Serializable {
     //todo
     public void setLeafType(String leafType) {
         this.leafType = leafType;
+        System.out.println("Door " + count + ": set Leaf Type: " + leafType);
     }
 
     public Dimension getLeafSize() {
@@ -197,10 +198,14 @@ public class Door extends Item implements Serializable {
     //todo
     public void setLeafSize(String leafSize) {
         // this is a temporary holder to test other code works before working on this one
-        setLeafSize(new Dimension(0,0));
+        if (leafSize.equals("Custom"))
+            setLeafSize(new Dimension(0,0));
+
+        setLeafSize(new Dimension(1,1)); // todo
     }
     public void setLeafSize(Dimension leafSize) {
         this.leafSize = leafSize;
+        System.out.println("Door " + count + ": set Leaf Type: " + leafSize);
     }
 
     public String getLeafNumber() {
@@ -210,6 +215,7 @@ public class Door extends Item implements Serializable {
     //todo
     public void setLeafNumber(String leafNumber) {
         this.leafNumber = leafNumber;
+        System.out.println("Door " + count + ": set Leaf Number: " + leafNumber);
     }
 
     public int getClearOpening() {
@@ -218,6 +224,7 @@ public class Door extends Item implements Serializable {
 
     public void setClearOpening(int clearOpening) {
         this.clearOpening = clearOpening;
+        System.out.println("Door " + count + ": set Clear Opening: " + clearOpening);
     }
 
     public String getEntranceLevel() {
@@ -253,6 +260,7 @@ public class Door extends Item implements Serializable {
 
     public void setStructuralOpening(Dimension structuralOpening) {
         this.structuralOpening = structuralOpening;
+        System.out.println("Door " + count + ": set Structural Opening: " + structuralOpening);
     }
 
     public String getStructuralOpeningDetails() {
@@ -261,6 +269,7 @@ public class Door extends Item implements Serializable {
 
     public void setStructuralOpeningDetails(String structuralOpeningDetails) {
         this.structuralOpeningDetails = structuralOpeningDetails;
+        System.out.println("Door " + count + ": set Structural Opening Details: " + structuralOpeningDetails);
     }
 
     public String getFrameDetails() {
