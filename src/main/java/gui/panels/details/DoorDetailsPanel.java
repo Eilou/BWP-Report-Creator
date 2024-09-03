@@ -42,6 +42,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JComboBox<String> clearOpeningComboBox = new JComboBox<>();
     private final JComboBox<String> entranceLevelComboBox = new JComboBox<>();
     private final JComboBox<String> partMCompliantComboBox = new JComboBox<>();
+    //todo
     // this doesn't actually need to be a partM compliant box, but should be updates as a result
     // of an if elseif else statement (look at the Excel sheet for reference)
 
@@ -179,53 +180,49 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     }
 
     /**
-     * Populates a given combobox with the contents of the array passed to it
-     * todo this feels like it would be better in GridPanel.java but also not in some ways
-     *
-     * @param comboBox     the combobox to add items to
-     * @param optionsToAdd the options to add
-     * @param <T>          the type parameter ensuring that equal data types are held in the array list as
-     *                     are used in the combobox
-     */
-    public <T> void populateGivenComboBox(JComboBox<T> comboBox,
-                                          T[] optionsToAdd) {
-        DefaultComboBoxModel<T> model =
-                (DefaultComboBoxModel<T>) comboBox.getModel();
-        model.addAll(List.of(optionsToAdd));
-    }
-
-    /**
      * Populates all the different comboboxes in the application
      */
     public void populateComboBoxes() {
 
-        populateGivenComboBox(floorComboBox, new String[]{"", "Ground Floor", "First Floor", "Second Floor", "Third Floor", "Lower Ground Floor", "Upper Ground Floor", "Mezzanine", "Basement 1", "Basement 2", "Custom"});
-        populateGivenComboBox(roomComboBox, new String[]{"", "Custom"});
-        populateGivenComboBox(wallConstructionComboBox, new String[]{"", "Masonry cavity wall", "Timberframe", "SIPS panel", "100mm blockwork", "140mm blockwork", "215mm blockwork", "89mm partition", "100mm partition", "140mm partition", "Custom"});
-        populateGivenComboBox(internalExternalComboBox, new String[]{"", "Internal", "External [1]", "Custom"});
-        populateGivenComboBox(partMThresholdComboBox, new String[]{"", "Y [2]", "Custom"});
-        populateGivenComboBox(fireRatingComboBox, new String[]{"", "FD20 [3]", "FD30 [3]", "FD30-SC [3]", "FD60 [3]", "Custom"});
-        populateGivenComboBox(glazedComboBox, new String[]{"", "Y [4]", "Custom"});
-        populateGivenComboBox(leafTypeComboBox, new String[]{"", "Imperial", "Metric", "Bespoke", "Custom"});
-        populateGivenComboBox(leafSizeComboBox, new String[]{"", "610", "686", "762", "838", "626", "726", "826", "926", "2 x 610", "2 x 686", "2 x 762", "2 x 838", "2 x 626", "2 x 726", "2 x 826", "2 x 926", "Custom"});
-        populateGivenComboBox(leafNumberComboBox, new String[]{"Single", "Double", "Triple", "Quad", "Custom"});
+        DetailPanel.populateGivenComboBox(floorComboBox, new String[]{"", "Ground Floor", "First" +
+                " Floor",
+                "Second Floor", "Third Floor", "Lower Ground Floor", "Upper Ground Floor", "Mezzanine", "Basement 1", "Basement 2", "Custom"});
+        DetailPanel.populateGivenComboBox(roomComboBox, new String[]{"", "Custom"});
+        DetailPanel.populateGivenComboBox(wallConstructionComboBox, new String[]{"", "Masonry " +
+                "cavity wall", "Timberframe", "SIPS panel", "100mm blockwork", "140mm blockwork", "215mm blockwork", "89mm partition", "100mm partition", "140mm partition", "Custom"});
+        DetailPanel.populateGivenComboBox(internalExternalComboBox, new String[]{"", "Internal",
+                "External [1]", "Custom"});
+        DetailPanel.populateGivenComboBox(partMThresholdComboBox, new String[]{"", "Y [2]",
+                "Custom"});
+        DetailPanel.populateGivenComboBox(fireRatingComboBox, new String[]{"", "FD20 [3]", "FD30 " +
+                "[3]", "FD30-SC [3]", "FD60 [3]", "Custom"});
+        DetailPanel.populateGivenComboBox(glazedComboBox, new String[]{"", "Y [4]", "Custom"});
+        DetailPanel.populateGivenComboBox(leafTypeComboBox, new String[]{"", "Imperial", "Metric"
+                , "Bespoke", "Custom"});
+        DetailPanel.populateGivenComboBox(leafSizeComboBox, new String[]{"", "610", "686", "762",
+                "838", "626", "726", "826", "926", "2 x 610", "2 x 686", "2 x 762", "2 x 838", "2 x 626", "2 x 726", "2 x 826", "2 x 926", "Custom"});
+        DetailPanel.populateGivenComboBox(leafNumberComboBox, new String[]{"Single", "Double",
+                "Triple", "Quad", "Custom"});
 
         //todo clear opening thing, want to be realtive to leaf size width, but then also part of a drop down to override
 
-        populateGivenComboBox(entranceLevelComboBox, new String[]{"", "Y", "Custom"});
+        DetailPanel.populateGivenComboBox(entranceLevelComboBox, new String[]{"", "Y", "Custom"});
 
-        // todo populateGivenComboBox(partMCompliantComboBox, new YesNoOptions[]{YesNoOptions.BLANK, }); // this should be the lookup table
+        // todo DetailPanel.populateGivenComboBox(partMCompliantComboBox, new
+        //  YesNoOptions[]{YesNoOptions.BLANK, }); // this should be the lookup table
 
-        populateGivenComboBox(additionalPlyLiningComboBox, new String[]{"", "Y", "Custom"});
+        DetailPanel.populateGivenComboBox(additionalPlyLiningComboBox, new String[]{"", "Y",
+                "Custom"});
 
         //todo structural opening populating, might need to make custom dimension class so can override the toString
 
         // needs turning into the unicode values
-        populateGivenComboBox(hingesComboBox, new String[]{"", "1 pair", "1 1/2 pair", "2 pair", "Custom"});
+        DetailPanel.populateGivenComboBox(hingesComboBox, new String[]{"", "1 pair", "1 1/2 pair"
+                , "2 pair", "Custom"});
 
-        populateGivenComboBox(latchComboBox, new String[]{"", "Y", "Custom"});
-        populateGivenComboBox(lockComboBox, new String[]{"", "Y", "Y [5]", "Custom"});
-        populateGivenComboBox(handleComboBox, new String[]{"Y", "Custom"});
+        DetailPanel.populateGivenComboBox(latchComboBox, new String[]{"", "Y", "Custom"});
+        DetailPanel.populateGivenComboBox(lockComboBox, new String[]{"", "Y", "Y [5]", "Custom"});
+        DetailPanel.populateGivenComboBox(handleComboBox, new String[]{"Y", "Custom"});
 
     }
 

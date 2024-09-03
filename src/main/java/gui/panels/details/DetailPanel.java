@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import java.awt.*;
+import java.util.List;
 
 /**
  * Superclass for the details for each individual item in a given report
@@ -91,6 +92,21 @@ public class DetailPanel extends JPanel {
     public void attachHandlers() {
         closePanelButton.addActionListener(new CloseDetailButtonHandler((ReportCreationPanel) parentPanel, reportState, this));
         editMinimiseButton.addActionListener(new EditMinimiseButtonHandler(this, dataPanel));
+    }
+
+    /**
+     * Populates a given combobox with the contents of the array passed to it
+     *
+     * @param comboBox     the combobox to add items to
+     * @param optionsToAdd the options to add
+     * @param <T>          the type parameter ensuring that equal data types are held in the array list as
+     *                     are used in the combobox
+     */
+    public static <T> void populateGivenComboBox(JComboBox<T> comboBox,
+                                                 T[] optionsToAdd) {
+        DefaultComboBoxModel<T> model =
+                (DefaultComboBoxModel<T>) comboBox.getModel();
+        model.addAll(List.of(optionsToAdd));
     }
 
     ////////////////////////////////////

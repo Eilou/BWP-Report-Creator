@@ -44,11 +44,11 @@ public class ToolbarPanel extends JPanel {
         openButton = new StyledButton("Open");
 
 
-        addDetailButton = new StyledButton();
-        backfillCheckbox = new JCheckBox();
+        addDetailButton = new StyledButton("Add " + reportState);
+        backfillCheckbox = new JCheckBox("Backfill");
 
-        removeDetailButton = new StyledButton();
-        generateReportButton = new StyledButton();
+        removeDetailButton = new StyledButton("Remove last "+ reportState);
+        generateReportButton = new StyledButton("Generate " + reportState + " Report");
 
         summaryButton = new StyledButton("Summary");
 
@@ -99,6 +99,7 @@ public class ToolbarPanel extends JPanel {
         addDetailButton.setup(new ImageIcon("src/main/resources/buttonIcons/addItemIcon.png"));
         addDetailButton.setBorder(new EmptyBorder(0,0,0,0));
         backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Disabled.png"));
+        Styling.setComponentColours(backfillCheckbox, Styling.FOREGROUND, Styling.TEXT);
 
         removeDetailButton.setup(new ImageIcon("src/main/resources/buttonIcons/deleteLastIcon.png"));
 

@@ -2,13 +2,11 @@ package gui.panels;
 
 import enums.ReportState;
 import gui.Styling;
-import gui.panels.details.DetailPanel;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
 
 /**
  * Holds general information about the
@@ -63,7 +61,6 @@ public class ProjectDetailsPanel extends JPanel implements Serializable {
                 new LineBorder(Styling.FOREGROUND, 10)
                 )
         );
-//        setBorder();
 
         GridBagConstraints gbc = new GridBagConstraints();
 
