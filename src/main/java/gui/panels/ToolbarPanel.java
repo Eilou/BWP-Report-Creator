@@ -2,17 +2,11 @@ package gui.panels;
 
 import enums.ReportState;
 import exporting.DoorReportBuilder;
-import gui.GUIFrame;
 import gui.Styling;
 import gui.handlers.*;
-import gui.panels.details.DoorDetailsPanel;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.Serializable;
 
 /**
  * Provides the toolbar on the left hand side of the application
@@ -23,7 +17,7 @@ public class ToolbarPanel extends JPanel {
     private ReportCreationPanel reportCreationPanel;
     private ProjectDetailsPanel projectDetailsPanel;
 
-    private JButton newButton;
+    private JButton newFileButton;
     private JButton saveButton;
     private JButton openButton;
 
@@ -39,7 +33,7 @@ public class ToolbarPanel extends JPanel {
         this.reportCreationPanel = reportCreationPanel;
         this.projectDetailsPanel = projectDetailsPanel;
 
-        newButton = new JButton("New");
+        newFileButton = new JButton("New");
         saveButton = new JButton("Save");
         openButton = new JButton("Open");
 
@@ -66,7 +60,7 @@ public class ToolbarPanel extends JPanel {
 
         attachHandlers();
 
-        add(newButton);
+        add(newFileButton);
         add(saveButton);
         add(openButton);
 
@@ -85,11 +79,7 @@ public class ToolbarPanel extends JPanel {
      */
     public void attachHandlers() {
 
-        newButton.addActionListener(e -> {
-            projectDetailsPanel.reset();
-            reportCreationPanel.reset();
-            //todo add warning
-        });
+        newFileButton.addActionListener(new NewFileButtonHandler(reportCreationPanel, projectDetailsPanel));
         saveButton.addActionListener(new SaveButtonHandler(reportCreationPanel, projectDetailsPanel));
         openButton.addActionListener(new OpenButtonHandler(reportCreationPanel, projectDetailsPanel));
 
