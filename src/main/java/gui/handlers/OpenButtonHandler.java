@@ -13,8 +13,8 @@ import java.io.IOException;
  * Opens a file and loads it into the application to use
  */
 public class OpenButtonHandler implements ActionListener {
-    private ReportCreationPanel reportCreationPanel;
-    private ProjectDetailsPanel projectDetailsPanel;
+    private final ReportCreationPanel reportCreationPanel;
+    private final ProjectDetailsPanel projectDetailsPanel;
 
     public OpenButtonHandler(ReportCreationPanel reportCreationPanel, ProjectDetailsPanel projectDetailsPanel) {
         this.reportCreationPanel = reportCreationPanel;
@@ -46,7 +46,6 @@ public class OpenButtonHandler implements ActionListener {
             }
             else {
 
-                //todo reset the system beforehand
                 projectDetailsPanel.reset();
                 reportCreationPanel.reset();
 

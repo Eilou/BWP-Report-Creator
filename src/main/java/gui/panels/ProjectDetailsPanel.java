@@ -15,18 +15,18 @@ public class ProjectDetailsPanel extends JPanel implements Serializable {
 
     private ReportState reportState;
 
-    private transient JPanel titlePanel;
-    private transient JLabel titleLabel;
+    private final transient JPanel titlePanel;
+    private final transient JLabel titleLabel;
     private transient JTextField titleField;
     private String titleValue;
 
-    private transient JPanel projectNumberPanel;
-    private transient JLabel projectNumberLabel;
+    private final transient JPanel projectNumberPanel;
+    private final transient JLabel projectNumberLabel;
     private transient JTextField projectNumberField;
     private String projectNumberValue;
 
-    private transient JPanel itemNumberPanel;
-    private transient JLabel itemNumberLabel;
+    private final transient JPanel itemNumberPanel;
+    private final transient JLabel itemNumberLabel;
     private transient JTextField itemNumberField;
     private String itemNumberValue;
 

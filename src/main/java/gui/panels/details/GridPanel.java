@@ -98,7 +98,7 @@ public class GridPanel extends JPanel {
         customTextField.getDocument().addDocumentListener(new AttributeTextFieldHandler(customTextField, setter));
 
         panelComboBox.addActionListener(new CustomOptionHandler<>(panelComboBox, this));
-        panelComboBox.addActionListener(new AttributeComboBoxHandler(panelComboBox, setter));
+        panelComboBox.addItemListener(new AttributeComboBoxHandler(panelComboBox, setter));
     }
 
     /**
@@ -123,7 +123,7 @@ public class GridPanel extends JPanel {
         innerCustomTextField.getDocument().addDocumentListener(new AttributeTextFieldHandler(innerCustomTextField, setter));
 
         innerComboBox.addActionListener(new InnerCustomOptionHandler<>(innerComboBox, innerPanel, innerCustomTextField));
-        innerComboBox.addActionListener(new AttributeComboBoxHandler(innerComboBox, setter));
+        innerComboBox.addItemListener(new AttributeComboBoxHandler(innerComboBox, setter));
     }
 
     /**

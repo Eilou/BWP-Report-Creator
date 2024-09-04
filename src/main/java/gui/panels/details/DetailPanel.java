@@ -106,7 +106,9 @@ public class DetailPanel extends JPanel {
                                                  T[] optionsToAdd) {
         DefaultComboBoxModel<T> model =
                 (DefaultComboBoxModel<T>) comboBox.getModel();
+        model.removeAllElements();
         model.addAll(List.of(optionsToAdd));
+        model.setSelectedItem("");
     }
 
     ////////////////////////////////////

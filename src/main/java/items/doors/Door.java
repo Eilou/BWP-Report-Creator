@@ -198,6 +198,7 @@ public class Door extends Item implements Serializable {
     //todo
     public void setLeafSize(String leafSize) {
         // this is a temporary holder to test other code works before working on this one
+
         if (leafSize.equals("Custom"))
             setLeafSize(new Dimension(0,0));
 

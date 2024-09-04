@@ -114,8 +114,8 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         populateComboBoxes();
         positionForms();
-        setFormDefaults();
         attachHandlers();
+        setFormDefaults();
     }
 
     /**
@@ -244,7 +244,16 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[1][2].attachCBAttributeHandler(door::setGlazed);
 
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafType, leafTypeInnerPanel, leafTypeComboBox);
-
+        leafTypeComboBox.addActionListener(e -> {
+            switch (String.valueOf(leafTypeComboBox.getSelectedItem())) {
+                case "Imperial" -> {
+                    DetailPanel.populateGivenComboBox(leafSizeComboBox, new String[]{"", "610", "762", "838", "910", "Custom"});
+                }
+                case "Metric" -> DetailPanel.populateGivenComboBox(leafSizeComboBox, new String[]{"", "626", "726", "826", "926", "Custom"});
+                case "Bespoke" -> DetailPanel.populateGivenComboBox(leafSizeComboBox, new String[]{"", "Custom"});
+                default -> DetailPanel.populateGivenComboBox(leafSizeComboBox, new String[]{""});
+            }
+        });
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafSize, leafSizeInnerPanel, leafSizeComboBox);
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafNumber, leafNumberInnerPanel, leafNumberComboBox);
 
