@@ -18,7 +18,8 @@ public class Door extends Item implements Serializable {
     private String glazed; // yes or no
 
     private String leafType;
-    private Dimension leafSize;
+    private String leafWidth;
+    private String leafHeight;
     private String leafNumber; // single, double, triple, quad
 
     private int clearOpening;
@@ -51,7 +52,8 @@ public class Door extends Item implements Serializable {
         glazed = "";
 
         leafType = "";
-        leafSize = new Dimension(-1, -1);
+        leafWidth = "";
+        leafHeight = "";
         leafNumber = "";
 
         clearOpening = -1;
@@ -79,7 +81,8 @@ public class Door extends Item implements Serializable {
                 ", fireRating='" + fireRating + '\'' +
                 ", glazed=" + glazed +
                 ", leafType='" + leafType + '\'' +
-                ", leafSize=" + leafSize +
+                ", leafWidth=" + leafWidth +
+                ", leafHeight=" + leafHeight +
                 ", leafNumber='" + leafNumber + '\'' +
                 ", clearOpening=" + clearOpening +
                 ", entranceLevel=" + entranceLevel +
@@ -191,22 +194,24 @@ public class Door extends Item implements Serializable {
         System.out.println("Door " + count + ": set Leaf Type: " + leafType);
     }
 
-    public Dimension getLeafSize() {
-        return leafSize;
+    public String getLeafWidth() {
+        return leafWidth;
     }
 
     //todo
-    public void setLeafSize(String leafSize) {
-        // this is a temporary holder to test other code works before working on this one
-
-        if (leafSize.equals("Custom"))
-            setLeafSize(new Dimension(0,0));
-
-        setLeafSize(new Dimension(1,1)); // todo
+    public void setLeafWidth(String leafWidth) {
+        this.leafWidth = leafWidth;
+        System.out.println("Door " + count + ": set Leaf Width: " + leafWidth);
     }
-    public void setLeafSize(Dimension leafSize) {
-        this.leafSize = leafSize;
-        System.out.println("Door " + count + ": set Leaf Type: " + leafSize);
+
+    public String getLeafHeight() {
+        return leafHeight;
+    }
+
+    public void setLeafHeight(String leafHeight) {
+        this.leafHeight = leafHeight;
+        System.out.println("Door " + count + ": set Leaf Height: " + leafHeight);
+
     }
 
     public String getLeafNumber() {

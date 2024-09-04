@@ -1,13 +1,11 @@
 package gui.panels.details;
 
 import gui.Styling;
-import gui.handlers.Setter;
 import items.doors.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.List;
 
 /**
  * Subclass to be used when creating a door report
@@ -26,11 +24,13 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JComboBox<String> fireRatingComboBox = new JComboBox<>();
     private final JComboBox<String> glazedComboBox = new JComboBox<>();
 
-    private final JPanel leafSizeInnerPanel = new JPanel();
     private final JPanel leafTypeInnerPanel = new JPanel();
+    private final JPanel leafWidthInnerPanel = new JPanel();
+    private final JPanel leafHeightInnerPanel = new JPanel();
     private final JPanel leafNumberInnerPanel = new JPanel();
+    private final JComboBox<String> leafWidthComboBox = new JComboBox<>();
+    private final JComboBox<String> leafHeightComboBox = new JComboBox<>();
     private final JComboBox<String> leafTypeComboBox = new JComboBox<>();
-    private final JComboBox<String> leafSizeComboBox = new JComboBox<>();
     // want a dropdown next to this with sizes: imperial, metric or bespoke
     // default should be imperial
     // this then influences the options available from the numbers
@@ -136,19 +136,23 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[1][2].setup("Glazed", glazedComboBox);
 
         JPanel leafSizeInputPanel = new JPanel();
-        leafSizeInputPanel.setLayout(new GridLayout(1,3));
+        leafSizeInputPanel.setLayout(new GridLayout(1,4));
 
         leafTypeInnerPanel.setLayout(new BoxLayout(leafTypeInnerPanel, BoxLayout.PAGE_AXIS));
         leafTypeInnerPanel.add(leafTypeComboBox);
 
-        leafSizeInnerPanel.setLayout(new BoxLayout(leafSizeInnerPanel, BoxLayout.PAGE_AXIS));
-        leafSizeInnerPanel.add(leafSizeComboBox);
+        leafWidthInnerPanel.setLayout(new BoxLayout(leafWidthInnerPanel, BoxLayout.PAGE_AXIS));
+        leafWidthInnerPanel.add(leafWidthComboBox);
+
+        leafHeightInnerPanel.setLayout(new BoxLayout(leafHeightInnerPanel, BoxLayout.PAGE_AXIS));
+        leafHeightInnerPanel.add(leafHeightComboBox);
 
         leafNumberInnerPanel.setLayout(new BoxLayout(leafNumberInnerPanel, BoxLayout.PAGE_AXIS));
         leafNumberInnerPanel.add(leafNumberComboBox);
 
         leafSizeInputPanel.add(leafTypeInnerPanel);
-        leafSizeInputPanel.add(leafSizeInnerPanel);
+        leafSizeInputPanel.add(leafWidthInnerPanel);
+        leafSizeInputPanel.add(leafHeightInnerPanel);
         leafSizeInputPanel.add(leafNumberInnerPanel);
         gridPanels[1][3].setup("Leaf Size", leafSizeInputPanel);
 
@@ -189,20 +193,15 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
                 "Second Floor", "Third Floor", "Lower Ground Floor", "Upper Ground Floor", "Mezzanine", "Basement 1", "Basement 2", "Custom"});
         DetailPanel.populateGivenComboBox(roomComboBox, new String[]{"", "Custom"});
         DetailPanel.populateGivenComboBox(wallConstructionComboBox, new String[]{"", "Masonry " +
-                "cavity wall", "Timberframe", "SIPS panel", "100mm blockwork", "140mm blockwork", "215mm blockwork", "89mm partition", "100mm partition", "140mm partition", "Custom"});
-        DetailPanel.populateGivenComboBox(internalExternalComboBox, new String[]{"", "Internal",
-                "External [1]", "Custom"});
-        DetailPanel.populateGivenComboBox(partMThresholdComboBox, new String[]{"", "Y [2]",
-                "Custom"});
-        DetailPanel.populateGivenComboBox(fireRatingComboBox, new String[]{"", "FD20 [3]", "FD30 " +
-                "[3]", "FD30-SC [3]", "FD60 [3]", "Custom"});
+                "Cavity wall", "Timberframe", "SIPS panel", "100mm blockwork", "140mm blockwork", "215mm blockwork", "89mm partition", "100mm partition", "140mm partition", "Custom"});
+        DetailPanel.populateGivenComboBox(internalExternalComboBox, new String[]{"", "Internal", "External [1]", "Custom"});
+        DetailPanel.populateGivenComboBox(partMThresholdComboBox, new String[]{"", "Y [2]", "Custom"});
+        DetailPanel.populateGivenComboBox(fireRatingComboBox, new String[]{"", "FD20 [3]", "FD30 [3]", "FD30-SC [3]", "FD60 [3]", "Custom"});
         DetailPanel.populateGivenComboBox(glazedComboBox, new String[]{"", "Y [4]", "Custom"});
-        DetailPanel.populateGivenComboBox(leafTypeComboBox, new String[]{"", "Imperial", "Metric"
-                , "Bespoke", "Custom"});
-        DetailPanel.populateGivenComboBox(leafSizeComboBox, new String[]{"", "610", "686", "762",
-                "838", "626", "726", "826", "926", "2 x 610", "2 x 686", "2 x 762", "2 x 838", "2 x 626", "2 x 726", "2 x 826", "2 x 926", "Custom"});
-        DetailPanel.populateGivenComboBox(leafNumberComboBox, new String[]{"Single", "Double",
-                "Triple", "Quad", "Custom"});
+        DetailPanel.populateGivenComboBox(leafTypeComboBox, new String[]{"", "Imperial", "Metric", "Bespoke"});
+        DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "610", "686", "762", "838", "626", "726", "826", "926", "Custom"}); // these all get overwritten anyway
+        DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "1981", "2040", "Custom"});
+        DetailPanel.populateGivenComboBox(leafNumberComboBox, new String[]{"Single", "Double", "Triple", "Quad", "Custom"});
 
         //todo clear opening thing, want to be realtive to leaf size width, but then also part of a drop down to override
 
@@ -244,17 +243,33 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[1][2].attachCBAttributeHandler(door::setGlazed);
 
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafType, leafTypeInnerPanel, leafTypeComboBox);
+        gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafWidth, leafWidthInnerPanel, leafWidthComboBox);
+        gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafHeight, leafHeightInnerPanel, leafHeightComboBox);
         leafTypeComboBox.addActionListener(e -> {
             switch (String.valueOf(leafTypeComboBox.getSelectedItem())) {
                 case "Imperial" -> {
-                    DetailPanel.populateGivenComboBox(leafSizeComboBox, new String[]{"", "610", "762", "838", "910", "Custom"});
+                    DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "610", "762", "838", "910", "Custom"});
+                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "1981","Custom"});
+                    leafHeightComboBox.setSelectedItem("1981");
                 }
-                case "Metric" -> DetailPanel.populateGivenComboBox(leafSizeComboBox, new String[]{"", "626", "726", "826", "926", "Custom"});
-                case "Bespoke" -> DetailPanel.populateGivenComboBox(leafSizeComboBox, new String[]{"", "Custom"});
-                default -> DetailPanel.populateGivenComboBox(leafSizeComboBox, new String[]{""});
+                case "Metric" -> {
+                    DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "626", "726", "826", "926", "Custom"});
+                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "2040","Custom"});
+                    leafHeightComboBox.setSelectedItem("2040");
+                }
+                case "Bespoke" -> {
+                    DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "Custom"});
+                    leafWidthComboBox.setSelectedItem("Custom");
+                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "Custom"});
+                    leafHeightComboBox.setSelectedItem("Custom");
+                }
+                default -> {
+                    DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{""});
+                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{""});
+                }
             }
         });
-        gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafSize, leafSizeInnerPanel, leafSizeComboBox);
+
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafNumber, leafNumberInnerPanel, leafNumberComboBox);
 
         //TODO
