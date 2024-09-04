@@ -47,7 +47,7 @@ public class GridPanel extends JPanel {
     public void setupLabel(String labelText) {
         this.gridLabel = new JLabel(labelText);
         this.gridLabelPanel = new JPanel();
-        gridLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        gridLabelPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         gridLabelPanel.add(gridLabel);
         add(gridLabelPanel);
     }

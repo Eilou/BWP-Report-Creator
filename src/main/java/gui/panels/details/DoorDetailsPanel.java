@@ -105,7 +105,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
                 gbc.gridx = column;
                 gbc.gridy = row;
 
-                if (row == 1 && column == 3) gbc.gridwidth = 2;
+                if ((row == 1 && column == 3 || (row == 2 && column == 2))) gbc.gridwidth = 2;
                 else gbc.gridwidth = 1;
 
                 add(gridPanels[row][column], gbc);
@@ -156,17 +156,16 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         leafSizeInputPanel.add(leafNumberInnerPanel);
         gridPanels[1][3].setup("Leaf Size", leafSizeInputPanel);
 
-        //        gridPanels[1][4].add();
+        // 1,4 used for extended leafInputPanel
 
         gridPanels[2][0].setup("Clear Opening", clearOpeningComboBox);
         gridPanels[2][1].setup("Entrance Level", entranceLevelComboBox);
-        gridPanels[2][2].setup("Part M Compliant", partMCompliantComboBox);
-        gridPanels[2][3].setup("Additional Ply Lining", additionalPlyLiningComboBox);
+        gridPanels[2][2].setup("Structural Opening", structuralOpeningComboBox);
+        // 2,3 used for extended structural opening panel
+        gridPanels[2][4].setup("Structural Opening Details", structuralOpeningDetailsTextField);
 
-        //        gridPanels[2][4].add();
-
-        gridPanels[3][0].setup("Structural Opening", structuralOpeningComboBox);
-        gridPanels[3][1].setup("Structural Opening Details", structuralOpeningDetailsTextField);
+        gridPanels[3][0].setup("Part M Compliant", partMCompliantComboBox);
+        gridPanels[3][1].setup("Additional Ply Lining", additionalPlyLiningComboBox);
         gridPanels[3][2].setup("Frame Details", frameDetailsTextField);
         gridPanels[3][3].setup("Sill Details", sillDetailsTextField);
         gridPanels[3][4].setup("Architrave Type", architraveTypeTextField);
@@ -180,7 +179,17 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     }
 
     public void setFormDefaults() {
+        floorComboBox.setSelectedItem("Ground Floor");
+        wallConstructionComboBox.setSelectedItem("89mm partition");
+        doorTypeTextField.setText("TBA by client");
+        internalExternalComboBox.setSelectedItem("Internal");
         leafTypeComboBox.setSelectedItem("Imperial");
+        leafWidthComboBox.setSelectedItem("838");
+        entranceLevelComboBox.setSelectedItem("Yes");
+        //todo
+//        structural opening height = above screed
+        hingesComboBox.setSelectedItem("1/2 pair");
+        latchComboBox.setSelectedItem("Yes");
     }
 
     /**
@@ -188,12 +197,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
      */
     public void populateComboBoxes() {
 
-        DetailPanel.populateGivenComboBox(floorComboBox, new String[]{"", "Ground Floor", "First" +
-                " Floor",
-                "Second Floor", "Third Floor", "Lower Ground Floor", "Upper Ground Floor", "Mezzanine", "Basement 1", "Basement 2", "Custom"});
+        DetailPanel.populateGivenComboBox(floorComboBox, new String[]{"", "Ground Floor", "First Floor", "Second Floor", "Third Floor", "Lower Ground Floor", "Upper Ground Floor", "Mezzanine", "Basement 1", "Basement 2", "Custom"});
         DetailPanel.populateGivenComboBox(roomComboBox, new String[]{"", "Custom"});
-        DetailPanel.populateGivenComboBox(wallConstructionComboBox, new String[]{"", "Masonry " +
-                "Cavity wall", "Timberframe", "SIPS panel", "100mm blockwork", "140mm blockwork", "215mm blockwork", "89mm partition", "100mm partition", "140mm partition", "Custom"});
+        DetailPanel.populateGivenComboBox(wallConstructionComboBox, new String[]{"", "Masonry Cavity wall", "Timberframe", "SIPS panel", "100mm blockwork", "140mm blockwork", "215mm blockwork", "89mm partition", "100mm partition", "140mm partition", "Custom"});
         DetailPanel.populateGivenComboBox(internalExternalComboBox, new String[]{"", "Internal", "External [1]", "Custom"});
         DetailPanel.populateGivenComboBox(partMThresholdComboBox, new String[]{"", "Y [2]", "Custom"});
         DetailPanel.populateGivenComboBox(fireRatingComboBox, new String[]{"", "FD20 [3]", "FD30 [3]", "FD30-SC [3]", "FD60 [3]", "Custom"});
@@ -205,23 +211,21 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         //todo clear opening thing, want to be realtive to leaf size width, but then also part of a drop down to override
 
-        DetailPanel.populateGivenComboBox(entranceLevelComboBox, new String[]{"", "Y", "Custom"});
+        DetailPanel.populateGivenComboBox(entranceLevelComboBox, new String[]{"", "Yes", "Custom"});
 
         // todo DetailPanel.populateGivenComboBox(partMCompliantComboBox, new
         //  YesNoOptions[]{YesNoOptions.BLANK, }); // this should be the lookup table
 
-        DetailPanel.populateGivenComboBox(additionalPlyLiningComboBox, new String[]{"", "Y",
-                "Custom"});
+        DetailPanel.populateGivenComboBox(additionalPlyLiningComboBox, new String[]{"", "Yes", "Custom"});
 
         //todo structural opening populating, might need to make custom dimension class so can override the toString
 
         // needs turning into the unicode values
-        DetailPanel.populateGivenComboBox(hingesComboBox, new String[]{"", "1 pair", "1 1/2 pair"
-                , "2 pair", "Custom"});
+        DetailPanel.populateGivenComboBox(hingesComboBox, new String[]{"", "1/2 pair", "1 pair", "1 1/2 pair", "2 pair", "Custom"});
 
-        DetailPanel.populateGivenComboBox(latchComboBox, new String[]{"", "Y", "Custom"});
-        DetailPanel.populateGivenComboBox(lockComboBox, new String[]{"", "Y", "Y [5]", "Custom"});
-        DetailPanel.populateGivenComboBox(handleComboBox, new String[]{"Y", "Custom"});
+        DetailPanel.populateGivenComboBox(latchComboBox, new String[]{"", "Yes", "Custom"});
+        DetailPanel.populateGivenComboBox(lockComboBox, new String[]{"", "Yes", "Y [5]", "Custom"});
+        DetailPanel.populateGivenComboBox(handleComboBox, new String[]{"Yes", "Custom"});
 
     }
 
@@ -245,6 +249,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafType, leafTypeInnerPanel, leafTypeComboBox);
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafWidth, leafWidthInnerPanel, leafWidthComboBox);
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafHeight, leafHeightInnerPanel, leafHeightComboBox);
+        // autofills in some other details to the leaf size when selecting the type
         leafTypeComboBox.addActionListener(e -> {
             switch (String.valueOf(leafTypeComboBox.getSelectedItem())) {
                 case "Imperial" -> {
@@ -272,27 +277,18 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafNumber, leafNumberInnerPanel, leafNumberComboBox);
 
-        //TODO
-//        JPanel leafSizeInputPanel = new JPanel();
-//        leafSizeInputPanel.setLayout(new BoxLayout(leafSizeInputPanel, BoxLayout.LINE_AXIS));
-//        leafSizeInputPanel.add(leafTypeComboBox);
-//        leafSizeInputPanel.add(leafSizeComboBox);
-//        leafSizeInputPanel.add(leafNumberCheckbox);
-//        gridPanels[1][3].setup("Leaf Size", leafSizeInputPanel);
-
-        //        gridPanels[1][4].add();
-
 //        gridPanels[2][0].attachCBAttributeHandler(door::setClearOpening);
         gridPanels[2][1].attachCBAttributeHandler(door::setEntranceLevel);
-        gridPanels[2][2].attachCBAttributeHandler(door::setPartMCompliant);
-        gridPanels[2][3].attachCBAttributeHandler(door::setAdditionalPlyLining);
-
-        //        gridPanels[2][4].add();
 
         //todo view drop down table description at top
-//        gridPanels[3][0].attachCBAttributeHandler(door::setStructuralOpening);
 
-        gridPanels[3][1].attachTFAttributeHandler(door::setStructuralOpeningDetails);
+//        gridPanels[2][2].attachCBAttributeHandler(door::setStructuralOpening);
+
+        gridPanels[2][4].attachTFAttributeHandler(door::setStructuralOpeningDetails);
+
+
+        gridPanels[3][0].attachCBAttributeHandler(door::setPartMCompliant);
+        gridPanels[3][1].attachCBAttributeHandler(door::setAdditionalPlyLining);
         gridPanels[3][2].attachTFAttributeHandler(door::setFrameDetails);
         gridPanels[3][3].attachTFAttributeHandler(door::setSillDetails);
         gridPanels[3][4].attachTFAttributeHandler(door::setArchitraveType);
