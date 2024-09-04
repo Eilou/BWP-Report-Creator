@@ -447,6 +447,8 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         gridPanels[3][0].attachCBAttributeHandler(door::setPartMCompliant);
         gridPanels[3][1].attachCBAttributeHandler(door::setAdditionalPlyLining);
+        additionalPlyLiningComboBox.addActionListener(e -> structuralOpeningWidthLookup());
+
         gridPanels[3][2].attachTFAttributeHandler(door::setFrameDetails);
         gridPanels[3][3].attachTFAttributeHandler(door::setSillDetails);
         gridPanels[3][4].attachTFAttributeHandler(door::setArchitraveType);
