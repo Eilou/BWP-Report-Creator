@@ -1,5 +1,6 @@
 import gui.GUIFrame;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -15,6 +16,8 @@ public class App {
             @Override
             public void run() {
                 try {
+                    // UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+                    // https://www.geeksforgeeks.org/java-swing-look-feel/ for a good list
                     GUIFrame guiFrame = new GUIFrame();
                     guiFrame.setup();
                     System.out.println("Application GUI has loaded");

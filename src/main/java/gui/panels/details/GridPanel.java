@@ -21,7 +21,6 @@ public class GridPanel extends JPanel {
     private JTextField panelTextField;
     private JPanel secondPanel;
 
-    private Boolean customUsed;
     private JTextField customTextField;
 
     /**
@@ -32,7 +31,6 @@ public class GridPanel extends JPanel {
 
         this.item = item;
 
-        customUsed = false;
         customTextField = new JTextField("Custom option here");
 
         panelComboBox = null;
@@ -50,6 +48,21 @@ public class GridPanel extends JPanel {
         gridLabelPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         gridLabelPanel.add(gridLabel);
         add(gridLabelPanel);
+    }
+
+    /**
+     * More generic version of setupLabel meaning it can be used to add specific labels to other (inner) panels
+     * todo make the above work using this method but its not crucial
+     *
+     * @param panel     the panel to add the label to
+     * @param labelText the text of the label
+     */
+    public static void setupSpecificLabel(JPanel panel, String labelText) {
+        JLabel label = new JLabel(labelText);
+        JPanel labelPanel = new JPanel();
+        labelPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        labelPanel.add(label);
+        panel.add(labelPanel);
     }
 
     /**
@@ -114,8 +127,8 @@ public class GridPanel extends JPanel {
      * Treats an inner combo box in a second panel as if it is the same as a grid panel with just a combo box
      * case 3: there is a second panel (needs to be handled specifically)
      *
-     * @param setter the attribute to set
-     * @param innerPanel the panel to add the custom text box to
+     * @param setter        the attribute to set
+     * @param innerPanel    the panel to add the custom text box to
      * @param innerComboBox the combo box to read from
      */
     public void attachSpecificAttributeHandler(Setter<String> setter, JPanel innerPanel, JComboBox<String> innerComboBox) {
@@ -129,7 +142,7 @@ public class GridPanel extends JPanel {
     /**
      * Treats an inner text field in a second panel as if it is the same as a grid panel with just a text field
      *
-     * @param setter the attribute to set
+     * @param setter         the attribute to set
      * @param innerTextField the text field to read from
      */
     public void attachSpecificAttributeHandler(Setter<String> setter, JTextField innerTextField) {
@@ -142,7 +155,6 @@ public class GridPanel extends JPanel {
     public void addCustomOption() {
         add(customTextField);
 //        customTextField.addActionListener(new AttributeTextFieldHandler(customTextField, ));
-        customUsed = true;
         // handle the custom text box updates when decided what to do with JTextField handler, as it will be the same
         revalidate();
         repaint();
@@ -153,7 +165,6 @@ public class GridPanel extends JPanel {
      */
     public void removeCustomOption() {
         remove(customTextField);
-        customUsed = false;
         revalidate();
         repaint();
     }

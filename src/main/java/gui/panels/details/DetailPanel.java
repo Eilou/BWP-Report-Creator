@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -95,20 +96,33 @@ public class DetailPanel extends JPanel {
     }
 
     /**
-     * Populates a given combobox with the contents of the array passed to it
+     * Populates a given combobox with the contents of the array passed to it, default value selected being ""
      *
      * @param comboBox     the combobox to add items to
      * @param optionsToAdd the options to add
      * @param <T>          the type parameter ensuring that equal data types are held in the array list as
      *                     are used in the combobox
      */
-    public static <T> void populateGivenComboBox(JComboBox<T> comboBox,
-                                                 T[] optionsToAdd) {
+    public static <T> void populateGivenComboBox(JComboBox<T> comboBox, T[] optionsToAdd) {
+        populateGivenComboBox(comboBox, optionsToAdd, "");
+    }
+
+    /**
+     * Populates a given combobox with the contents of the array passed to it, selecting a value as well
+     *
+     * @param comboBox     the combobox to add items to
+     * @param optionsToAdd the options to add
+     * @param selected     the value to set as selected in the combobox
+     * @param <T>          the type parameter ensuring that equal data types are held in the array list as
+     *                     are used in the combobox
+     */
+    public static <T> void populateGivenComboBox(JComboBox<T> comboBox, T[] optionsToAdd, String selected) {
         DefaultComboBoxModel<T> model =
                 (DefaultComboBoxModel<T>) comboBox.getModel();
         model.removeAllElements();
+//        Arrays.sort(optionsToAdd);
         model.addAll(List.of(optionsToAdd));
-        model.setSelectedItem("");
+        model.setSelectedItem(selected);
     }
 
     ////////////////////////////////////

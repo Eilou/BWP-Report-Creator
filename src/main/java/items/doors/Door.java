@@ -27,7 +27,8 @@ public class Door extends Item implements Serializable {
     private String partMCompliant; // YES or NO!... when null that means to leave blank
     // null is different to NO!
     private String additionalPlyLining; // yes or no
-    private Dimension structuralOpening;
+    private String structuralOpeningWidth;
+    private String structuralOpeningHeight;
     private String structuralOpeningDetails;
     private String frameDetails;
     private String sillDetails;
@@ -60,7 +61,8 @@ public class Door extends Item implements Serializable {
         entranceLevel = "";
         partMCompliant = "";
         additionalPlyLining = "";
-        structuralOpening = new Dimension(-1, -1);
+        structuralOpeningWidth = "";
+        structuralOpeningHeight = "";
         structuralOpeningDetails = "";
         frameDetails = "";
         sillDetails = "";
@@ -88,7 +90,8 @@ public class Door extends Item implements Serializable {
                 ", entranceLevel=" + entranceLevel +
                 ", partMCompliant=" + partMCompliant +
                 ", additionalPlyLining=" + additionalPlyLining +
-                ", structuralOpening=" + structuralOpening +
+                ", structuralOpeningWidth=" + structuralOpeningWidth +
+                ", structuralOpeningHeight=" + structuralOpeningHeight +
                 ", structuralOpeningDetails='" + structuralOpeningDetails + '\'' +
                 ", frameDetail='" + frameDetails + '\'' +
                 ", sillDetail='" + sillDetails + '\'' +
@@ -260,13 +263,22 @@ public class Door extends Item implements Serializable {
         System.out.println("Door " + count + ": set Additional Ply Lining: " + additionalPlyLining);
     }
 
-    public Dimension getStructuralOpening() {
-        return structuralOpening;
+    public String getStructuralOpeningWidth() {
+        return structuralOpeningWidth;
     }
 
-    public void setStructuralOpening(Dimension structuralOpening) {
-        this.structuralOpening = structuralOpening;
-        System.out.println("Door " + count + ": set Structural Opening: " + structuralOpening);
+    public void setStructuralOpeningWidth(String structuralOpeningWidth) {
+        this.structuralOpeningWidth = structuralOpeningWidth;
+        System.out.println("Door " + count + ": set Structural Opening Width: " + structuralOpeningWidth);
+    }
+
+    public String getStructuralOpeningHeight() {
+        return structuralOpeningHeight;
+    }
+
+    public void setStructuralOpeningHeight(String structuralOpeningHeight) {
+        this.structuralOpeningHeight = structuralOpeningHeight;
+        System.out.println("Door " + count + ": set Structural Opening Height: " + structuralOpeningHeight);
     }
 
     public String getStructuralOpeningDetails() {

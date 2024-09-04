@@ -47,7 +47,11 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     // of an if elseif else statement (look at the Excel sheet for reference)
 
     private final JComboBox<String> additionalPlyLiningComboBox = new JComboBox<>();
-    private final JComboBox<String> structuralOpeningComboBox = new JComboBox<>();
+
+    private final JPanel structuralOpeningWidthInnerPanel = new JPanel();
+    private final JPanel structuralOpeningHeightInnerPanel = new JPanel();
+    private final JComboBox<String> structuralOpeningWidthComboBox = new JComboBox<>();
+    private final JComboBox<String> structuralOpeningHeightComboBox = new JComboBox<>();
     // this should be a lookup table
     private final JTextField structuralOpeningDetailsTextField = new JTextField();
 
@@ -113,15 +117,69 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         }
 
         populateComboBoxes();
-        positionForms();
+        positionPanels();
         attachHandlers();
         setFormDefaults();
     }
 
     /**
+     * Positions the contents of the leaf size grid panel
+     *
+     * @return the completed input panel
+     */
+    private JPanel positionLeafSizeInputPanel() {
+        JPanel leafSizeInputPanel = new JPanel();
+        leafSizeInputPanel.setLayout(new GridLayout(1, 4));
+
+        leafTypeInnerPanel.setLayout(new BoxLayout(leafTypeInnerPanel, BoxLayout.PAGE_AXIS));
+        leafTypeInnerPanel.add(leafTypeComboBox);
+
+        leafWidthInnerPanel.setLayout(new BoxLayout(leafWidthInnerPanel, BoxLayout.PAGE_AXIS));
+        GridPanel.setupSpecificLabel(leafWidthInnerPanel, "Width");
+        leafWidthInnerPanel.add(leafWidthComboBox);
+
+        leafHeightInnerPanel.setLayout(new BoxLayout(leafHeightInnerPanel, BoxLayout.PAGE_AXIS));
+        GridPanel.setupSpecificLabel(leafHeightInnerPanel, "Height");
+        leafHeightInnerPanel.add(leafHeightComboBox);
+
+        leafNumberInnerPanel.setLayout(new BoxLayout(leafNumberInnerPanel, BoxLayout.PAGE_AXIS));
+        leafNumberInnerPanel.add(leafNumberComboBox);
+
+        leafSizeInputPanel.add(leafTypeInnerPanel);
+        leafSizeInputPanel.add(leafWidthInnerPanel);
+        leafSizeInputPanel.add(leafHeightInnerPanel);
+        leafSizeInputPanel.add(leafNumberInnerPanel);
+
+        return leafSizeInputPanel;
+    }
+
+    /**
+     * Positions the contents of the structural opening grid panel
+     *
+     * @return the completed input panel
+     */
+    private JPanel positionStructuralOpeningInputPanel() {
+        // probably could put this into a static GridPanel method using (JComboBox...) data type, provided I don't care to keep track of the panel pointers
+        JPanel structuralOpeningInputPanel = new JPanel();
+        structuralOpeningInputPanel.setLayout(new GridLayout(1, 4));
+
+        structuralOpeningWidthInnerPanel.setLayout(new BoxLayout(structuralOpeningWidthInnerPanel, BoxLayout.PAGE_AXIS));
+        GridPanel.setupSpecificLabel(structuralOpeningWidthInnerPanel, "Width");
+        structuralOpeningWidthInnerPanel.add(structuralOpeningWidthComboBox);
+
+        structuralOpeningHeightInnerPanel.setLayout(new BoxLayout(structuralOpeningHeightInnerPanel, BoxLayout.PAGE_AXIS));
+        GridPanel.setupSpecificLabel(structuralOpeningHeightInnerPanel, "Height");
+        structuralOpeningHeightInnerPanel.add(structuralOpeningHeightComboBox);
+
+        structuralOpeningInputPanel.add(structuralOpeningWidthInnerPanel);
+        structuralOpeningInputPanel.add(structuralOpeningHeightInnerPanel);
+        return structuralOpeningInputPanel;
+    }
+
+    /**
      * Position the inputs in the grid bag layout
      */
-    public void positionForms() {
+    public void positionPanels() {
 
         // I am aware it talks about there being unchecked or unsafe operations, however, that's because
         // generics and arrays don't mix, I can always change it for ArrayLists in the future if need be
@@ -134,33 +192,13 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[1][0].setup("Part M Threshold", partMThresholdComboBox);
         gridPanels[1][1].setup("Fire Rating", fireRatingComboBox);
         gridPanels[1][2].setup("Glazed", glazedComboBox);
-
-        JPanel leafSizeInputPanel = new JPanel();
-        leafSizeInputPanel.setLayout(new GridLayout(1,4));
-
-        leafTypeInnerPanel.setLayout(new BoxLayout(leafTypeInnerPanel, BoxLayout.PAGE_AXIS));
-        leafTypeInnerPanel.add(leafTypeComboBox);
-
-        leafWidthInnerPanel.setLayout(new BoxLayout(leafWidthInnerPanel, BoxLayout.PAGE_AXIS));
-        leafWidthInnerPanel.add(leafWidthComboBox);
-
-        leafHeightInnerPanel.setLayout(new BoxLayout(leafHeightInnerPanel, BoxLayout.PAGE_AXIS));
-        leafHeightInnerPanel.add(leafHeightComboBox);
-
-        leafNumberInnerPanel.setLayout(new BoxLayout(leafNumberInnerPanel, BoxLayout.PAGE_AXIS));
-        leafNumberInnerPanel.add(leafNumberComboBox);
-
-        leafSizeInputPanel.add(leafTypeInnerPanel);
-        leafSizeInputPanel.add(leafWidthInnerPanel);
-        leafSizeInputPanel.add(leafHeightInnerPanel);
-        leafSizeInputPanel.add(leafNumberInnerPanel);
-        gridPanels[1][3].setup("Leaf Size", leafSizeInputPanel);
+        gridPanels[1][3].setup("Leaf Size", positionLeafSizeInputPanel());
 
         // 1,4 used for extended leafInputPanel
 
         gridPanels[2][0].setup("Clear Opening", clearOpeningComboBox);
         gridPanels[2][1].setup("Entrance Level", entranceLevelComboBox);
-        gridPanels[2][2].setup("Structural Opening", structuralOpeningComboBox);
+        gridPanels[2][2].setup("Structural Opening", positionStructuralOpeningInputPanel());
         // 2,3 used for extended structural opening panel
         gridPanels[2][4].setup("Structural Opening Details", structuralOpeningDetailsTextField);
 
@@ -178,6 +216,10 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
     }
 
+    /**
+     * Sets the default values of the different inputs
+     * I could use the populateComboBox(JComboBox, String[], String) method to set one at the same time but this is more readable
+     */
     public void setFormDefaults() {
         floorComboBox.setSelectedItem("Ground Floor");
         wallConstructionComboBox.setSelectedItem("89mm partition");
@@ -185,9 +227,10 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         internalExternalComboBox.setSelectedItem("Internal");
         leafTypeComboBox.setSelectedItem("Imperial");
         leafWidthComboBox.setSelectedItem("838");
+        leafNumberComboBox.setSelectedItem("Single");
         entranceLevelComboBox.setSelectedItem("Yes");
         //todo
-//        structural opening height = above screed
+        structuralOpeningDetailsTextField.setText("Above Screed");
         hingesComboBox.setSelectedItem("1/2 pair");
         latchComboBox.setSelectedItem("Yes");
     }
@@ -198,13 +241,14 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     public void populateComboBoxes() {
 
         DetailPanel.populateGivenComboBox(floorComboBox, new String[]{"", "Ground Floor", "First Floor", "Second Floor", "Third Floor", "Lower Ground Floor", "Upper Ground Floor", "Mezzanine", "Basement 1", "Basement 2", "Custom"});
-        DetailPanel.populateGivenComboBox(roomComboBox, new String[]{"", "Custom"});
+        DetailPanel.populateGivenComboBox(roomComboBox, new String[]{"", "Entrance Hall", "Plant Room", "Utility", "WC", "Reception", "Bedroom 1", "Bedroom 2", "Bedroom 3", "Bedroom 4", "Ensuite 1", "Ensuite 2", "Ensuite 3", "Ensuite 4", "Coats", "Kitchen", "Kitchen / Dining", "Dining", "Linen", "Custom"});
         DetailPanel.populateGivenComboBox(wallConstructionComboBox, new String[]{"", "Masonry Cavity wall", "Timberframe", "SIPS panel", "100mm blockwork", "140mm blockwork", "215mm blockwork", "89mm partition", "100mm partition", "140mm partition", "Custom"});
         DetailPanel.populateGivenComboBox(internalExternalComboBox, new String[]{"", "Internal", "External [1]", "Custom"});
         DetailPanel.populateGivenComboBox(partMThresholdComboBox, new String[]{"", "Y [2]", "Custom"});
         DetailPanel.populateGivenComboBox(fireRatingComboBox, new String[]{"", "FD20 [3]", "FD30 [3]", "FD30-SC [3]", "FD60 [3]", "Custom"});
         DetailPanel.populateGivenComboBox(glazedComboBox, new String[]{"", "Y [4]", "Custom"});
         DetailPanel.populateGivenComboBox(leafTypeComboBox, new String[]{"", "Imperial", "Metric", "Bespoke"});
+        //todo
         DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "610", "686", "762", "838", "626", "726", "826", "926", "Custom"}); // these all get overwritten anyway
         DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "1981", "2040", "Custom"});
         DetailPanel.populateGivenComboBox(leafNumberComboBox, new String[]{"Single", "Double", "Triple", "Quad", "Custom"});
@@ -216,9 +260,10 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         // todo DetailPanel.populateGivenComboBox(partMCompliantComboBox, new
         //  YesNoOptions[]{YesNoOptions.BLANK, }); // this should be the lookup table
 
-        DetailPanel.populateGivenComboBox(additionalPlyLiningComboBox, new String[]{"", "Yes", "Custom"});
+        DetailPanel.populateGivenComboBox(additionalPlyLiningComboBox, new String[]{"", "Yes"});
 
-        //todo structural opening populating, might need to make custom dimension class so can override the toString
+        DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "690", "765", "840", "920", "710", "810", "910", "1010", "1315", "1460", "1620", "1770", "1340", "1540", "1740", "1840"});
+        DetailPanel.populateGivenComboBox(structuralOpeningHeightComboBox, new String[]{"", "725", "800", "875", "955", "750", "850", "950", "1050", "1350", "1490", "1650", "1800", "1370", "1570", "1770", "1870"});
 
         // needs turning into the unicode values
         DetailPanel.populateGivenComboBox(hingesComboBox, new String[]{"", "1/2 pair", "1 pair", "1 1/2 pair", "2 pair", "Custom"});
@@ -227,6 +272,119 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         DetailPanel.populateGivenComboBox(lockComboBox, new String[]{"", "Yes", "Y [5]", "Custom"});
         DetailPanel.populateGivenComboBox(handleComboBox, new String[]{"Yes", "Custom"});
 
+    }
+
+    /**
+     * Holds the lookup system for the structural opening width
+     */
+    private void structuralOpeningWidthLookup() {
+        // if additional play lining != yes, then use columns A and B
+        if (!additionalPlyLiningComboBox.getSelectedItem().equals("Yes")) {
+            // if it is a single door do this
+            if (leafNumberComboBox.getSelectedItem().equals("Single")) {
+                switch (String.valueOf(leafWidthComboBox.getSelectedItem())) {
+
+                    case "610" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "690", "Custom"}, "690");
+                    case "686" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "765", "Custom"}, "765");
+                    case "762" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "840", "Custom"}, "840");
+                    case "838" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "920", "Custom"}, "920");
+                    case "626" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "710", "Custom"}, "710");
+                    case "726" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "810", "Custom"}, "810");
+                    case "826" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "910", "Custom"}, "910");
+                    case "926" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1010", "Custom"}, "1010");
+                    default ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
+                }
+            }
+            // if it is a double door do this
+            else if (leafNumberComboBox.getSelectedItem().equals("Double")) {
+                switch (String.valueOf(leafWidthComboBox.getSelectedItem())) {
+                    case "610" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1315", "Custom"}, "1315");
+                    case "686" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1460", "Custom"}, "1460");
+                    case "762" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1620", "Custom"}, "1620");
+                    case "838" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1770", "Custom"}, "1770");
+                    case "626" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1340", "Custom"}, "1340");
+                    case "726" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1540", "Custom"}, "1540");
+                    case "826" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1740", "Custom"}, "1740");
+                    case "926" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1840", "Custom"}, "1840");
+                    default ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
+                }
+            }
+            else
+                DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
+            //todo for triple and quad
+
+        }
+        // if ply lining equals yes then use columns A and C
+        else {
+            // if it is a single door do this
+            if (leafNumberComboBox.getSelectedItem().equals("Single")) {
+                switch (String.valueOf(leafWidthComboBox.getSelectedItem())) {
+
+                    case "610" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "725", "Custom"}, "725");
+                    case "686" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "800", "Custom"}, "800");
+                    case "762" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "875", "Custom"}, "875");
+                    case "838" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "955", "Custom"}, "955");
+                    case "626" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "750", "Custom"}, "750");
+                    case "726" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "850", "Custom"}, "850");
+                    case "826" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "950", "Custom"}, "950");
+                    case "926" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1050", "Custom"}, "1050");
+                    default ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
+                }
+            }
+            // if it is a double door do this
+            else if (leafNumberComboBox.getSelectedItem().equals("Double")) {
+                switch (String.valueOf(leafWidthComboBox.getSelectedItem())) {
+                    case "610" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1350", "Custom"}, "1350");
+                    case "686" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1490", "Custom"}, "1490");
+                    case "762" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1650", "Custom"}, "1650");
+                    case "838" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1800", "Custom"}, "1800");
+                    case "626" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1370", "Custom"}, "1370");
+                    case "726" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1570", "Custom"}, "1570");
+                    case "826" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1770", "Custom"}, "1770");
+                    case "926" ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1870", "Custom"}, "1870");
+                    default ->
+                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
+                }
+            }
+            else
+                DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
+            //todo for triple and quad
+        }
     }
 
     /**
@@ -254,19 +412,16 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
             switch (String.valueOf(leafTypeComboBox.getSelectedItem())) {
                 case "Imperial" -> {
                     DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "610", "762", "838", "910", "Custom"});
-                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "1981","Custom"});
-                    leafHeightComboBox.setSelectedItem("1981");
+                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "1981", "Custom"}, "1981");
                 }
                 case "Metric" -> {
                     DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "626", "726", "826", "926", "Custom"});
-                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "2040","Custom"});
-                    leafHeightComboBox.setSelectedItem("2040");
+                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "2040", "Custom"}, "2040");
+//                    leafHeightComboBox.setSelectedItem("2040");
                 }
                 case "Bespoke" -> {
-                    DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "Custom"});
-                    leafWidthComboBox.setSelectedItem("Custom");
-                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "Custom"});
-                    leafHeightComboBox.setSelectedItem("Custom");
+                    DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "Custom"}, "Custom");
+                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "Custom"}, "Custom");
                 }
                 default -> {
                     DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{""});
@@ -275,6 +430,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
             }
         });
 
+        leafWidthComboBox.addActionListener(e -> structuralOpeningWidthLookup());
+        leafNumberComboBox.addActionListener(e -> structuralOpeningWidthLookup());
+
         gridPanels[1][3].attachSpecificAttributeHandler(door::setLeafNumber, leafNumberInnerPanel, leafNumberComboBox);
 
 //        gridPanels[2][0].attachCBAttributeHandler(door::setClearOpening);
@@ -282,10 +440,10 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         //todo view drop down table description at top
 
-//        gridPanels[2][2].attachCBAttributeHandler(door::setStructuralOpening);
+        gridPanels[2][2].attachSpecificAttributeHandler(door::setStructuralOpeningWidth, structuralOpeningWidthInnerPanel, structuralOpeningWidthComboBox);
+        gridPanels[2][2].attachSpecificAttributeHandler(door::setStructuralOpeningHeight, structuralOpeningHeightInnerPanel, structuralOpeningHeightComboBox);
 
         gridPanels[2][4].attachTFAttributeHandler(door::setStructuralOpeningDetails);
-
 
         gridPanels[3][0].attachCBAttributeHandler(door::setPartMCompliant);
         gridPanels[3][1].attachCBAttributeHandler(door::setAdditionalPlyLining);
