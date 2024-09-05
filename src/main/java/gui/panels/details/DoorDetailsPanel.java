@@ -277,6 +277,28 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
     }
 
+    private void doorTypeWidthLookup() {
+        switch (String.valueOf(leafTypeComboBox.getSelectedItem())) {
+            case "Imperial" -> {
+                DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "610", "686", "762", "838", "Custom"});
+                DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "1981", "Custom"}, "1981");
+            }
+            case "Metric" -> {
+                DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "626", "726", "826", "926", "Custom"});
+                DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "2040", "Custom"}, "2040");
+//                    leafHeightComboBox.setSelectedItem("2040");
+            }
+            case "Bespoke" -> {
+                DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "Custom"}, "Custom");
+                DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "Custom"}, "Custom");
+            }
+            default -> {
+                DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{""});
+                DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{""});
+            }
+        }
+    }
+
     /**
      * Holds the lookup system for the structural opening width
      */
@@ -409,27 +431,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[1][2].attachSpecificAttributeHandler(door::setLeafWidth, leafWidthInnerPanel, leafWidthComboBox);
         gridPanels[1][2].attachSpecificAttributeHandler(door::setLeafHeight, leafHeightInnerPanel, leafHeightComboBox);
         // autofills in some other details to the leaf size when selecting the type
-        leafTypeComboBox.addActionListener(e -> {
-            switch (String.valueOf(leafTypeComboBox.getSelectedItem())) {
-                case "Imperial" -> {
-                    DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "610", "762", "838", "910", "Custom"});
-                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "1981", "Custom"}, "1981");
-                }
-                case "Metric" -> {
-                    DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "626", "726", "826", "926", "Custom"});
-                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "2040", "Custom"}, "2040");
-//                    leafHeightComboBox.setSelectedItem("2040");
-                }
-                case "Bespoke" -> {
-                    DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "Custom"}, "Custom");
-                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "Custom"}, "Custom");
-                }
-                default -> {
-                    DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{""});
-                    DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{""});
-                }
-            }
-        });
+        leafTypeComboBox.addActionListener(e -> doorTypeWidthLookup());
         leafWidthComboBox.addActionListener(e -> structuralOpeningWidthLookup());
         leafNumberComboBox.addActionListener(e -> structuralOpeningWidthLookup());
         gridPanels[1][2].attachSpecificAttributeHandler(door::setLeafNumber, leafNumberInnerPanel, leafNumberComboBox);
