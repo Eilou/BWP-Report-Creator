@@ -209,7 +209,7 @@ public class DoorReportBuilder implements ReportBuilder{
             stringBuilder.append("                    </li>\n");
             stringBuilder.append("                    <li>\n");
             stringBuilder.append("                        <span>Clear Opening</span>\n");
-            stringBuilder.append("                        <span></span> <!-- To fill in -->\n"); //todo
+            stringBuilder.append("                        <span>"+door.getClearOpening()+"</span> <!-- To fill in -->\n"); //todo
             stringBuilder.append("                    </li>\n");
             stringBuilder.append("                    <li>\n");
             stringBuilder.append("                        <span>Structural Opening:</span>\n");

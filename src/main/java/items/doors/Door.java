@@ -22,7 +22,7 @@ public class Door extends Item implements Serializable {
     private String leafHeight;
     private String leafNumber; // single, double, triple, quad
 
-    private int clearOpening;
+    private String clearOpening;
     private String entranceLevel;
     private String partMCompliant; // YES or NO!... when null that means to leave blank
     // null is different to NO!
@@ -57,7 +57,7 @@ public class Door extends Item implements Serializable {
         leafHeight = "";
         leafNumber = "";
 
-        clearOpening = -1;
+        clearOpening = "";
         entranceLevel = "";
         partMCompliant = "";
         additionalPlyLining = "";
@@ -227,11 +227,11 @@ public class Door extends Item implements Serializable {
         System.out.println("Door " + count + ": set Leaf Number: " + leafNumber);
     }
 
-    public int getClearOpening() {
+    public String getClearOpening() {
         return clearOpening;
     }
 
-    public void setClearOpening(int clearOpening) {
+    public void setClearOpening(String clearOpening) {
         this.clearOpening = clearOpening;
         System.out.println("Door " + count + ": set Clear Opening: " + clearOpening);
     }

@@ -234,8 +234,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         doorTypeTextField.setText("TBA by client");
         internalExternalComboBox.setSelectedItem("Internal");
         leafTypeComboBox.setSelectedItem("Imperial");
-        leafWidthComboBox.setSelectedItem("838");
         leafNumberComboBox.setSelectedItem("Single");
+        leafWidthComboBox.setSelectedItem("838");
+
         entranceLevelComboBox.setSelectedItem("Yes");
         //todo
         hingesComboBox.setSelectedItem("1/2 pair");
@@ -255,11 +256,12 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         DetailPanel.populateGivenComboBox(fireRatingComboBox, new String[]{"", "FD20 [3]", "FD30 [3]", "FD30-SC [3]", "FD60 [3]", "Custom"});
         DetailPanel.populateGivenComboBox(glazedComboBox, new String[]{"", "Y [4]", "Custom"});
         DetailPanel.populateGivenComboBox(leafTypeComboBox, new String[]{"", "Imperial", "Metric", "Bespoke"});
-        //todo
+
         DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "610", "686", "762", "838", "626", "726", "826", "926", "Custom"}); // these all get overwritten anyway
         DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "1981", "2040", "Custom"});
         DetailPanel.populateGivenComboBox(leafNumberComboBox, new String[]{"Single", "Double", "Triple", "Quad", "Custom"});
 
+        DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"549", "625", "701", "778", "566", "666", "766", "866", "1130", "1278", "1434", "1592", "1166", "1366", "1566", "1766"});
         //todo clear opening thing, want to be relative to leaf size width, but then also part of a drop down to override
 
         DetailPanel.populateGivenComboBox(entranceLevelComboBox, new String[]{"", "Yes", "Custom"});
@@ -316,47 +318,29 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
             if (Objects.equals(leafNumberComboBox.getSelectedItem(), "Single")) {
                 switch (String.valueOf(leafWidthComboBox.getSelectedItem())) {
 
-                    case "610" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "690", "Custom"}, "690");
-                    case "686" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "765", "Custom"}, "765");
-                    case "762" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "840", "Custom"}, "840");
-                    case "838" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "920", "Custom"}, "920");
-                    case "626" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "710", "Custom"}, "710");
-                    case "726" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "810", "Custom"}, "810");
-                    case "826" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "910", "Custom"}, "910");
-                    case "926" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1010", "Custom"}, "1010");
-                    default ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
+                    case "610" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "690", "Custom"}, "690");
+                    case "686" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "765", "Custom"}, "765");
+                    case "762" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "840", "Custom"}, "840");
+                    case "838" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "920", "Custom"}, "920");
+                    case "626" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "710", "Custom"}, "710");
+                    case "726" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "810", "Custom"}, "810");
+                    case "826" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "910", "Custom"}, "910");
+                    case "926" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1010", "Custom"}, "1010");
+                    default -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
                 }
             }
             // if it is a double door do this
             else if (Objects.equals(leafNumberComboBox.getSelectedItem(), "Double")) {
                 switch (String.valueOf(leafWidthComboBox.getSelectedItem())) {
-                    case "610" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1315", "Custom"}, "1315");
-                    case "686" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1460", "Custom"}, "1460");
-                    case "762" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1620", "Custom"}, "1620");
-                    case "838" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1770", "Custom"}, "1770");
-                    case "626" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1340", "Custom"}, "1340");
-                    case "726" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1540", "Custom"}, "1540");
-                    case "826" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1740", "Custom"}, "1740");
-                    case "926" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1840", "Custom"}, "1840");
-                    default ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
+                    case "610" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1315", "Custom"}, "1315");
+                    case "686" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1460", "Custom"}, "1460");
+                    case "762" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1620", "Custom"}, "1620");
+                    case "838" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1770", "Custom"}, "1770");
+                    case "626" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1340", "Custom"}, "1340");
+                    case "726" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1540", "Custom"}, "1540");
+                    case "826" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1740", "Custom"}, "1740");
+                    case "926" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1840", "Custom"}, "1840");
+                    default -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
                 }
             }
             else
@@ -370,47 +354,29 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
             if (Objects.equals(leafNumberComboBox.getSelectedItem(), "Single")) {
                 switch (String.valueOf(leafWidthComboBox.getSelectedItem())) {
 
-                    case "610" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "725", "Custom"}, "725");
-                    case "686" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "800", "Custom"}, "800");
-                    case "762" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "875", "Custom"}, "875");
-                    case "838" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "955", "Custom"}, "955");
-                    case "626" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "750", "Custom"}, "750");
-                    case "726" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "850", "Custom"}, "850");
-                    case "826" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "950", "Custom"}, "950");
-                    case "926" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1050", "Custom"}, "1050");
-                    default ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
+                    case "610" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "725", "Custom"}, "725");
+                    case "686" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "800", "Custom"}, "800");
+                    case "762" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "875", "Custom"}, "875");
+                    case "838" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "955", "Custom"}, "955");
+                    case "626" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "750", "Custom"}, "750");
+                    case "726" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "850", "Custom"}, "850");
+                    case "826" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "950", "Custom"}, "950");
+                    case "926" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1050", "Custom"}, "1050");
+                    default -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
                 }
             }
             // if it is a double door do this
             else if (Objects.equals(leafNumberComboBox.getSelectedItem(), "Double")) {
                 switch (String.valueOf(leafWidthComboBox.getSelectedItem())) {
-                    case "610" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1350", "Custom"}, "1350");
-                    case "686" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1490", "Custom"}, "1490");
-                    case "762" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1650", "Custom"}, "1650");
-                    case "838" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1800", "Custom"}, "1800");
-                    case "626" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1370", "Custom"}, "1370");
-                    case "726" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1570", "Custom"}, "1570");
-                    case "826" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1770", "Custom"}, "1770");
-                    case "926" ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1870", "Custom"}, "1870");
-                    default ->
-                            DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
+                    case "610" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1350", "Custom"}, "1350");
+                    case "686" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1490", "Custom"}, "1490");
+                    case "762" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1650", "Custom"}, "1650");
+                    case "838" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1800", "Custom"}, "1800");
+                    case "626" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1370", "Custom"}, "1370");
+                    case "726" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1570", "Custom"}, "1570");
+                    case "826" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1770", "Custom"}, "1770");
+                    case "926" -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "1870", "Custom"}, "1870");
+                    default -> DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "Custom"});
                 }
             }
             else
@@ -419,6 +385,40 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         }
     }
 
+    private void clearOpeningLookup() {
+        // if it is a single door do this
+        if (Objects.equals(leafNumberComboBox.getSelectedItem(), "Single")) {
+            switch (String.valueOf(leafWidthComboBox.getSelectedItem())) {
+
+                case "610" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "549", "Custom"}, "549");
+                case "686" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "625", "Custom"}, "625");
+                case "762" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "701", "Custom"}, "701");
+                case "838" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "778", "Custom"}, "778");
+                case "626" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "566", "Custom"}, "566");
+                case "726" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "666", "Custom"}, "666");
+                case "826" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "766", "Custom"}, "766");
+                case "926" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "866", "Custom"}, "866");
+                default -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "Custom"});
+            }
+        }
+        // if it is a double door do this
+        else if (Objects.equals(leafNumberComboBox.getSelectedItem(), "Double")) {
+            switch (String.valueOf(leafWidthComboBox.getSelectedItem())) {
+                case "610" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "1130", "Custom"}, "1130");
+                case "686" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "1278", "Custom"}, "1278");
+                case "762" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "1434", "Custom"}, "1434");
+                case "838" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "1592", "Custom"}, "1592");
+                case "626" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "1166", "Custom"}, "1166");
+                case "726" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "1366", "Custom"}, "1366");
+                case "826" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "1566", "Custom"}, "1566");
+                case "926" -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "1766", "Custom"}, "1766");
+                default -> DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "Custom"});
+            }
+        }
+        else
+            DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "Custom"});
+        //todo for triple and quad
+    }
     /**
      * Add the event handlers to the comboboxes
      * Feels like this could be done easier if I could pass the mutator methods of door like objects but here we are
@@ -439,11 +439,13 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[1][2].attachSpecificAttributeHandler(door::setLeafHeight, leafHeightInnerPanel, leafHeightComboBox);
         leafTypeComboBox.addActionListener(e -> doorTypeWidthLookup());
         leafWidthComboBox.addActionListener(e -> structuralOpeningWidthLookup());
-        leafNumberComboBox.addActionListener(e -> structuralOpeningWidthLookup());
+        leafWidthComboBox.addActionListener(e -> clearOpeningLookup());
         gridPanels[1][2].attachSpecificAttributeHandler(door::setLeafNumber, leafNumberInnerPanel, leafNumberComboBox);
+        leafNumberComboBox.addActionListener(e -> structuralOpeningWidthLookup());
+        leafNumberComboBox.addActionListener(e -> clearOpeningLookup());
 
 
-//        gridPanels[2][0].attachCBAttributeHandler(door::setClearOpening);
+        gridPanels[2][0].attachCBAttributeHandler(door::setClearOpening);
         gridPanels[2][1].attachCBAttributeHandler(door::setPartMCompliant);
         gridPanels[2][2].attachCBAttributeHandler(door::setFireRating);
         gridPanels[2][3].attachCBAttributeHandler(door::setGlazed);
