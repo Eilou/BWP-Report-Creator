@@ -47,7 +47,7 @@ public class DoorReportBuilder implements ReportBuilder{
      */
     public void writeToFile() {
         try {
-            String filePath = "currentExport/currentExport.html";
+            String filePath = "src/main/resources/currentExport/currentExport.html";
             PrintWriter pw = new PrintWriter(new FileWriter(filePath));
             pw.println(stringBuilder);
             pw.flush();
@@ -185,7 +185,7 @@ public class DoorReportBuilder implements ReportBuilder{
             stringBuilder.append("                    </li>\n");
             stringBuilder.append("                    <li>\n");
             stringBuilder.append("                        <span>Door Type:</span>\n");
-            stringBuilder.append("                        <span>TBA by client</span> <!-- To fill in -->\n"); //todo
+            stringBuilder.append("                        <span>"+door.getDoorType()+"</span> <!-- To fill in -->\n");
             stringBuilder.append("                    </li>\n");
             stringBuilder.append("                    <li>\n");
             stringBuilder.append("                        <span class=\"red-font\">Entrance level:</span>\n");
@@ -213,8 +213,8 @@ public class DoorReportBuilder implements ReportBuilder{
             stringBuilder.append("                    </li>\n");
             stringBuilder.append("                    <li>\n");
             stringBuilder.append("                        <span>Structural Opening:</span>\n");
-            stringBuilder.append("                        <span>950 x 2065</span> <!-- To fill in -->\n"); //todo
-            stringBuilder.append("                        <span>above screed</span> <!-- To fill in -->\n");
+            stringBuilder.append("                        <span>"+door.getStructuralOpeningWidth()+" x "+door.getStructuralOpeningHeight()+"</span> <!-- To fill in -->\n");
+            stringBuilder.append("                        <span>"+door.getStructuralOpeningDetails()+"</span> <!-- To fill in -->\n");
             stringBuilder.append("                    </li>\n");
             stringBuilder.append("                    <li>\n");
             stringBuilder.append("                        <span class=\"red-font\">Additional Ply Lining:</span>\n");

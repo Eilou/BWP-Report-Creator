@@ -16,7 +16,7 @@ public class App {
             @Override
             public void run() {
                 try {
-                    // UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+//                    UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
                     // https://www.geeksforgeeks.org/java-swing-look-feel/ for a good list
                     GUIFrame guiFrame = new GUIFrame();
                     guiFrame.setup();

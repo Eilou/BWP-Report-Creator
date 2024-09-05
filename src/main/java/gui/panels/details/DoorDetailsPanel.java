@@ -53,9 +53,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JPanel structuralOpeningHeightInnerPanel = new JPanel();
     private final JPanel structuralOpeningDetailsInnerPanel = new JPanel();
     private final JComboBox<String> structuralOpeningWidthComboBox = new JComboBox<>();
-    private final JComboBox<String> structuralOpeningHeightComboBox = new JComboBox<>();
+    private final JTextField structuralOpeningHeightTextField = new JTextField();
     // this should be a lookup table
-    private final JTextField structuralOpeningDetailsTextField = new JTextField();
+    private final JComboBox<String> structuralOpeningDetailsComboBox = new JComboBox<>();
 
     private final JTextField frameDetailsTextField = new JTextField();
     private final JTextField sillDetailsTextField = new JTextField();
@@ -176,11 +176,11 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         structuralOpeningHeightInnerPanel.setLayout(new BoxLayout(structuralOpeningHeightInnerPanel, BoxLayout.PAGE_AXIS));
         GridPanel.setupSpecificLabel(structuralOpeningHeightInnerPanel, "Height");
-        structuralOpeningHeightInnerPanel.add(structuralOpeningHeightComboBox);
+        structuralOpeningHeightInnerPanel.add(structuralOpeningHeightTextField);
 
         structuralOpeningDetailsInnerPanel.setLayout(new BoxLayout(structuralOpeningDetailsInnerPanel, BoxLayout.PAGE_AXIS));
         GridPanel.setupSpecificLabel(structuralOpeningDetailsInnerPanel, "Height Measured From");
-        structuralOpeningDetailsInnerPanel.add(structuralOpeningDetailsTextField);
+        structuralOpeningDetailsInnerPanel.add(structuralOpeningDetailsComboBox);
 
         structuralOpeningInputPanel.add(structuralOpeningWidthInnerPanel);
         structuralOpeningInputPanel.add(structuralOpeningHeightInnerPanel);
@@ -238,7 +238,6 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         leafNumberComboBox.setSelectedItem("Single");
         entranceLevelComboBox.setSelectedItem("Yes");
         //todo
-        structuralOpeningDetailsTextField.setText("Above Screed");
         hingesComboBox.setSelectedItem("1/2 pair");
         latchComboBox.setSelectedItem("Yes");
     }
@@ -271,7 +270,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         DetailPanel.populateGivenComboBox(additionalPlyLiningComboBox, new String[]{"", "Yes"});
 
         DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "690", "765", "840", "920", "710", "810", "910", "1010", "1315", "1460", "1620", "1770", "1340", "1540", "1740", "1840"});
-        DetailPanel.populateGivenComboBox(structuralOpeningHeightComboBox, new String[]{"", "725", "800", "875", "955", "750", "850", "950", "1050", "1350", "1490", "1650", "1800", "1370", "1570", "1770", "1870"});
+        DetailPanel.populateGivenComboBox(structuralOpeningDetailsComboBox, new String[]{"", "Above Screed", "Above Ply Deck", "Above Slab", "Above Plinth", "Below Screed", "Below Ply Deck", "Below Slab", "Inc. Sill", "Custom"});
 
         // needs turning into the Unicode values
         DetailPanel.populateGivenComboBox(hingesComboBox, new String[]{"", "1/2 pair", "1 pair", "1 1/2 pair", "2 pair", "Custom"});
@@ -452,13 +451,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         additionalPlyLiningComboBox.addActionListener(e -> structuralOpeningWidthLookup());
 
 
-
-
-        //todo view drop down table description at top
-
         gridPanels[3][0].attachSpecificAttributeHandler(door::setStructuralOpeningWidth, structuralOpeningWidthInnerPanel, structuralOpeningWidthComboBox);
-        gridPanels[3][0].attachSpecificAttributeHandler(door::setStructuralOpeningHeight, structuralOpeningHeightInnerPanel, structuralOpeningHeightComboBox);
-        gridPanels[3][0].attachSpecificAttributeHandler(door::setStructuralOpeningDetails, structuralOpeningDetailsTextField);
+        gridPanels[3][0].attachSpecificAttributeHandler(door::setStructuralOpeningHeight, structuralOpeningHeightTextField);
+        gridPanels[3][0].attachSpecificAttributeHandler(door::setStructuralOpeningDetails, structuralOpeningDetailsInnerPanel, structuralOpeningDetailsComboBox);
 //        gridPanels[3][0].attachTFAttributeHandler(door::setStructuralOpeningDetails);
         gridPanels[3][2].attachTFAttributeHandler(door::setFrameDetails);
         gridPanels[3][3].attachTFAttributeHandler(door::setSillDetails);
