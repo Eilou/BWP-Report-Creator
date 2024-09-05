@@ -19,38 +19,62 @@ import java.awt.*;
  */
 public class ToolbarPanel extends JPanel {
 
+    public static final Dimension BUTTON_SIZE = new Dimension(50, 50);
+
     private ReportState reportState;
     private ReportCreationPanel reportCreationPanel;
     private ProjectDetailsPanel projectDetailsPanel;
 
+    private JLabel newFileLabel;
     private StyledButton newFileButton;
+
+    private JLabel saveLabel;
     private StyledButton saveButton;
+
+    private JLabel openLabel;
     private StyledButton openButton;
 
+
+    private JLabel addDetailLabel;
     private StyledButton addDetailButton;
     private JCheckBox backfillCheckbox;
+
+    private JLabel removeDetailLabel;
     private StyledButton removeDetailButton;
+
+    private JLabel generateReportLabel;
     private StyledButton generateReportButton;
 
+
+    private JLabel summaryLabel;
     private StyledButton summaryButton;
+
 
     public ToolbarPanel(ReportState reportState, ReportCreationPanel reportCreationPanel, ProjectDetailsPanel projectDetailsPanel) {
         this.reportState = reportState;
         this.reportCreationPanel = reportCreationPanel;
         this.projectDetailsPanel = projectDetailsPanel;
 
-        newFileButton = new StyledButton("New");
-        saveButton = new StyledButton("Save");
-        openButton = new StyledButton("Open");
+        newFileLabel = new JLabel("New");
+        saveLabel = new JLabel("Save");
+        openLabel = new JLabel("Open");
+        addDetailLabel = new JLabel("Add " + reportState);
+        removeDetailLabel = new JLabel("Remove last " + reportState);
+        generateReportLabel = new JLabel("Generate " + reportState + " Report");
+        summaryLabel = new JLabel("Summary");
+
+        newFileButton = new StyledButton();
+        saveButton = new StyledButton();
+        openButton = new StyledButton();
 
 
-        addDetailButton = new StyledButton("Add " + reportState);
-        backfillCheckbox = new JCheckBox("Backfill");
+        addDetailButton = new StyledButton();
+        backfillCheckbox = new JCheckBox();
 
-        removeDetailButton = new StyledButton("Remove last "+ reportState);
-        generateReportButton = new StyledButton("Generate " + reportState + " Report");
+        removeDetailButton = new StyledButton();
+        generateReportButton = new StyledButton();
 
-        summaryButton = new StyledButton("Summary");
+        summaryButton = new StyledButton();
 
     }
 
@@ -59,54 +83,109 @@ public class ToolbarPanel extends JPanel {
      */
     public void setup() {
 
-        setBackground(Styling.FOREGROUND);
+        setBackground(Styling.BACKGROUND);
         setForeground(Styling.TEXT);
-        setLayout(new GridLayout(0, 1));
+        setLayout(new GridBagLayout());
 
         setBorder(BorderFactory.createCompoundBorder(
-                        new LineBorder(Styling.TEXT),
-                        new LineBorder(Styling.FOREGROUND, 5)));
+                new LineBorder(Styling.TEXT),
+                new LineBorder(Styling.FOREGROUND, 5)));
 
         styleButtons();
         attachHandlers();
-
-        add(newFileButton);
-        add(saveButton);
-        add(openButton);
-
-        JPanel addDetailPanel = new JPanel();
-        addDetailPanel.setLayout(new BoxLayout(addDetailPanel, BoxLayout.LINE_AXIS));
-        addDetailPanel.setBackground(Styling.FOREGROUND);
-        addDetailPanel.setForeground(Styling.TEXT);
-        addDetailPanel.setBorder(new LineBorder(Styling.TEXT));
-        addDetailPanel.add(addDetailButton);
-        addDetailPanel.add(backfillCheckbox);
-
-        //todo add a checkbox to determine whether they want it to be a contractor report or a building control report
-
-        add(addDetailPanel);
-        add(removeDetailButton);
-        add(generateReportButton);
-        add(summaryButton);
+        positionPanels();
     }
+
+    /**
+     * Style the panel as to the size I want them to be
+     *
+     * @param label what the button does
+     * @param components the elements being put into a panel below the label
+     * @return a styled JPanel
+     */
+    private JPanel stylePanel(JLabel label, JComponent... components) {
+        JPanel innerPanel = new JPanel();
+
+        innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.PAGE_AXIS));
+        JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        labelPanel.add(label);
+
+        JPanel componentPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        for (JComponent component : components) {
+            componentPanel.add(component);
+        }
+        innerPanel.add(labelPanel);
+        innerPanel.add(componentPanel);
+
+        innerPanel.setBackground(Styling.BACKGROUND);
+        labelPanel.setBackground(Styling.BACKGROUND);
+        label.setForeground(Styling.TEXT);
+        componentPanel.setBackground(Styling.FOREGROUND);
+        innerPanel.setBorder(new LineBorder(Styling.TEXT, 2));
+        return innerPanel;
+    }
+
+    /**
+     * Positions the panels in the panel
+     */
+    private void positionPanels() {
+
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.insets = new Insets(5,5,5,5);
+
+        gbc.fill = GridBagConstraints.BOTH; // stretch both horizontally and vertically
+        gbc.weightx = 1; // expand in both directions at equal rates
+        gbc.weighty = 0;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+
+        add(stylePanel(newFileLabel, newFileButton), gbc);
+        gbc.gridy = 1;
+        add(stylePanel(saveLabel, saveButton), gbc);
+        gbc.gridy = 2;
+        add(stylePanel(openLabel, openButton), gbc);
+
+        gbc.gridy = 3;
+        add(stylePanel(addDetailLabel, addDetailButton, backfillCheckbox), gbc);
+        gbc.gridy = 4;
+        add(stylePanel(removeDetailLabel, removeDetailButton), gbc);
+        gbc.gridy = 5;
+        add(stylePanel(generateReportLabel, generateReportButton), gbc);
+        gbc.gridy = 6;
+        add(stylePanel(summaryLabel, summaryButton), gbc);
+
+    }
+
 
     /**
      * Style the button elements
      */
     public void styleButtons() {
+
         // todo resize these cos they look silly right now
-        newFileButton.setup(UIManager.getIcon("FileView.fileIcon"));
-        saveButton.setup(UIManager.getIcon("FileView.floppyDriveIcon"));
-        openButton.setup(UIManager.getIcon("FileView.directoryIcon"));
+        newFileButton.setup(StyledButton.getScaledImage(
+                (ImageIcon) UIManager.getIcon("FileView.fileIcon"), BUTTON_SIZE.width, BUTTON_SIZE.height));
+        saveButton.setup(StyledButton.getScaledImage(
+                (ImageIcon) UIManager.getIcon("FileView.floppyDriveIcon"), BUTTON_SIZE.width, BUTTON_SIZE.height));
+        openButton.setup(StyledButton.getScaledImage(
+                (ImageIcon) UIManager.getIcon("FileView.directoryIcon"), BUTTON_SIZE.width, BUTTON_SIZE.height));
 
-        addDetailButton.setup(new ImageIcon("src/main/resources/buttonIcons/addItemIcon.png"));
-        addDetailButton.setBorder(new EmptyBorder(0,0,0,0));
-        backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Disabled.png"));
+        addDetailButton.setup(StyledButton.getScaledImage(
+                new ImageIcon("src/main/resources/buttonIcons/addItemIcon.png"), BUTTON_SIZE.width, BUTTON_SIZE.height));
+        backfillCheckbox.setIcon(StyledButton.getScaledImage(
+                new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Disabled.png"), BUTTON_SIZE.width, BUTTON_SIZE.height));
         Styling.setComponentColours(backfillCheckbox, Styling.FOREGROUND, Styling.TEXT);
+        backfillCheckbox.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        removeDetailButton.setup(new ImageIcon("src/main/resources/buttonIcons/deleteLastIcon.png"));
+        removeDetailButton.setup(StyledButton.getScaledImage(
+                new ImageIcon("src/main/resources/buttonIcons/deleteLastIcon.png"), BUTTON_SIZE.width, BUTTON_SIZE.width * 3/4));
 
-        generateReportButton.setup(new ImageIcon("src/main/resources/buttonIcons/generateIcon.png"));
+        generateReportButton.setup(StyledButton.getScaledImage(
+                new ImageIcon("src/main/resources/buttonIcons/generateIcon.png"), BUTTON_SIZE.width, BUTTON_SIZE.height));
         summaryButton.setup();
 
     }
@@ -123,8 +202,9 @@ public class ToolbarPanel extends JPanel {
         addDetailButton.addActionListener(new AddDetailButtonHandler(reportState, reportCreationPanel, backfillCheckbox));
         backfillCheckbox.addActionListener(e -> {
             if (backfillCheckbox.isSelected())
-                backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Enabled.png"));
-            else backfillCheckbox.setIcon(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Disabled.png"));
+                backfillCheckbox.setIcon(StyledButton.getScaledImage(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Enabled.png"), BUTTON_SIZE.width, BUTTON_SIZE.height));
+            else
+                backfillCheckbox.setIcon(StyledButton.getScaledImage(new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Disabled.png"), BUTTON_SIZE.width, BUTTON_SIZE.height));
         });
 
         removeDetailButton.addActionListener(new RemoveLastDetailButtonHandler(reportState, reportCreationPanel));

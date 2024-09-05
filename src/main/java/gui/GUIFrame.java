@@ -38,7 +38,6 @@ public class GUIFrame extends JFrame {
     public void setup() {
 
         // set up panels
-//        contentPane.setBackground(Color.red);
         Container contentPane = getContentPane();
 
         contentPane.setLayout(new BorderLayout());

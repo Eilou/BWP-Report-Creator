@@ -1,6 +1,9 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import java.awt.*;
 
@@ -47,6 +50,7 @@ public class StyledButton extends JButton {
     public void setup(Color background, Color foreground, Icon icon) {
         setBackground(background);
         setForeground(foreground);
+        setBorder(new EmptyBorder(5,5,5,5));
         setIcon(icon);
 
         getModel().addChangeListener(e -> {
@@ -64,5 +68,11 @@ public class StyledButton extends JButton {
 
         });
     }
+
+    public static Icon getScaledImage(ImageIcon icon, int width, int height){
+        return new ImageIcon(icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)
+        );
+    }
+
 
 }
