@@ -6,6 +6,7 @@ import items.doors.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ItemEvent;
 import java.util.Objects;
 
 /**
@@ -233,11 +234,12 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         wallConstructionComboBox.setSelectedItem("89mm partition");
         doorTypeTextField.setText("TBA by client");
         internalExternalComboBox.setSelectedItem("Internal");
+        entranceLevelComboBox.setSelectedItem("Yes");
         leafTypeComboBox.setSelectedItem("Imperial");
         leafNumberComboBox.setSelectedItem("Single");
         leafWidthComboBox.setSelectedItem("838");
 
-        entranceLevelComboBox.setSelectedItem("Yes");
+
         //todo
         hingesComboBox.setSelectedItem("1/2 pair");
         latchComboBox.setSelectedItem("Yes");
@@ -286,7 +288,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     /**
      * Autofills in the leaf width  when selecting the leaf type
      */
-    private void doorTypeWidthLookup() {
+    private void leafWidthHeightLookup() {
         switch (String.valueOf(leafTypeComboBox.getSelectedItem())) {
             case "Imperial" -> {
                 DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "610", "686", "762", "838", "Custom"});
@@ -426,8 +428,8 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     //todo
     private void partMCompliantLookup() {
         try {
-            int clearOpeningValue = Integer.parseInt(String.valueOf(clearOpeningComboBox.getSelectedIndex()));
-            String entranceLevelValue = String.valueOf(entranceLevelComboBox.getSelectedIndex());
+            int clearOpeningValue = Integer.parseInt(String.valueOf(clearOpeningComboBox.getSelectedItem()));
+            String entranceLevelValue = String.valueOf(entranceLevelComboBox.getSelectedItem());
 
             if (entranceLevelValue.equals("Yes") && clearOpeningValue > 749) {
                 DetailPanel.populateGivenComboBox(partMCompliantComboBox, new String[]{"", "Yes", "Custom"}, "Yes");
@@ -440,14 +442,18 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
             }
         }
         catch (NumberFormatException e) {
+            /* Invalid clear opening value (wasn't a number) to decide Part M Compliant value when selecting from the
+            options available basically meaning either null, "", or Custom selected, so fill with blank and custom overwrite*/
             DetailPanel.populateGivenComboBox(partMCompliantComboBox, new String[]{"", "Custom"});
-            System.out.println("User entered invalid clear opening value to decide Part M Compliant value");
+
         }
     }
 
     /**
      * Add the event handlers to the comboboxes
-     * Feels like this could be done easier if I could pass the mutator methods of door like objects but here we are
+     * For some special cases where one combobox triggers an event in another, used item listeners, as the program
+     * removes from and reads to the different combobox models, which triggers events, so intead I am only running the
+     * lookup methods when an item is selected, preventing unnecessary chains
      * TODO
      */
     public void attachHandlers() {
@@ -459,26 +465,28 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[0][4].attachTFAttributeHandler(door::setDoorType);
 
         gridPanels[1][0].attachCBAttributeHandler(door::setEntranceLevel);
-        entranceLevelComboBox.addActionListener(e -> partMCompliantLookup());
+        entranceLevelComboBox.addItemListener(e -> {if (e.getStateChange() == ItemEvent.SELECTED) partMCompliantLookup();});
         gridPanels[1][1].attachCBAttributeHandler(door::setPartMThreshold);
         gridPanels[1][2].attachSpecificAttributeHandler(door::setLeafType, leafTypeInnerPanel, leafTypeComboBox);
         gridPanels[1][2].attachSpecificAttributeHandler(door::setLeafWidth, leafWidthInnerPanel, leafWidthComboBox);
         gridPanels[1][2].attachSpecificAttributeHandler(door::setLeafHeight, leafHeightInnerPanel, leafHeightComboBox);
-        leafTypeComboBox.addActionListener(e -> doorTypeWidthLookup());
-        leafWidthComboBox.addActionListener(e -> structuralOpeningWidthLookup());
-        leafWidthComboBox.addActionListener(e -> clearOpeningLookup());
+        leafTypeComboBox.addItemListener(e -> {if (e.getStateChange() == ItemEvent.SELECTED) leafWidthHeightLookup();});
+        leafWidthComboBox.addItemListener(e -> {if (e.getStateChange() == ItemEvent.SELECTED) structuralOpeningWidthLookup();});
+        leafWidthComboBox.addItemListener(e -> {if (e.getStateChange() == ItemEvent.SELECTED) clearOpeningLookup();});
         gridPanels[1][2].attachSpecificAttributeHandler(door::setLeafNumber, leafNumberInnerPanel, leafNumberComboBox);
-        leafNumberComboBox.addActionListener(e -> structuralOpeningWidthLookup());
-        leafNumberComboBox.addActionListener(e -> clearOpeningLookup());
+        leafNumberComboBox.addItemListener(e -> {if (e.getStateChange() == ItemEvent.SELECTED) structuralOpeningWidthLookup();});
+        leafNumberComboBox.addItemListener(e -> {if (e.getStateChange() == ItemEvent.SELECTED) clearOpeningLookup();});
 
 
         gridPanels[2][0].attachCBAttributeHandler(door::setClearOpening);
-        clearOpeningComboBox.addActionListener(e -> partMCompliantLookup());
+        clearOpeningComboBox.addItemListener(e -> {if (e.getStateChange() == ItemEvent.SELECTED) partMCompliantLookup();});
+
         gridPanels[2][1].attachCBAttributeHandler(door::setPartMCompliant);
         gridPanels[2][2].attachCBAttributeHandler(door::setFireRating);
         gridPanels[2][3].attachCBAttributeHandler(door::setGlazed);
         gridPanels[2][4].attachCBAttributeHandler(door::setAdditionalPlyLining);
-        additionalPlyLiningComboBox.addActionListener(e -> structuralOpeningWidthLookup());
+        additionalPlyLiningComboBox.addItemListener(e -> {if (e.getStateChange() == ItemEvent.SELECTED)structuralOpeningWidthLookup();
+        });
 
 
         gridPanels[3][0].attachSpecificAttributeHandler(door::setStructuralOpeningWidth, structuralOpeningWidthInnerPanel, structuralOpeningWidthComboBox);
