@@ -261,7 +261,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "1981", "2040", "Custom"});
         DetailPanel.populateGivenComboBox(leafNumberComboBox, new String[]{"Single", "Double", "Triple", "Quad", "Custom"});
 
-        DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"549", "625", "701", "778", "566", "666", "766", "866", "1130", "1278", "1434", "1592", "1166", "1366", "1566", "1766"});
+        DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "549", "625", "701", "778", "566", "666", "766", "866", "1130", "1278", "1434", "1592", "1166", "1366", "1566", "1766"});
         //todo clear opening thing, want to be relative to leaf size width, but then also part of a drop down to override
 
         DetailPanel.populateGivenComboBox(entranceLevelComboBox, new String[]{"", "Yes", "Custom"});
@@ -385,6 +385,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         }
     }
 
+    /**
+     * Holds the lookup system where the clear opening value is relative to the leaf width and number
+     */
     private void clearOpeningLookup() {
         // if it is a single door do this
         if (Objects.equals(leafNumberComboBox.getSelectedItem(), "Single")) {
@@ -419,6 +422,29 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
             DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "Custom"});
         //todo for triple and quad
     }
+
+    //todo
+    private void partMCompliantLookup() {
+        try {
+            int clearOpeningValue = Integer.parseInt(String.valueOf(clearOpeningComboBox.getSelectedIndex()));
+            String entranceLevelValue = String.valueOf(entranceLevelComboBox.getSelectedIndex());
+
+            if (entranceLevelValue.equals("Yes") && clearOpeningValue > 749) {
+                DetailPanel.populateGivenComboBox(partMCompliantComboBox, new String[]{"", "Yes", "Custom"}, "Yes");
+            }
+            else if (entranceLevelValue.equals("Yes")) { // less than 750
+                DetailPanel.populateGivenComboBox(partMCompliantComboBox, new String[]{"", "No", "Custom"}, "No");
+            }
+            else { // not "yes"
+                DetailPanel.populateGivenComboBox(partMCompliantComboBox, new String[]{"", "Custom"}, "");
+            }
+        }
+        catch (NumberFormatException e) {
+            DetailPanel.populateGivenComboBox(partMCompliantComboBox, new String[]{"", "Custom"});
+            System.out.println("User entered invalid clear opening value to decide Part M Compliant value");
+        }
+    }
+
     /**
      * Add the event handlers to the comboboxes
      * Feels like this could be done easier if I could pass the mutator methods of door like objects but here we are
@@ -433,6 +459,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[0][4].attachTFAttributeHandler(door::setDoorType);
 
         gridPanels[1][0].attachCBAttributeHandler(door::setEntranceLevel);
+        entranceLevelComboBox.addActionListener(e -> partMCompliantLookup());
         gridPanels[1][1].attachCBAttributeHandler(door::setPartMThreshold);
         gridPanels[1][2].attachSpecificAttributeHandler(door::setLeafType, leafTypeInnerPanel, leafTypeComboBox);
         gridPanels[1][2].attachSpecificAttributeHandler(door::setLeafWidth, leafWidthInnerPanel, leafWidthComboBox);
@@ -446,6 +473,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
 
         gridPanels[2][0].attachCBAttributeHandler(door::setClearOpening);
+        clearOpeningComboBox.addActionListener(e -> partMCompliantLookup());
         gridPanels[2][1].attachCBAttributeHandler(door::setPartMCompliant);
         gridPanels[2][2].attachCBAttributeHandler(door::setFireRating);
         gridPanels[2][3].attachCBAttributeHandler(door::setGlazed);
@@ -456,7 +484,6 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         gridPanels[3][0].attachSpecificAttributeHandler(door::setStructuralOpeningWidth, structuralOpeningWidthInnerPanel, structuralOpeningWidthComboBox);
         gridPanels[3][0].attachSpecificAttributeHandler(door::setStructuralOpeningHeight, structuralOpeningHeightTextField);
         gridPanels[3][0].attachSpecificAttributeHandler(door::setStructuralOpeningDetails, structuralOpeningDetailsInnerPanel, structuralOpeningDetailsComboBox);
-//        gridPanels[3][0].attachTFAttributeHandler(door::setStructuralOpeningDetails);
         gridPanels[3][2].attachTFAttributeHandler(door::setFrameDetails);
         gridPanels[3][3].attachTFAttributeHandler(door::setSillDetails);
         gridPanels[3][4].attachTFAttributeHandler(door::setArchitraveType);
