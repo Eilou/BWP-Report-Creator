@@ -50,7 +50,7 @@ public class StyledButton extends JButton {
     public void setup(Color background, Color foreground, Icon icon) {
         setBackground(background);
         setForeground(foreground);
-        setBorder(new EmptyBorder(5,5,5,5));
+        setBorder(new EmptyBorder(2,5,2,5));
         setIcon(icon);
 
         getModel().addChangeListener(e -> {

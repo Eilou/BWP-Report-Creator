@@ -166,7 +166,6 @@ public class ToolbarPanel extends JPanel {
      */
     public void styleButtons() {
 
-        // todo resize these cos they look silly right now
         newFileButton.setup(StyledButton.getScaledImage(
                 (ImageIcon) UIManager.getIcon("FileView.fileIcon"), BUTTON_SIZE.width, BUTTON_SIZE.height));
         saveButton.setup(StyledButton.getScaledImage(
@@ -186,7 +185,8 @@ public class ToolbarPanel extends JPanel {
 
         generateReportButton.setup(StyledButton.getScaledImage(
                 new ImageIcon("src/main/resources/buttonIcons/generateIcon.png"), BUTTON_SIZE.width, BUTTON_SIZE.height));
-        summaryButton.setup();
+        summaryButton.setup(StyledButton.getScaledImage(
+                new ImageIcon("src/main/resources/buttonIcons/summaryIcon.png"), BUTTON_SIZE.width, BUTTON_SIZE.height));
 
     }
 
