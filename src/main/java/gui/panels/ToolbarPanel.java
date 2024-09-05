@@ -82,6 +82,8 @@ public class ToolbarPanel extends JPanel {
         addDetailPanel.add(addDetailButton);
         addDetailPanel.add(backfillCheckbox);
 
+        //todo add a checkbox to determine whether they want it to be a contractor report or a building control report
+
         add(addDetailPanel);
         add(removeDetailButton);
         add(generateReportButton);
@@ -92,6 +94,7 @@ public class ToolbarPanel extends JPanel {
      * Style the button elements
      */
     public void styleButtons() {
+        // todo resize these cos they look silly right now
         newFileButton.setup(UIManager.getIcon("FileView.fileIcon"));
         saveButton.setup(UIManager.getIcon("FileView.floppyDriveIcon"));
         openButton.setup(UIManager.getIcon("FileView.directoryIcon"));

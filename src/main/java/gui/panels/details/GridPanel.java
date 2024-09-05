@@ -52,7 +52,6 @@ public class GridPanel extends JPanel {
 
     /**
      * More generic version of setupLabel meaning it can be used to add specific labels to other (inner) panels
-     * todo make the above work using this method but its not crucial
      *
      * @param panel     the panel to add the label to
      * @param labelText the text of the label

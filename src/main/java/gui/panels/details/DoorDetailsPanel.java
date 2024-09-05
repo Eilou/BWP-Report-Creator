@@ -33,21 +33,11 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JComboBox<String> leafWidthComboBox = new JComboBox<>();
     private final JComboBox<String> leafHeightComboBox = new JComboBox<>();
     private final JComboBox<String> leafTypeComboBox = new JComboBox<>();
-    // want a dropdown next to this with sizes: imperial, metric or bespoke
-    // default should be imperial
-    // this then influences the options available from the numbers
     private final JComboBox<String> leafNumberComboBox = new JComboBox<>();
-    // this should be a dropdown box with options: single, double, triple, quad
 
-    // todo lookup table relative to leaf size
-    // anything which is relative could ask whether want a dropdown which gets default filled with custom option, or just use a text field
     private final JComboBox<String> clearOpeningComboBox = new JComboBox<>();
     private final JComboBox<String> entranceLevelComboBox = new JComboBox<>();
     private final JComboBox<String> partMCompliantComboBox = new JComboBox<>();
-    //todo:
-    // this doesn't actually need to be a partM compliant box, but should be updates as a result
-    // of an if elseif else statement (look at the Excel sheet for reference)
-
     private final JComboBox<String> additionalPlyLiningComboBox = new JComboBox<>();
 
     private final JPanel structuralOpeningWidthInnerPanel = new JPanel();
@@ -55,7 +45,6 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
     private final JPanel structuralOpeningDetailsInnerPanel = new JPanel();
     private final JComboBox<String> structuralOpeningWidthComboBox = new JComboBox<>();
     private final JTextField structuralOpeningHeightTextField = new JTextField();
-    // this should be a lookup table
     private final JComboBox<String> structuralOpeningDetailsComboBox = new JComboBox<>();
 
     private final JTextField frameDetailsTextField = new JTextField();
@@ -238,9 +227,6 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         leafTypeComboBox.setSelectedItem("Imperial");
         leafNumberComboBox.setSelectedItem("Single");
         leafWidthComboBox.setSelectedItem("838");
-
-
-        //todo
         hingesComboBox.setSelectedItem("1/2 pair");
         latchComboBox.setSelectedItem("Yes");
     }
@@ -264,19 +250,13 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         DetailPanel.populateGivenComboBox(leafNumberComboBox, new String[]{"Single", "Double", "Triple", "Quad", "Custom"});
 
         DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "549", "625", "701", "778", "566", "666", "766", "866", "1130", "1278", "1434", "1592", "1166", "1366", "1566", "1766"});
-        //todo clear opening thing, want to be relative to leaf size width, but then also part of a drop down to override
-
         DetailPanel.populateGivenComboBox(entranceLevelComboBox, new String[]{"", "Yes", "Custom"});
-
-        // todo DetailPanel.populateGivenComboBox(partMCompliantComboBox, new
-        //  YesNoOptions[]{YesNoOptions.BLANK, }); // this should be the lookup table
-
         DetailPanel.populateGivenComboBox(additionalPlyLiningComboBox, new String[]{"", "Yes"});
 
         DetailPanel.populateGivenComboBox(structuralOpeningWidthComboBox, new String[]{"", "690", "765", "840", "920", "710", "810", "910", "1010", "1315", "1460", "1620", "1770", "1340", "1540", "1740", "1840"});
         DetailPanel.populateGivenComboBox(structuralOpeningDetailsComboBox, new String[]{"", "Above Screed", "Above Ply Deck", "Above Slab", "Above Plinth", "Below Screed", "Below Ply Deck", "Below Slab", "Inc. Sill", "Custom"});
 
-        // needs turning into the Unicode values
+        // todo needs turning into the Unicode values
         DetailPanel.populateGivenComboBox(hingesComboBox, new String[]{"", "1/2 pair", "1 pair", "1 1/2 pair", "2 pair", "Custom"});
 
         DetailPanel.populateGivenComboBox(latchComboBox, new String[]{"", "Yes", "Custom"});
@@ -425,7 +405,9 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
         //todo for triple and quad
     }
 
-    //todo
+    /**
+     * Sets the part M compliant value relative to the clear opening and the entrance level
+     */
     private void partMCompliantLookup() {
         try {
             int clearOpeningValue = Integer.parseInt(String.valueOf(clearOpeningComboBox.getSelectedItem()));
@@ -454,7 +436,6 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
      * For some special cases where one combobox triggers an event in another, used item listeners, as the program
      * removes from and reads to the different combobox models, which triggers events, so intead I am only running the
      * lookup methods when an item is selected, preventing unnecessary chains
-     * TODO
      */
     public void attachHandlers() {
 

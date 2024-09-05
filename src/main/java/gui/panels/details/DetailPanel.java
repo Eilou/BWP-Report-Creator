@@ -173,4 +173,8 @@ public class DetailPanel extends JPanel {
     public void setParentPanel(JPanel parentPanel) {
         this.parentPanel = parentPanel;
     }
+
+    public JTextField getTitleField() {
+        return titleField;
+    }
 }

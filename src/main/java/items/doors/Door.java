@@ -191,7 +191,6 @@ public class Door extends Item implements Serializable {
         return leafType;
     }
 
-    //todo
     public void setLeafType(String leafType) {
         this.leafType = leafType;
         System.out.println("Door " + count + ": set Leaf Type: " + leafType);
@@ -201,7 +200,6 @@ public class Door extends Item implements Serializable {
         return leafWidth;
     }
 
-    //todo
     public void setLeafWidth(String leafWidth) {
         this.leafWidth = leafWidth;
         System.out.println("Door " + count + ": set Leaf Width: " + leafWidth);
@@ -214,14 +212,12 @@ public class Door extends Item implements Serializable {
     public void setLeafHeight(String leafHeight) {
         this.leafHeight = leafHeight;
         System.out.println("Door " + count + ": set Leaf Height: " + leafHeight);
-
     }
 
     public String getLeafNumber() {
         return leafNumber;
     }
 
-    //todo
     public void setLeafNumber(String leafNumber) {
         this.leafNumber = leafNumber;
         System.out.println("Door " + count + ": set Leaf Number: " + leafNumber);

@@ -72,7 +72,7 @@ public class DoorReportBuilder implements ReportBuilder{
                         "    <meta name=\"author\" content=\"BWP-Report-Creator\">\n" +
                         "    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n" +
                         "\n" +
-                        "    <title>Example Door Schedule</title>\n" + //todo
+                        "    <title>"+projectDetailsPanel.getTitleField().getText()+" / "+projectDetailsPanel.getProjectNumberField().getText()+" / "+projectDetailsPanel.getItemNumberField().getText()+"</title>\n" +
                         "    <link rel=\"stylesheet\" href=\"style.css\">\n" +
                         "</head>");
     }
@@ -84,9 +84,9 @@ public class DoorReportBuilder implements ReportBuilder{
         stringBuilder.append(
             "    <header>\n" +
             "        <div id=\"project-details\">\n" +
-            "            <h1>PROJECT: <span>"+projectDetailsPanel.getTitleField().getText()+"</span></h1>  <!-- To fill in -->\n" + //todo
-            "            <h1>PROJECT NUMBER: <span>"+projectDetailsPanel.getProjectNumberField().getText()+"</span></h1> <!-- To fill in -->\n" + //todo
-            "            <h1>DOOR SCHEDULE: <span>"+projectDetailsPanel.getItemNumberField().getText()+"</span></h1> <!-- To fill in -->\n" + //todo
+            "            <h1>PROJECT: <span>"+projectDetailsPanel.getTitleField().getText()+"</span></h1>  <!-- To fill in -->\n" +
+            "            <h1>PROJECT NUMBER: <span>"+projectDetailsPanel.getProjectNumberField().getText()+"</span></h1> <!-- To fill in -->\n" +
+            "            <h1>DOOR SCHEDULE: <span>"+projectDetailsPanel.getItemNumberField().getText()+"</span></h1> <!-- To fill in -->\n" +
             "        </div>\n" +
             "\n" +
             "        <div id=\"internal-door-summary\">\n" +
@@ -158,7 +158,7 @@ public class DoorReportBuilder implements ReportBuilder{
             // I know this will work because the only way this data panel could be added and this report builder added is if the report state is in Door
             stringBuilder.append("            <div class=\"door-container\"> <!-- Could do this as an <ul> but it is more natural to use divs I feel here -->\n"); // door container div start
             stringBuilder.append("                <ul>\n");
-            stringBuilder.append("                    <li><h3>D" + door.getCount() + "</h3></li>\n"); //todo might wanna swap this out for a detailPanel.getTitleField.getText()
+            stringBuilder.append("                    <li><h3>"+detailPanel.getTitleField().getText()+"</h3></li>\n");
             stringBuilder.append("\n");
             stringBuilder.append("                    <li>\n");
             stringBuilder.append("                        <span>Location:</span>\n");

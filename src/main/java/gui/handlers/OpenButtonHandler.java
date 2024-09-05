@@ -23,7 +23,7 @@ public class OpenButtonHandler implements ActionListener {
 
     /**
      * Prompts the user with a pop out window to choose the file to read from then opens it,  if an appropriate file chosen
-     * If an invalid file format is chosen then nothing happens (it outputs to the console an issue but that's it) todo pop out window
+     * If an invalid file format is chosen then nothing happens (it outputs to the console an issue but that's it)
      *
      * @param e the event to be processed
      */

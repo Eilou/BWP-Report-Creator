@@ -8,9 +8,10 @@ import java.awt.event.ActionListener;
 
 /**
  * Handler to add a custom text box when the "Custom" option is selected on each different combobox
+ *
  * @param <T> Often will be type string
  */
-public class CustomOptionHandler <T> implements ActionListener {
+public class CustomOptionHandler<T> implements ActionListener {
 
     private JComboBox<T> comboBox;
     private GridPanel gridSectionPanel;
@@ -20,9 +21,8 @@ public class CustomOptionHandler <T> implements ActionListener {
      *
      * @param comboBox         check here to see if its selected
      * @param gridSectionPanel the panel to update
-     *
      */
-    public CustomOptionHandler (JComboBox<T> comboBox, GridPanel gridSectionPanel) {
+    public CustomOptionHandler(JComboBox<T> comboBox, GridPanel gridSectionPanel) {
         this.comboBox = comboBox;
         this.gridSectionPanel = gridSectionPanel;
     }
@@ -31,8 +31,6 @@ public class CustomOptionHandler <T> implements ActionListener {
      * Handles the event
      *
      * @param e the event to be processed
-     *          TODO MAYEB I NEED TO REVALIDATE AND REPAINT THE REPORT CREATION PANEL AND THE
-     *          DETAIL PANEL COS Something IS AFOOT
      */
     @Override
     public void actionPerformed(ActionEvent e) {
