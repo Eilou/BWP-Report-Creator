@@ -7,6 +7,7 @@ import gui.Styling;
 import gui.handlers.*;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
@@ -24,6 +25,9 @@ public class ToolbarPanel extends JPanel {
     private ReportState reportState;
     private ReportCreationPanel reportCreationPanel;
     private ProjectDetailsPanel projectDetailsPanel;
+
+    private JPanel toolsContainer;
+    private JScrollPane toolsScrollPane;
 
     private JLabel newFileLabel;
     private StyledButton newFileButton;
@@ -55,6 +59,9 @@ public class ToolbarPanel extends JPanel {
         this.reportCreationPanel = reportCreationPanel;
         this.projectDetailsPanel = projectDetailsPanel;
 
+        toolsContainer = new JPanel();
+        toolsScrollPane = new JScrollPane(toolsContainer);
+
         newFileLabel = new JLabel("New");
         saveLabel = new JLabel("Save");
         openLabel = new JLabel("Open");
@@ -85,9 +92,17 @@ public class ToolbarPanel extends JPanel {
 
         setBackground(Styling.BACKGROUND);
         setForeground(Styling.TEXT);
-        setLayout(new GridBagLayout());
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        setBorder(BorderFactory.createCompoundBorder(
+        toolsContainer.setLayout(new GridBagLayout());
+        toolsContainer.setBackground(Styling.BACKGROUND);
+        toolsContainer.setForeground(Styling.TEXT);
+        toolsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        toolsScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        toolsScrollPane.setBorder(new EmptyBorder(0,0,0,0));
+
+        setBorder(new EmptyBorder(0,0,0,0));
+        toolsContainer.setBorder(BorderFactory.createCompoundBorder(
                 new LineBorder(Styling.TEXT),
                 new LineBorder(Styling.FOREGROUND, 5)));
 
@@ -117,11 +132,11 @@ public class ToolbarPanel extends JPanel {
         innerPanel.add(labelPanel);
         innerPanel.add(componentPanel);
 
-        innerPanel.setBackground(Styling.BACKGROUND);
+        innerPanel.setBackground(Styling.FOREGROUND);
         labelPanel.setBackground(Styling.BACKGROUND);
         label.setForeground(Styling.TEXT);
         componentPanel.setBackground(Styling.FOREGROUND);
-        innerPanel.setBorder(new LineBorder(Styling.TEXT, 2));
+        innerPanel.setBorder(new CompoundBorder(new EmptyBorder(5,0,5,0), new LineBorder(Styling.TEXT, 2)));
         return innerPanel;
     }
 
@@ -134,30 +149,31 @@ public class ToolbarPanel extends JPanel {
 
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
-        gbc.insets = new Insets(5,5,5,5);
+        gbc.insets = new Insets(0,0,0,0);
 
         gbc.fill = GridBagConstraints.BOTH; // stretch both horizontally and vertically
-        gbc.weightx = 1; // expand in both directions at equal rates
+        gbc.weightx = 1; // expand in the x direction but not in the y
         gbc.weighty = 0;
 
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        add(stylePanel(newFileLabel, newFileButton), gbc);
+        toolsContainer.add(stylePanel(newFileLabel, newFileButton), gbc);
         gbc.gridy = 1;
-        add(stylePanel(saveLabel, saveButton), gbc);
+        toolsContainer.add(stylePanel(saveLabel, saveButton), gbc);
         gbc.gridy = 2;
-        add(stylePanel(openLabel, openButton), gbc);
+        toolsContainer.add(stylePanel(openLabel, openButton), gbc);
 
         gbc.gridy = 3;
-        add(stylePanel(addDetailLabel, addDetailButton, backfillCheckbox), gbc);
+        toolsContainer.add(stylePanel(addDetailLabel, addDetailButton, backfillCheckbox), gbc);
         gbc.gridy = 4;
-        add(stylePanel(removeDetailLabel, removeDetailButton), gbc);
+        toolsContainer.add(stylePanel(removeDetailLabel, removeDetailButton), gbc);
         gbc.gridy = 5;
-        add(stylePanel(generateReportLabel, generateReportButton), gbc);
+        toolsContainer.add(stylePanel(generateReportLabel, generateReportButton), gbc);
         gbc.gridy = 6;
-        add(stylePanel(summaryLabel, summaryButton), gbc);
+        toolsContainer.add(stylePanel(summaryLabel, summaryButton), gbc);
 
+        add(toolsScrollPane);
     }
 
 
