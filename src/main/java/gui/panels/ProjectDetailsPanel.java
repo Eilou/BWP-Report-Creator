@@ -13,6 +13,9 @@ import java.io.*;
  */
 public class ProjectDetailsPanel extends JPanel implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private ReportState reportState;
 
     private final transient JPanel titlePanel;
