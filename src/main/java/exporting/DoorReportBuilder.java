@@ -170,8 +170,8 @@ public class DoorReportBuilder implements ReportBuilder{
             stringBuilder.append("                    </li>\n");
 
 
-            if (!(door.getLeafType()).isEmpty() && !(door.getLeafWidth()).isEmpty() &&
-                    !(door.getLeafHeight()).isEmpty() && !(door.getLeafNumber()).isEmpty()) {
+            if (!(door.getLeafType()).isEmpty() || !(door.getLeafWidth()).isEmpty() ||
+                    !(door.getLeafHeight()).isEmpty() || !(door.getLeafNumber()).isEmpty()) {
                 stringBuilder.append("                    <li>\n");
                 stringBuilder.append("                        <span>Leaf Size:</span>\n");
                 stringBuilder.append("                        <span>\n");
@@ -182,106 +182,144 @@ public class DoorReportBuilder implements ReportBuilder{
                 stringBuilder.append("                    </li>\n");
             }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Fire Rating:</span>\n");
-            stringBuilder.append("                        <span>"+door.getFireRating()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getFireRating()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Fire Rating:</span>\n");
+                stringBuilder.append("                        <span>" + door.getFireRating() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Glazed:</span>\n");
-            stringBuilder.append("                        <span>"+door.getGlazed()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getGlazed()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Glazed:</span>\n");
+                stringBuilder.append("                        <span>" + door.getGlazed() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Door Type:</span>\n");
-            stringBuilder.append("                        <span>"+door.getDoorType()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getDoorType()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Door Type:</span>\n");
+                stringBuilder.append("                        <span>" + door.getDoorType() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span class=\"red-font\">Entrance level:</span>\n");
-            stringBuilder.append("                        <span>"+door.getEntranceLevel()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getEntranceLevel()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Entrance level:</span>\n");
+                stringBuilder.append("                        <span>" + door.getEntranceLevel() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Part M Compliant</span>\n");
-            stringBuilder.append("                        <span>"+door.getPartMCompliant()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getPartMCompliant()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Part M Compliant</span>\n");
+                stringBuilder.append("                        <span>" + door.getPartMCompliant() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Wall Construction:</span>\n");
-            stringBuilder.append("                        <span>"+door.getWallConstruction()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getWallConstruction()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Wall Construction:</span>\n");
+                stringBuilder.append("                        <span>" + door.getWallConstruction() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Internal / External:</span>\n");
-            stringBuilder.append("                        <span>"+door.getInternalExternal()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getInternalExternal()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Internal / External:</span>\n");
+                stringBuilder.append("                        <span>" + door.getInternalExternal() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span class=\"red-font\">Part M Threshold:</span>\n");
-            stringBuilder.append("                        <span>"+door.getPartMThreshold()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getPartMThreshold()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Part M Threshold:</span>\n");
+                stringBuilder.append("                        <span>" + door.getPartMThreshold() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Clear Opening</span>\n");
-            stringBuilder.append("                        <span>"+door.getClearOpening()+"</span> <!-- To fill in -->\n"); //todo
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getClearOpening()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Clear Opening</span>\n");
+                stringBuilder.append("                        <span>" + door.getClearOpening() + "</span> <!-- To fill in -->\n"); //todo
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Structural Opening:</span>\n");
-            stringBuilder.append("                        <span>"+door.getStructuralOpeningWidth()+" x "+door.getStructuralOpeningHeight()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                        <span>"+door.getStructuralOpeningDetails()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getStructuralOpeningWidth()).isEmpty()
+                    || !(door.getStructuralOpeningHeight()).isEmpty()
+                    || !(door.getStructuralOpeningDetails()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Structural Opening:</span>\n");
+                stringBuilder.append("                        <span>" + door.getStructuralOpeningWidth() + " x " + door.getStructuralOpeningHeight() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                        <span>" + door.getStructuralOpeningDetails() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span class=\"red-font\">Additional Ply Lining:</span>\n");
-            stringBuilder.append("                        <span>"+door.getAdditionalPlyLining()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
-
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Frame detail:</span>\n");
-            stringBuilder.append("                        <span>"+door.getFrameDetails()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
-
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span class=\"red-font\">Sill detail:</span>\n");
-            stringBuilder.append("                        <span>"+door.getSillDetails()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
-
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Architrave type:</span>\n");
-            stringBuilder.append("                        <span>"+door.getArchitraveType()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getAdditionalPlyLining()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Additional Ply Lining:</span>\n");
+                stringBuilder.append("                        <span>" + door.getAdditionalPlyLining() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
+            if (!(door.getFrameDetails()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Frame detail:</span>\n");
+                stringBuilder.append("                        <span>" + door.getFrameDetails() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
+            if (!(door.getSillDetails()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Sill detail:</span>\n");
+                stringBuilder.append("                        <span>" + door.getSillDetails() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
+            if (!(door.getArchitraveType()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Architrave type:</span>\n");
+                stringBuilder.append("                        <span>" + door.getArchitraveType() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
             stringBuilder.append("                    <li>\n");
             stringBuilder.append("                        <span class=\"bold-font\">Ironmongery:</span>\n");
             stringBuilder.append("                        <span></span>\n"); // leave as it is used with the style to align the items
             stringBuilder.append("                    </li>\n");
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Hinges</span>\n");
-            stringBuilder.append("                        <span>"+door.getIronmongery().getHinges()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Latch:</span>\n");
-            stringBuilder.append("                        <span>"+door.getIronmongery().getLatch()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getIronmongery().getHinges()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Hinges</span>\n");
+                stringBuilder.append("                        <span>" + door.getIronmongery().getHinges() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span>Handles:</span>\n");
-            stringBuilder.append("                        <span>"+door.getIronmongery().getHandle()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getIronmongery().getLatch()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Latch:</span>\n");
+                stringBuilder.append("                        <span>" + door.getIronmongery().getLatch() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span class=\"red-font\">Locks:</span>\n");
-            stringBuilder.append("                        <span>"+door.getIronmongery().getLock()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getIronmongery().getHandle()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Handles:</span>\n");
+                stringBuilder.append("                        <span>" + door.getIronmongery().getHandle() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
-            stringBuilder.append("                    <li>\n");
-            stringBuilder.append("                        <span class=\"red-font\">Additional Notes:</span>\n");
-            stringBuilder.append("                        <span>"+door.getAdditionalNotes()+"</span> <!-- To fill in -->\n");
-            stringBuilder.append("                    </li>\n");
+            if (!(door.getIronmongery().getLock()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Locks:</span>\n");
+                stringBuilder.append("                        <span>" + door.getIronmongery().getLock() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
+
+            if (!(door.getAdditionalNotes()).isEmpty()) {
+                stringBuilder.append("                    <li>\n");
+                stringBuilder.append("                        <span>Additional Notes:</span>\n");
+                stringBuilder.append("                        <span>" + door.getAdditionalNotes() + "</span> <!-- To fill in -->\n");
+                stringBuilder.append("                    </li>\n");
+            }
 
             stringBuilder.append("\n");
             stringBuilder.append("\n");

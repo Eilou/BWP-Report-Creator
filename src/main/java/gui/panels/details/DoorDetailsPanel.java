@@ -247,7 +247,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
 
         DetailPanel.populateGivenComboBox(leafWidthComboBox, new String[]{"", "610", "686", "762", "838", "626", "726", "826", "926", "Custom"}); // these all get overwritten anyway
         DetailPanel.populateGivenComboBox(leafHeightComboBox, new String[]{"", "1981", "2040", "Custom"});
-        DetailPanel.populateGivenComboBox(leafNumberComboBox, new String[]{"Single", "Double", "Triple", "Quad", "Custom"});
+        DetailPanel.populateGivenComboBox(leafNumberComboBox, new String[]{"", "Single", "Double", "Triple", "Quad", "Custom"});
 
         DetailPanel.populateGivenComboBox(clearOpeningComboBox, new String[]{"", "549", "625", "701", "778", "566", "666", "766", "866", "1130", "1278", "1434", "1592", "1166", "1366", "1566", "1766"});
         DetailPanel.populateGivenComboBox(entranceLevelComboBox, new String[]{"", "Yes", "Custom"});
