@@ -437,6 +437,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
      * removes from and reads to the different combobox models, which triggers events, so intead I am only running the
      * lookup methods when an item is selected, preventing unnecessary chains
      */
+    @Override
     public void attachHandlers() {
 
         gridPanels[0][0].attachCBAttributeHandler(door::setFloor);

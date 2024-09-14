@@ -6,6 +6,7 @@ package gui.panels.details;
  */
 public interface SpecificDetailInterface {
     void setup();
+    void attachHandlers();
     int getCount();
     void setCount(int newCount);
 }
