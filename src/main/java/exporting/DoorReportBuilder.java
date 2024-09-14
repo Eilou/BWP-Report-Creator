@@ -169,6 +169,7 @@ public class DoorReportBuilder implements ReportBuilder{
             stringBuilder.append("                        </span>\n");
             stringBuilder.append("                    </li>\n");
 
+
             if (!(door.getLeafType()).isEmpty() && !(door.getLeafWidth()).isEmpty() &&
                     !(door.getLeafHeight()).isEmpty() && !(door.getLeafNumber()).isEmpty()) {
                 stringBuilder.append("                    <li>\n");
