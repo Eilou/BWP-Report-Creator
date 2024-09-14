@@ -17,6 +17,9 @@ import java.util.ArrayList;
  */
 public class ReportCreationPanel extends JPanel implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private ArrayList<DetailPanel> listOfDetailsPanels;
     private ArrayList<Integer> middleDeletedIndexes;
     private ReportState reportState;

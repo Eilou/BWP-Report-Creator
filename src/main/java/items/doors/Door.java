@@ -3,9 +3,13 @@ package items.doors;
 import items.Item;
 
 import java.awt.*;
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Door extends Item implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private String floor;
     private String room;

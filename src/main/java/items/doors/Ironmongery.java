@@ -1,8 +1,13 @@
 package items.doors;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Ironmongery implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private Door door; // the door this iron mongery is linked to
     private String hinges;
     private Boolean doubleHinges;  // if the per leaf option selected then this is a double

@@ -98,17 +98,19 @@ public class ToolbarPanel extends JPanel {
         toolsContainer.setBackground(Styling.BACKGROUND);
         toolsContainer.setForeground(Styling.TEXT);
         toolsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        toolsScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        toolsScrollPane.setBorder(new EmptyBorder(0,0,0,0));
+        toolsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         setBorder(new EmptyBorder(0,0,0,0));
         toolsContainer.setBorder(BorderFactory.createCompoundBorder(
                 new LineBorder(Styling.TEXT),
                 new LineBorder(Styling.FOREGROUND, 5)));
 
+        add(toolsScrollPane);
+
         styleButtons();
         attachHandlers();
         positionPanels();
+
     }
 
     /**
@@ -172,8 +174,6 @@ public class ToolbarPanel extends JPanel {
         toolsContainer.add(stylePanel(generateReportLabel, generateReportButton), gbc);
         gbc.gridy = 6;
         toolsContainer.add(stylePanel(summaryLabel, summaryButton), gbc);
-
-        add(toolsScrollPane);
     }
 
 
@@ -184,25 +184,35 @@ public class ToolbarPanel extends JPanel {
 
         newFileButton.setup(StyledButton.getScaledImage(
                 (ImageIcon) UIManager.getIcon("FileView.fileIcon"), BUTTON_SIZE.width, BUTTON_SIZE.height));
+        newFileButton.setToolTipText("Start a new file");
         saveButton.setup(StyledButton.getScaledImage(
                 (ImageIcon) UIManager.getIcon("FileView.floppyDriveIcon"), BUTTON_SIZE.width, BUTTON_SIZE.height));
+        saveButton.setToolTipText("Save current project to a file");
         openButton.setup(StyledButton.getScaledImage(
                 (ImageIcon) UIManager.getIcon("FileView.directoryIcon"), BUTTON_SIZE.width, BUTTON_SIZE.height));
-
+        openButton.setToolTipText("Open a pre-existing file");
         addDetailButton.setup(StyledButton.getScaledImage(
                 new ImageIcon("src/main/resources/buttonIcons/addItemIcon.png"), BUTTON_SIZE.width, BUTTON_SIZE.height));
+        addDetailButton.setToolTipText("Add a " + reportState + " to end of the report");
         backfillCheckbox.setIcon(StyledButton.getScaledImage(
                 new ImageIcon("src/main/resources/buttonIcons/backfillIcon-Disabled.png"), BUTTON_SIZE.width, BUTTON_SIZE.height));
+        backfillCheckbox.setToolTipText(
+                "When enabled, adding a " + reportState + " will place it in the spaces where " +
+                "ones have been deleted previously");
         Styling.setComponentColours(backfillCheckbox, Styling.FOREGROUND, Styling.TEXT);
         backfillCheckbox.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         removeDetailButton.setup(StyledButton.getScaledImage(
                 new ImageIcon("src/main/resources/buttonIcons/deleteLastIcon.png"), BUTTON_SIZE.width, BUTTON_SIZE.width * 3/4));
+        removeDetailButton.setToolTipText("Removes the last " + reportState + " added to the report");
 
         generateReportButton.setup(StyledButton.getScaledImage(
                 new ImageIcon("src/main/resources/buttonIcons/generateIcon.png"), BUTTON_SIZE.width, BUTTON_SIZE.height));
+        generateReportButton.setToolTipText("Generates a " + reportState + " report as an HTML " +
+                "webpage where it can then be exported to PDF or printed");
         summaryButton.setup(StyledButton.getScaledImage(
                 new ImageIcon("src/main/resources/buttonIcons/summaryIcon.png"), BUTTON_SIZE.width, BUTTON_SIZE.height));
+        summaryButton.setToolTipText("Gives a pop-out summary of the current project");
 
     }
 
