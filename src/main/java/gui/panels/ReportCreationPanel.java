@@ -11,10 +11,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Holds the area where you can create a report
@@ -47,7 +44,7 @@ public class ReportCreationPanel extends JPanel implements Serializable {
         detailsContainer.setLayout(new GridBagLayout());
         detailsContainer.setBackground(Styling.BORDER);
         detailsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        detailsScrollPane.setBorder(new EmptyBorder(0,0,0,0));
+        detailsScrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 
         add(detailsScrollPane);
 
@@ -192,7 +189,7 @@ public class ReportCreationPanel extends JPanel implements Serializable {
                 gbc.gridy = currentPanel.getItem().getCount() - 1; // the count value never changes with the door, so it can be used to insert at the correct point without needing to store null values in the array list (which would be embarrassing)
                 currentPanel.setParentPanel(this); // reassign the event handlers
                 currentPanel.attachHandlers();
-                ((DataPanelInterface)currentPanel.getDataPanel()).attachHandlers();
+                ((DataPanelInterface) currentPanel.getDataPanel()).attachHandlers();
                 detailsContainer.add(currentPanel, gbc);
             }
 
@@ -219,20 +216,18 @@ public class ReportCreationPanel extends JPanel implements Serializable {
 
     /**
      * Generates a summary of all the current items
+     *
      * @return the summary as a Hashmap(String, String)
      */
     public HashMap<String, Object> generateSummary() {
         HashMap<String, Object> summary = new HashMap<>();
-        // could do return switch ... yield xyz but that means repeating the yield line loads
-        // feels like it'd be more useful when different objects are getting returned
         switch (reportState) {
             case DOOR -> {
-
                 // ensures the dimensions are ordered so easier to read them
-                TreeMap<String, Integer> leafSizeSummary = new TreeMap<>((key1, key2) -> {
+                TreeMap<String, Object> leafSizesSummary = new TreeMap<>((key1, key2) -> {
                     // convert the dimensions into integers
-                    int key1Int = Integer.parseInt(key1.substring(0, key1.indexOf('x')-1));
-                    int key2Int = Integer.parseInt(key2.substring(0, key2.indexOf('x')-1));
+                    int key1Int = Integer.parseInt(key1.substring(0, key1.indexOf('x') - 1));
+                    int key2Int = Integer.parseInt(key2.substring(0, key2.indexOf('x') - 1));
 
                     return Integer.compare(key1Int, key2Int);
                 });
@@ -240,19 +235,59 @@ public class ReportCreationPanel extends JPanel implements Serializable {
                 for (DetailPanel detailPanel : listOfDetailsPanels) {
                     Door door = ((DoorDataPanel) detailPanel.getDataPanel()).getDoor();
 
-                    String leafSizeKey = door.getLeafWidth() + " x " + door.getLeafHeight();
-                    if (leafSizeSummary.containsKey(leafSizeKey))
-                        leafSizeSummary.put(leafSizeKey, leafSizeSummary.get(leafSizeKey) + 1);
-                    else
-                        leafSizeSummary.putIfAbsent(leafSizeKey, 1);
-                    summary.put("Leaf Sizes", leafSizeSummary);
+                    String leafSizesKey = door.getLeafWidth() + " x " + door.getLeafHeight();
+
+                    checkAbsentOrIncrement(leafSizesSummary, leafSizesKey, 1);
+                    summary.put("Leaf Sizes", leafSizesSummary); // updates the inner map every time
+
+                    String hingesKey = "Hinges";
+                    // IF HINGE IS PER LEAF, THEN MULTIPLE ITS VALUE BY THE DOOR NUMBER
+                    // ALSO if it says pair, then it means 2 hinges
+                    HashMap<String, Object> hingesTypeMap = new HashMap<>();
+                    switch (door.getIronmongery().getHinges()) {
+                        case "" -> {
+                        }
+                        case "1/2 pair" -> {
+                            checkAbsentOrIncrement(hingesTypeMap, "Total", 0.5);
+                            checkAbsentOrIncrement(hingesTypeMap, "Pair", 0.5);//todo
+                        }
+//                        case "1/2 pair per leaf"
+
+                    }
+                    checkAbsentOrIncrement(summary, hingesKey, 1);
+
+                    String handlesKey = "Handles";
+                    checkAbsentOrIncrement(summary, handlesKey, 1);
+
+                    String latchesKey = "Latches";
+                    checkAbsentOrIncrement(summary, latchesKey, 1);
+
+                    String locksKey = "Locks";
+                    checkAbsentOrIncrement(summary, locksKey, 1);
 
 
                 }
             }
-            default -> {}
+            default -> {
+            }
         }
         return summary;
+    }
+
+    /**
+     * Private method to abstract the generate summary method()
+     * Checks first if there is an instance of a key in the hashmap, if so it increments it to a certain value, else it
+     * just adds the value onto the existing count
+     *
+     * @param hashMap the hashmap to check (is type Map so can be used on TreeMaps or HashMaps
+     * @param key     the key to look at
+     * @param value   the value to set or increment by
+     */
+    private void checkAbsentOrIncrement(Map<String, Object> hashMap, String key, double value) {
+        if (hashMap.containsKey(key))
+            hashMap.put(key, (int) hashMap.get(key) + value);
+        else
+            hashMap.putIfAbsent(key, value);
     }
 
     ////////////////////////////////////

@@ -257,7 +257,7 @@ public class DoorDataPanel extends JPanel implements DataPanelInterface {
         DetailPanel.populateGivenComboBox(structuralOpeningDetailsComboBox, new String[]{"", "Above Screed", "Above Ply Deck", "Above Slab", "Above Plinth", "Below Screed", "Below Ply Deck", "Below Slab", "Inc. Sill", "Custom"});
 
         // todo needs turning into the Unicode values
-        DetailPanel.populateGivenComboBox(hingesComboBox, new String[]{"", "1/2 pair", "1 pair", "1 1/2 pair", "2 pair", "Custom"});
+        DetailPanel.populateGivenComboBox(hingesComboBox, new String[]{"", "1/2 pair", "1/2 pair per leaf", "1 pair", "1 pair per leaf", "1 1/2 pair", "1/2 pair per leaf", "2 pair", "2 pair per leaf", "Custom"});
 
         DetailPanel.populateGivenComboBox(latchComboBox, new String[]{"", "Yes", "Custom"});
         DetailPanel.populateGivenComboBox(lockComboBox, new String[]{"", "Yes", "Y [5]", "Custom"});
