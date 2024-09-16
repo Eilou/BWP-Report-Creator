@@ -158,7 +158,7 @@ public class DoorReportBuilder implements ReportBuilder{
             // I know this will work because the only way this data panel could be added and this report builder added is if the report state is in Door
             stringBuilder.append("            <div class=\"door-container\"> <!-- Could do this as an <ul> but it is more natural to use divs I feel here -->\n"); // door container div start
             stringBuilder.append("                <ul>\n");
-            stringBuilder.append("                    <li><h3>"+detailPanel.getTitleField().getText()+"</h3></li>\n");
+            stringBuilder.append("                    <li><h3>"+door.getName()+"</h3></li>\n");
             stringBuilder.append("\n");
 
             stringBuilder.append("                    <li>\n");

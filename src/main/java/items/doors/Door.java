@@ -119,6 +119,16 @@ public class Door extends Item implements Serializable {
         count = newCount;
     }
 
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getFloor() {
         return floor;
     }

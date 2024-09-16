@@ -243,17 +243,51 @@ public class ReportCreationPanel extends JPanel implements Serializable {
                     String hingesKey = "Hinges";
                     // IF HINGE IS PER LEAF, THEN MULTIPLE ITS VALUE BY THE DOOR NUMBER
                     // ALSO if it says pair, then it means 2 hinges
-                    HashMap<String, Object> hingesTypeMap = new HashMap<>();
-                    switch (door.getIronmongery().getHinges()) {
-                        case "" -> {
-                        }
-                        case "1/2 pair" -> {
-                            checkAbsentOrIncrement(hingesTypeMap, "Total", 0.5);
-                            checkAbsentOrIncrement(hingesTypeMap, "Pair", 0.5);//todo
-                        }
-//                        case "1/2 pair per leaf"
+                    String currentHinge = door.getIronmongery().getHinges();
+                    HashMap<String, Object> hingesQuantityCustomMap = new HashMap<>();
 
+                    int multiplier = 1;
+                    if (currentHinge.contains("per leaf"))
+                        multiplier = switch (door.getLeafNumber()) {
+                            case "Singular" -> 1;
+                            case "Double" -> 2;
+                            case "Triple" -> 3;
+                            case "Quadruple" -> 4;
+                            default -> {
+                                try {
+                                    yield Integer.parseInt(door.getLeafNumber().strip());
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Invalid custom door number so multiplier set to -1");
+                                    yield -1;
+                                }
+                            }
+                        };
+
+                    // if the door number is custom but an invalid integer and the hinges is per leaf (reliant on the door number
+                    // then it is counted as a custom door and that is to be listed
+                    if (multiplier == -1)
+                        checkAbsentOrIncrement(hingesQuantityCustomMap, "Custom", 1);
+                    else {
+                        switch (currentHinge) {
+
+                            case "1/2 pair" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 1);
+                            case "1 pair" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 2);
+                            case "1 1/2 pair" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 3);
+                            case "2 pair" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 4);
+                            case "2 1/2 pair" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 5);
+
+                            case "1/2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", multiplier);
+                            case "1 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 2 * multiplier);
+                            case "1 1/2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 3 * multiplier);
+                            case "2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 4 * multiplier);
+                            case "2 1/2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 5 * multiplier);
+
+                            default -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Custom", 1);
+
+                        }
                     }
+
+
                     checkAbsentOrIncrement(summary, hingesKey, 1);
 
                     String handlesKey = "Handles";

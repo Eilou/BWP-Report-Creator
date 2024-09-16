@@ -2,6 +2,7 @@ package gui.panels.details;
 
 import enums.ReportState;
 import gui.Styling;
+import gui.handlers.AttributeTextFieldHandler;
 import gui.handlers.CloseDetailButtonHandler;
 import gui.handlers.EditMinimiseButtonHandler;
 import gui.panels.ReportCreationPanel;
@@ -90,6 +91,7 @@ public class DetailPanel extends JPanel {
      * Gives the buttons functionality
      */
     public void attachHandlers() {
+        titleField.getDocument().addDocumentListener(new AttributeTextFieldHandler(titleField, getItem()::setName));
         closePanelButton.addActionListener(new CloseDetailButtonHandler((ReportCreationPanel) parentPanel, reportState, this));
         editMinimiseButton.addActionListener(new EditMinimiseButtonHandler(this, dataPanel));
     }
