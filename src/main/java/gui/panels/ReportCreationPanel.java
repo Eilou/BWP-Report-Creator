@@ -6,6 +6,7 @@ import gui.panels.details.DetailPanel;
 import gui.panels.details.DoorDataPanel;
 import gui.panels.details.DataPanelInterface;
 import items.doors.Door;
+import summarising.DoorSummaryBuilder;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -220,109 +221,18 @@ public class ReportCreationPanel extends JPanel implements Serializable {
      * @return the summary as a Hashmap(String, String)
      */
     public HashMap<String, Object> generateSummary() {
-        HashMap<String, Object> summary = new HashMap<>();
-        switch (reportState) {
+        return switch (reportState) {
             case DOOR -> {
-                // ensures the dimensions are ordered so easier to read them
-                TreeMap<String, Object> leafSizesSummary = new TreeMap<>((key1, key2) -> {
-                    // convert the dimensions into integers
-                    int key1Int = Integer.parseInt(key1.substring(0, key1.indexOf('x') - 1));
-                    int key2Int = Integer.parseInt(key2.substring(0, key2.indexOf('x') - 1));
-
-                    return Integer.compare(key1Int, key2Int);
-                });
-
-                for (DetailPanel detailPanel : listOfDetailsPanels) {
-                    Door door = ((DoorDataPanel) detailPanel.getDataPanel()).getDoor();
-
-                    String leafSizesKey = door.getLeafWidth() + " x " + door.getLeafHeight();
-
-                    checkAbsentOrIncrement(leafSizesSummary, leafSizesKey, 1);
-                    summary.put("Leaf Sizes", leafSizesSummary); // updates the inner map every time
-
-                    String hingesKey = "Hinges";
-                    // IF HINGE IS PER LEAF, THEN MULTIPLE ITS VALUE BY THE DOOR NUMBER
-                    // ALSO if it says pair, then it means 2 hinges
-                    String currentHinge = door.getIronmongery().getHinges();
-                    HashMap<String, Object> hingesQuantityCustomMap = new HashMap<>();
-
-                    int multiplier = 1;
-                    if (currentHinge.contains("per leaf"))
-                        multiplier = switch (door.getLeafNumber()) {
-                            case "Singular" -> 1;
-                            case "Double" -> 2;
-                            case "Triple" -> 3;
-                            case "Quadruple" -> 4;
-                            default -> {
-                                try {
-                                    yield Integer.parseInt(door.getLeafNumber().strip());
-                                } catch (NumberFormatException e) {
-                                    System.out.println("Invalid custom door number so multiplier set to -1");
-                                    yield -1;
-                                }
-                            }
-                        };
-
-                    // if the door number is custom but an invalid integer and the hinges is per leaf (reliant on the door number
-                    // then it is counted as a custom door and that is to be listed
-                    if (multiplier == -1)
-                        checkAbsentOrIncrement(hingesQuantityCustomMap, "Custom", 1);
-                    else {
-                        switch (currentHinge) {
-
-                            case "1/2 pair" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 1);
-                            case "1 pair" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 2);
-                            case "1 1/2 pair" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 3);
-                            case "2 pair" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 4);
-                            case "2 1/2 pair" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 5);
-
-                            case "1/2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", multiplier);
-                            case "1 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 2 * multiplier);
-                            case "1 1/2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 3 * multiplier);
-                            case "2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 4 * multiplier);
-                            case "2 1/2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 5 * multiplier);
-
-                            default -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Custom", 1);
-
-                        }
-                    }
-
-
-                    checkAbsentOrIncrement(summary, hingesKey, 1);
-
-                    String handlesKey = "Handles";
-                    checkAbsentOrIncrement(summary, handlesKey, 1);
-
-                    String latchesKey = "Latches";
-                    checkAbsentOrIncrement(summary, latchesKey, 1);
-
-                    String locksKey = "Locks";
-                    checkAbsentOrIncrement(summary, locksKey, 1);
-
-
-                }
+                DoorSummaryBuilder doorSummaryBuilder = new DoorSummaryBuilder(this);
+                yield doorSummaryBuilder.generateSummary();
             }
             default -> {
+                yield null ;
             }
-        }
-        return summary;
+        };
     }
 
-    /**
-     * Private method to abstract the generate summary method()
-     * Checks first if there is an instance of a key in the hashmap, if so it increments it to a certain value, else it
-     * just adds the value onto the existing count
-     *
-     * @param hashMap the hashmap to check (is type Map so can be used on TreeMaps or HashMaps
-     * @param key     the key to look at
-     * @param value   the value to set or increment by
-     */
-    private void checkAbsentOrIncrement(Map<String, Object> hashMap, String key, double value) {
-        if (hashMap.containsKey(key))
-            hashMap.put(key, (int) hashMap.get(key) + value);
-        else
-            hashMap.putIfAbsent(key, value);
-    }
+
 
     ////////////////////////////////////
     // getters and setters
