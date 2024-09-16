@@ -11,7 +11,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import java.awt.*;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -140,7 +139,7 @@ public class DetailPanel extends JPanel {
      */
     public Item getItem() {
         return switch (reportState) {
-            case DOOR -> ((DoorDetailsPanel) dataPanel).getDoor();
+            case DOOR -> ((DoorDataPanel) dataPanel).getDoor();
             default -> null;
         };
     }
@@ -152,14 +151,14 @@ public class DetailPanel extends JPanel {
      * @return the count of their item
      */
     public int getCount() {
-        return ((SpecificDetailInterface) dataPanel).getCount();
+        return ((DataPanelInterface) dataPanel).getCount();
     }
 
     /**
      * Bubbles the count variable's new value down to the item through the specific data panel
      */
     public void setCount(int newCount) {
-        ((SpecificDetailInterface) dataPanel).setCount(newCount);
+        ((DataPanelInterface) dataPanel).setCount(newCount);
     }
 
     public JButton getEditMinimiseButton() {

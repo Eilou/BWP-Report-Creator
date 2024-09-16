@@ -154,7 +154,7 @@ public class DoorReportBuilder implements ReportBuilder{
      */
     public void generateItemDivs() {
         for (DetailPanel detailPanel : reportCreationPanel.getListOfDetailsPanels()) {
-            Door door = ((DoorDetailsPanel) detailPanel.getDataPanel()).getDoor();
+            Door door = ((DoorDataPanel) detailPanel.getDataPanel()).getDoor();
             // I know this will work because the only way this data panel could be added and this report builder added is if the report state is in Door
             stringBuilder.append("            <div class=\"door-container\"> <!-- Could do this as an <ul> but it is more natural to use divs I feel here -->\n"); // door container div start
             stringBuilder.append("                <ul>\n");

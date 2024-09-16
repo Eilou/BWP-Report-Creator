@@ -235,6 +235,7 @@ public class ToolbarPanel extends JPanel {
 
         removeDetailButton.addActionListener(new RemoveLastDetailButtonHandler(reportState, reportCreationPanel));
         generateReportButton.addActionListener(new GenerateReportHandler(new DoorReportBuilder(reportCreationPanel, projectDetailsPanel)));
+        summaryButton.addActionListener(new SummaryButtonHandler(reportCreationPanel));
     }
 
     /**

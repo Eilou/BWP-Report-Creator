@@ -3,14 +3,18 @@ package gui.panels;
 import enums.ReportState;
 import gui.Styling;
 import gui.panels.details.DetailPanel;
-import gui.panels.details.DoorDetailsPanel;
-import gui.panels.details.SpecificDetailInterface;
+import gui.panels.details.DoorDataPanel;
+import gui.panels.details.DataPanelInterface;
+import items.doors.Door;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * Holds the area where you can create a report
@@ -97,9 +101,9 @@ public class ReportCreationPanel extends JPanel implements Serializable {
             detailsContainer.add(itemPanelToAdd, gbc);
         }
 
-        SpecificDetailInterface dataPanelToAdd;
+        DataPanelInterface dataPanelToAdd;
         switch (reportState) {
-            case DOOR -> dataPanelToAdd = new DoorDetailsPanel(count);
+            case DOOR -> dataPanelToAdd = new DoorDataPanel(count);
             default -> dataPanelToAdd = null;
         }
 
@@ -188,7 +192,7 @@ public class ReportCreationPanel extends JPanel implements Serializable {
                 gbc.gridy = currentPanel.getItem().getCount() - 1; // the count value never changes with the door, so it can be used to insert at the correct point without needing to store null values in the array list (which would be embarrassing)
                 currentPanel.setParentPanel(this); // reassign the event handlers
                 currentPanel.attachHandlers();
-                ((SpecificDetailInterface)currentPanel.getDataPanel()).attachHandlers();
+                ((DataPanelInterface)currentPanel.getDataPanel()).attachHandlers();
                 detailsContainer.add(currentPanel, gbc);
             }
 
@@ -211,6 +215,44 @@ public class ReportCreationPanel extends JPanel implements Serializable {
         this.detailsContainer.removeAll();
         repaint();
         revalidate();
+    }
+
+    /**
+     * Generates a summary of all the current items
+     * @return the summary as a Hashmap(String, String)
+     */
+    public HashMap<String, Object> generateSummary() {
+        HashMap<String, Object> summary = new HashMap<>();
+        // could do return switch ... yield xyz but that means repeating the yield line loads
+        // feels like it'd be more useful when different objects are getting returned
+        switch (reportState) {
+            case DOOR -> {
+
+                // ensures the dimensions are ordered so easier to read them
+                TreeMap<String, Integer> leafSizeSummary = new TreeMap<>((key1, key2) -> {
+                    // convert the dimensions into integers
+                    int key1Int = Integer.parseInt(key1.substring(0, key1.indexOf('x')-1));
+                    int key2Int = Integer.parseInt(key2.substring(0, key2.indexOf('x')-1));
+
+                    return Integer.compare(key1Int, key2Int);
+                });
+
+                for (DetailPanel detailPanel : listOfDetailsPanels) {
+                    Door door = ((DoorDataPanel) detailPanel.getDataPanel()).getDoor();
+
+                    String leafSizeKey = door.getLeafWidth() + " x " + door.getLeafHeight();
+                    if (leafSizeSummary.containsKey(leafSizeKey))
+                        leafSizeSummary.put(leafSizeKey, leafSizeSummary.get(leafSizeKey) + 1);
+                    else
+                        leafSizeSummary.putIfAbsent(leafSizeKey, 1);
+                    summary.put("Leaf Sizes", leafSizeSummary);
+
+
+                }
+            }
+            default -> {}
+        }
+        return summary;
     }
 
     ////////////////////////////////////

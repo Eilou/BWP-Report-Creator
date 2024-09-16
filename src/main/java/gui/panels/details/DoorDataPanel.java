@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * Subclass to be used when creating a door report
  */
-public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface {
+public class DoorDataPanel extends JPanel implements DataPanelInterface {
 
     private Door door;
     private GridPanel[][] gridPanels; // left as raw as it may be YesNoOption or String
@@ -63,7 +63,7 @@ public class DoorDetailsPanel extends JPanel implements SpecificDetailInterface 
      *
      * @param count the door number
      */
-    public DoorDetailsPanel(int count) {
+    public DoorDataPanel(int count) {
 
         this.door = new Door(count);
         int rows = 5;
