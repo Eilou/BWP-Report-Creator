@@ -19,6 +19,8 @@ public class DoorSummaryBuilder extends SummaryBuilder {
     private HashMap<String, Object> hingeCustomNumberMap;
     private HashMap<String, Object> handlesQuantityCustomMap;
     private HashMap<String, Object> handlesCustomNumberMap;
+    private HashMap<String, Object> latchesQuantityCustomMap;
+    private HashMap<String, Object> latchesCustomNumberMap;
 
 
     public DoorSummaryBuilder(ReportCreationPanel reportCreationPanel) {
@@ -28,6 +30,8 @@ public class DoorSummaryBuilder extends SummaryBuilder {
         this.hingeCustomNumberMap = new HashMap<>();
         this.handlesQuantityCustomMap = new HashMap<>();
         this.handlesCustomNumberMap = new HashMap<>();
+        this.latchesQuantityCustomMap = new HashMap<>();
+        this.latchesCustomNumberMap = new HashMap<>();
 
     }
 
@@ -55,6 +59,10 @@ public class DoorSummaryBuilder extends SummaryBuilder {
         handlesQuantityCustomMap.put("Custom", handlesCustomNumberMap);
         summary.put("Handles", handlesQuantityCustomMap);
 
+        // setting up for the latches
+        latchesQuantityCustomMap.put("Custom", latchesCustomNumberMap);
+        summary.put("Latches", latchesQuantityCustomMap);
+
         for (DetailPanel detailPanel : reportCreationPanel.getListOfDetailsPanels()) {
             Door door = ((DoorDataPanel) detailPanel.getDataPanel()).getDoor();
 
@@ -67,8 +75,10 @@ public class DoorSummaryBuilder extends SummaryBuilder {
 
             incrementHandles(door);
 
-            String latchesKey = "Latches";
-            checkAbsentOrIncrement(summary, latchesKey, 1);
+            incrementLatches(door);
+
+//            String latchesKey = "Latches";
+//            checkAbsentOrIncrement(summary, latchesKey, 1);
 
             String locksKey = "Locks";
             checkAbsentOrIncrement(summary, locksKey, 1);
@@ -191,5 +201,20 @@ public class DoorSummaryBuilder extends SummaryBuilder {
                 checkAbsentOrIncrement(handlesCustomNumberMap, currentHandle, 1);
         }
     }
+
+    /**
+     * Used to increment the different number of latches and increment appropriately
+     * @param door
+     */
+    private void incrementLatches(Door door) {
+        String currentLatch = door.getIronmongery().getLatch();
+        if (!currentLatch.isEmpty()) {
+            if (currentLatch.equals("Yes"))
+                checkAbsentOrIncrement(latchesQuantityCustomMap, "Quantity", 1);
+            else
+                checkAbsentOrIncrement(latchesCustomNumberMap, currentLatch, 1);
+        }
+    }
+
 
 }
