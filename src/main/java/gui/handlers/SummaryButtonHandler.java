@@ -58,6 +58,22 @@ public class SummaryButtonHandler implements ActionListener {
             }
         }
 
+        System.out.println("Handles");
+        if (summary.get("Handles") == null)
+            System.out.println("Null value mapped for key: Handles"); // protection for suppressing the warning
+        else {
+            HashMap<String, Object> handlesQuantityCustomMap = (HashMap<String, Object>) summary.get("Handles");
+            System.out.println("\tQuantity : " + handlesQuantityCustomMap.get("Quantity"));
+            System.out.println("\tCustom : "); //might be better to move this into the bit below
+            if (handlesQuantityCustomMap.get("Custom") == null)
+                System.out.println("Null value mapped for key: Custom"); // protection for suppressing the warning
+            else {
+                HashMap<String, Object> handlesCustomNumberMap = (HashMap<String, Object>) handlesQuantityCustomMap.get("Custom");
+                for (String key : handlesCustomNumberMap.keySet())
+                    System.out.println("\t\t" + key + " : " + handlesCustomNumberMap.get(key));
+            }
+        }
+
 
         System.out.println("----------");
 

@@ -261,7 +261,7 @@ public class DoorDataPanel extends JPanel implements DataPanelInterface {
 
         DetailPanel.populateGivenComboBox(latchComboBox, new String[]{"", "Yes", "Custom"});
         DetailPanel.populateGivenComboBox(lockComboBox, new String[]{"", "Yes", "Y [5]", "Custom"});
-        DetailPanel.populateGivenComboBox(handleComboBox, new String[]{"Yes", "Custom"});
+        DetailPanel.populateGivenComboBox(handleComboBox, new String[]{"", "Yes", "Custom"});
 
     }
 

@@ -17,15 +17,24 @@ public class DoorSummaryBuilder extends SummaryBuilder {
     private HashMap<String, Object> summary;
     private HashMap<String, Object> hingesQuantityCustomMap;
     private HashMap<String, Object> hingeCustomNumberMap;
+    private HashMap<String, Object> handlesQuantityCustomMap;
+    private HashMap<String, Object> handlesCustomNumberMap;
 
 
     public DoorSummaryBuilder(ReportCreationPanel reportCreationPanel) {
         this.reportCreationPanel = reportCreationPanel;
         this.summary = new HashMap<>();
-        hingesQuantityCustomMap = new HashMap<>();
+        this.hingesQuantityCustomMap = new HashMap<>();
         this.hingeCustomNumberMap = new HashMap<>();
+        this.handlesQuantityCustomMap = new HashMap<>();
+        this.handlesCustomNumberMap = new HashMap<>();
+
     }
 
+    /**
+     * Generates the summary as a hashmap of key terms
+     * @return the hashmap summary
+     */
     @Override
     public HashMap<String, Object> generateSummary() {
 
@@ -42,6 +51,10 @@ public class DoorSummaryBuilder extends SummaryBuilder {
         hingesQuantityCustomMap.put("Custom", hingeCustomNumberMap);
         summary.put("Hinges", hingesQuantityCustomMap);
 
+        // setting up for the handles
+        handlesQuantityCustomMap.put("Custom", handlesCustomNumberMap);
+        summary.put("Handles", handlesQuantityCustomMap);
+
         for (DetailPanel detailPanel : reportCreationPanel.getListOfDetailsPanels()) {
             Door door = ((DoorDataPanel) detailPanel.getDataPanel()).getDoor();
 
@@ -50,10 +63,9 @@ public class DoorSummaryBuilder extends SummaryBuilder {
             checkAbsentOrIncrement(leafSizesSummary, leafSizesKey, 1);
             summary.put("Leaf Sizes", leafSizesSummary); // updates the inner map every time
 
-            incrementHinges(door);
+            incrementHinges(door); // need to clarify number of pairs required for this
 
-            String handlesKey = "Handles";
-            checkAbsentOrIncrement(summary, handlesKey, 1);
+            incrementHandles(door);
 
             String latchesKey = "Latches";
             checkAbsentOrIncrement(summary, latchesKey, 1);
@@ -66,7 +78,14 @@ public class DoorSummaryBuilder extends SummaryBuilder {
         return summary;
     }
 
-    private int getHingeMultiplier(String leafNumber) {
+    /**
+     * Gets the multiplier of certain elements relative to the leaf number
+     * e.g. if the hinges are per leaf then that number should be multiplied by the leaf number
+     * e.g. todo potentially to be used in counting the number of leaf sizes
+     * @param leafNumber the leaf number of a particular
+     * @return the multiplier for a door aspect
+     */
+    private int getLeafNumberMultiplier(String leafNumber) {
         return switch (leafNumber) {
             case "Single" -> 1;
             case "Double" -> 2;
@@ -85,17 +104,19 @@ public class DoorSummaryBuilder extends SummaryBuilder {
 
     /**
      * Summarises the number of hinges in the system
-     * If the hinge number is "per leaf", then the quantity is hinge number * leaf  number
+     * If the hinge number is "per leaf", then the quantity is hinge number * leaf  number.
      * If the hinge number is custom and contains "per leaf", then a custom counter is incremented stating the custom
-     * hinge number x leaf number : quantity
+     * hinge number x leaf number : quantity.
      * If the hinge number is custom but doesn't contain "per leaf", then the custom counter is incremented to show just
-     * hinge number : quantity
+     * hinge number : quantity.
      * If the hinge number is normal but the leaf size is custom and it contains "per leaf", then the custom counter shows
-     * hinge number x leaf number : quantity
-     * If the hinge number is normal but the leaf size is custom and it doesn't contain per leaf, then the regular quantity value is increased
-     * If hinge number is custom but can be converted to a double
-     *  if the thing is per leaf, then it is multiplied by the number (if invalid then it adds to the custom, but if valid...)
-     *  it multiplies the two and adds to a quantity
+     * hinge number x leaf number : quantity.
+     * If the hinge number is normal but the leaf size is custom and it doesn't contain per leaf,
+     * then the regular quantity value is increased.
+     * If hinge number is custom but can be converted to a double.
+     *  if the thing is per leaf, then it is multiplied by the number (if invalid then it adds to
+     *  the custom, but if valid...).
+     *  it multiplies the two and adds to a quantity.
      *
      * @param door the door currently being accessed in the summary
      */
@@ -106,7 +127,7 @@ public class DoorSummaryBuilder extends SummaryBuilder {
 
         int multiplier = 1;
         if (currentHinge.contains("per leaf"))
-            multiplier = getHingeMultiplier(door.getLeafNumber());
+            multiplier = getLeafNumberMultiplier(door.getLeafNumber());
 
         // if door number is custom or invalid but hinge is "per leaf"
         if (multiplier == -1)
@@ -132,7 +153,10 @@ public class DoorSummaryBuilder extends SummaryBuilder {
                 default -> {
                     if (!currentHinge.contains("per leaf")) {
                         try {
-                            checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", Double.parseDouble(currentHinge.strip()));
+                            // first tries to convert a custom hinge number to a double, but if
+                            // they cannot then add it to a custom one
+                            checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity",
+                                    Integer.parseInt(currentHinge.strip()));
                         } catch (NumberFormatException e) {
                             System.out.println("Custom hinge quantity could not be converted to an double so instead storing in custom");
                             checkAbsentOrIncrement(hingeCustomNumberMap, currentHinge, 1); // if custom hinge number, but not "per leaf"
@@ -140,7 +164,8 @@ public class DoorSummaryBuilder extends SummaryBuilder {
                     } else {
                         try {
                             String value = currentHinge.substring(0, currentHinge.strip().indexOf("per leaf") - 1);
-                            checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", Double.parseDouble(value) * multiplier);
+                            checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity",
+                                    Integer.parseInt(value) * multiplier);
                         } catch (NumberFormatException e) {
                             checkAbsentOrIncrement(hingeCustomNumberMap, currentHinge + " x " + door.getLeafNumber(), 1); // if custom hinge number, valid leaf number and "per leaf"
                         }
@@ -153,5 +178,18 @@ public class DoorSummaryBuilder extends SummaryBuilder {
 
     }
 
+    /**
+     * Increments the number of handles or adds to a custom value
+     * @param door the door to decide whether to increment or not
+     */
+    private void incrementHandles(Door door) {
+        String currentHandle = door.getIronmongery().getHandle();
+        if (!currentHandle.isEmpty()) {
+            if (currentHandle.equals("Yes"))
+                checkAbsentOrIncrement(handlesQuantityCustomMap, "Quantity", 1);
+            else
+                checkAbsentOrIncrement(handlesCustomNumberMap, currentHandle, 1);
+        }
+    }
 
 }

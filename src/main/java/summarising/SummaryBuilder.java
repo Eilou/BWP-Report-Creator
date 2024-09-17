@@ -18,9 +18,9 @@ public abstract class SummaryBuilder {
      * @param key     the key to look at
      * @param value   the value to set or increment by
      */
-    public void checkAbsentOrIncrement(Map<String, Object> hashMap, String key, double value) {
+    public void checkAbsentOrIncrement(Map<String, Object> hashMap, String key, int value) {
         if (hashMap.containsKey(key))
-            hashMap.put(key, (double) hashMap.get(key) + value);
+            hashMap.put(key, (int) hashMap.get(key) + value);
         else
             hashMap.putIfAbsent(key, value);
     }
