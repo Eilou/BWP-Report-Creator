@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Interface to ensure you can build the correct summary each time
+ * Abstract class to ensure you can build the correct summary each time
  */
 public abstract class SummaryBuilder {
     public abstract HashMap<String, Object> generateSummary();
@@ -20,7 +20,7 @@ public abstract class SummaryBuilder {
      */
     public void checkAbsentOrIncrement(Map<String, Object> hashMap, String key, double value) {
         if (hashMap.containsKey(key))
-            hashMap.put(key, (int) hashMap.get(key) + value);
+            hashMap.put(key, (double) hashMap.get(key) + value);
         else
             hashMap.putIfAbsent(key, value);
     }

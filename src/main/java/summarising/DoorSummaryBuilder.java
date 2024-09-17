@@ -11,7 +11,7 @@ import java.util.TreeMap;
 /**
  * Class to abstract the summary building process out from the report creation panel
  */
-public class DoorSummaryBuilder extends SummaryBuilder{
+public class DoorSummaryBuilder extends SummaryBuilder {
 
     private ReportCreationPanel reportCreationPanel;
     private HashMap<String, Object> summary;
@@ -68,10 +68,10 @@ public class DoorSummaryBuilder extends SummaryBuilder{
 
     private int getHingeMultiplier(String leafNumber) {
         return switch (leafNumber) {
-            case "Singular" -> 1;
+            case "Single" -> 1;
             case "Double" -> 2;
             case "Triple" -> 3;
-            case "Quadruple" -> 4;
+            case "Quad" -> 4;
             default -> {
                 try {
                     yield Integer.parseInt(leafNumber.strip());
@@ -83,6 +83,22 @@ public class DoorSummaryBuilder extends SummaryBuilder{
         };
     }
 
+    /**
+     * Summarises the number of hinges in the system
+     * If the hinge number is "per leaf", then the quantity is hinge number * leaf  number
+     * If the hinge number is custom and contains "per leaf", then a custom counter is incremented stating the custom
+     * hinge number x leaf number : quantity
+     * If the hinge number is custom but doesn't contain "per leaf", then the custom counter is incremented to show just
+     * hinge number : quantity
+     * If the hinge number is normal but the leaf size is custom and it contains "per leaf", then the custom counter shows
+     * hinge number x leaf number : quantity
+     * If the hinge number is normal but the leaf size is custom and it doesn't contain per leaf, then the regular quantity value is increased
+     * If hinge number is custom but can be converted to a double
+     *  if the thing is per leaf, then it is multiplied by the number (if invalid then it adds to the custom, but if valid...)
+     *  it multiplies the two and adds to a quantity
+     *
+     * @param door the door currently being accessed in the summary
+     */
     private void incrementHinges(Door door) {
         // IF HINGE IS PER LEAF, THEN MULTIPLE ITS VALUE BY THE DOOR NUMBER
         // ALSO if it says pair, then it means 2 hinges
@@ -92,7 +108,7 @@ public class DoorSummaryBuilder extends SummaryBuilder{
         if (currentHinge.contains("per leaf"))
             multiplier = getHingeMultiplier(door.getLeafNumber());
 
-        // if door number is invalid but hinge is "per leaf"
+        // if door number is custom or invalid but hinge is "per leaf"
         if (multiplier == -1)
             checkAbsentOrIncrement(hingeCustomNumberMap, currentHinge + " x " + door.getLeafNumber(), 1);
         else {
@@ -106,16 +122,29 @@ public class DoorSummaryBuilder extends SummaryBuilder{
 
                 case "1/2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", multiplier);
                 case "1 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 2 * multiplier);
-                case "1 1/2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 3 * multiplier);
+                case "1 1/2 pair per leaf" ->
+                        checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 3 * multiplier);
                 case "2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 4 * multiplier);
-                case "2 1/2 pair per leaf" -> checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 5 * multiplier);
+                case "2 1/2 pair per leaf" ->
+                        checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", 5 * multiplier);
 
                 // if hinge number is custom and leaf number is valid (custom or not), independent of "per leaf"
                 default -> {
-                    if (!currentHinge.contains("per leaf"))
-                        checkAbsentOrIncrement(hingeCustomNumberMap, currentHinge, 1); // if custom hinge number, but not "per leaf"
-                    else
-                        checkAbsentOrIncrement(hingeCustomNumberMap, currentHinge + " x " + door.getLeafNumber(), 1); // if custom hinge number, valid leaf number and "per leaf"
+                    if (!currentHinge.contains("per leaf")) {
+                        try {
+                            checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", Double.parseDouble(currentHinge.strip()));
+                        } catch (NumberFormatException e) {
+                            System.out.println("Custom hinge quantity could not be converted to an double so instead storing in custom");
+                            checkAbsentOrIncrement(hingeCustomNumberMap, currentHinge, 1); // if custom hinge number, but not "per leaf"
+                        }
+                    } else {
+                        try {
+                            String value = currentHinge.substring(0, currentHinge.strip().indexOf("per leaf") - 1);
+                            checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity", Double.parseDouble(value) * multiplier);
+                        } catch (NumberFormatException e) {
+                            checkAbsentOrIncrement(hingeCustomNumberMap, currentHinge + " x " + door.getLeafNumber(), 1); // if custom hinge number, valid leaf number and "per leaf"
+                        }
+                    }
                 }
 
             }
