@@ -15,8 +15,9 @@ public class DoorSummaryBuilder extends SummaryBuilder {
 
     private ReportCreationPanel reportCreationPanel;
     private HashMap<String, Object> summary;
+    private HashMap<String, Object> leafSizesCustomNumberMap;
     private HashMap<String, Object> hingesQuantityCustomMap;
-    private HashMap<String, Object> hingeCustomNumberMap;
+    private HashMap<String, Object> hingesCustomNumberMap;
     private HashMap<String, Object> handlesQuantityCustomMap;
     private HashMap<String, Object> handlesCustomNumberMap;
     private HashMap<String, Object> latchesQuantityCustomMap;
@@ -26,8 +27,10 @@ public class DoorSummaryBuilder extends SummaryBuilder {
     public DoorSummaryBuilder(ReportCreationPanel reportCreationPanel) {
         this.reportCreationPanel = reportCreationPanel;
         this.summary = new HashMap<>();
+
+        this.leafSizesCustomNumberMap = new HashMap<>();
         this.hingesQuantityCustomMap = new HashMap<>();
-        this.hingeCustomNumberMap = new HashMap<>();
+        this.hingesCustomNumberMap = new HashMap<>();
         this.handlesQuantityCustomMap = new HashMap<>();
         this.handlesCustomNumberMap = new HashMap<>();
         this.latchesQuantityCustomMap = new HashMap<>();
@@ -51,8 +54,12 @@ public class DoorSummaryBuilder extends SummaryBuilder {
             return Integer.compare(key1Int, key2Int);
         });
 
+        // setting up for leaf sizes
+        summary.put("Leaf Sizes", leafSizesSummary);
+        summary.put("Leaf Sizes Custom", leafSizesCustomNumberMap);
+
         // setting up for the hinges
-        hingesQuantityCustomMap.put("Custom", hingeCustomNumberMap);
+        hingesQuantityCustomMap.put("Custom", hingesCustomNumberMap);
         summary.put("Hinges", hingesQuantityCustomMap);
 
         // setting up for the handles
@@ -68,8 +75,29 @@ public class DoorSummaryBuilder extends SummaryBuilder {
 
             String leafSizesKey = door.getLeafWidth() + " x " + door.getLeafHeight();
 
-            checkAbsentOrIncrement(leafSizesSummary, leafSizesKey, 1);
-            summary.put("Leaf Sizes", leafSizesSummary); // updates the inner map every time
+            try  {
+                Integer.parseInt(leafSizesKey.substring(0, leafSizesKey.indexOf('x') - 1));
+                int multiplier = getLeafNumberMultiplier(door.getLeafNumber());
+                // multiplies it by the leaf number, or if custom adds it to that
+
+                if (multiplier == -1) {
+                    checkAbsentOrIncrement(leafSizesCustomNumberMap,
+                            leafSizesKey + " x " + door.getLeafNumber(),
+                            1);
+                }
+                else {
+                    checkAbsentOrIncrement(leafSizesSummary, leafSizesKey, multiplier);
+                }
+
+            // if the leaf size cannot be passed into the treemap because it is custom then put
+            // it the custom map
+            } catch (NumberFormatException e) {
+                checkAbsentOrIncrement(leafSizesCustomNumberMap,
+                        leafSizesKey + " x " + door.getLeafNumber(),
+                        1);
+            }
+
+
 
             incrementHinges(door); // need to clarify number of pairs required for this
 
@@ -141,7 +169,7 @@ public class DoorSummaryBuilder extends SummaryBuilder {
 
         // if door number is custom or invalid but hinge is "per leaf"
         if (multiplier == -1)
-            checkAbsentOrIncrement(hingeCustomNumberMap, currentHinge + " x " + door.getLeafNumber(), 1);
+            checkAbsentOrIncrement(hingesCustomNumberMap, currentHinge + " x " + door.getLeafNumber(), 1);
         else {
             switch (currentHinge) {
 
@@ -169,7 +197,7 @@ public class DoorSummaryBuilder extends SummaryBuilder {
                                     Integer.parseInt(currentHinge.strip()));
                         } catch (NumberFormatException e) {
                             System.out.println("Custom hinge quantity could not be converted to an double so instead storing in custom");
-                            checkAbsentOrIncrement(hingeCustomNumberMap, currentHinge, 1); // if custom hinge number, but not "per leaf"
+                            checkAbsentOrIncrement(hingesCustomNumberMap, currentHinge, 1); // if custom hinge number, but not "per leaf"
                         }
                     } else {
                         try {
@@ -177,7 +205,7 @@ public class DoorSummaryBuilder extends SummaryBuilder {
                             checkAbsentOrIncrement(hingesQuantityCustomMap, "Quantity",
                                     Integer.parseInt(value) * multiplier);
                         } catch (NumberFormatException e) {
-                            checkAbsentOrIncrement(hingeCustomNumberMap, currentHinge + " x " + door.getLeafNumber(), 1); // if custom hinge number, valid leaf number and "per leaf"
+                            checkAbsentOrIncrement(hingesCustomNumberMap, currentHinge + " x " + door.getLeafNumber(), 1); // if custom hinge number, valid leaf number and "per leaf"
                         }
                     }
                 }

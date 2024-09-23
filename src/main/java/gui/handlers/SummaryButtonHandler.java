@@ -34,12 +34,22 @@ public class SummaryButtonHandler implements ActionListener {
         System.out.println("Summary Generated");
         System.out.println("Leaf Sizes: ");
 
+        // Accesses the custom leaf sizes and the other organised leaf sizes
         if (summary.get("Leaf Sizes") == null)
             System.out.println("Null value for key: Leaf Sizes"); // protection for suppressing the warning
         else {
             TreeMap<String, Object> leafSizesMap = (TreeMap<String, Object>) summary.get("Leaf Sizes");
             for (String key : leafSizesMap.keySet())
                 System.out.println("\t" + key + " : " + leafSizesMap.get(key));
+        }
+        if (summary.get("Leaf Sizes Custom") == null)
+            System.out.println("Null value for key: Leaf Sizes Custom");
+        // protection for suppressing the warning
+        else {
+            HashMap<String, Object> leafSizesCustomMap = (HashMap<String, Object>) summary.get(
+                    "Leaf Sizes Custom");
+            for (String key : leafSizesCustomMap.keySet())
+                System.out.println("\t" + key + " : " + leafSizesCustomMap.get(key));
         }
 
         System.out.println("Hinges:");
